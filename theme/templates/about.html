@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}{{ page.title }}{% endblock %}
+{% block headerimg %}{% if page.headerimg %}{{ page.headerimg }}{% else %}{{ DEFAULT_HEADER_BG }}{% endif %}{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+.fa {
+  padding: 20px;
+  font-size: 50px;
+  width: 30px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 3px;
+  color: black;
+
+}
+
+.fa:hover {
+    opacity: 0.9;
+    color:blue;
+}
+
+}
+
+</style>
+
+<div class="container post">
+    <article>
+        <header class="about">
+          <h1>{{ page.title }}</h1>
+          {% if page.date %}
+          <time datetime="page.date.isoformat()" pubdate>{{ page.locale_date }}</time>
+          {% endif %}
+	  <div class="social-links">
+	    <ul>
+	      {% if AUTHOR_GMAIL %}
+	      <li><a class="fa fa-envelope" href="mailto:{{ AUTHOR_GMAIL }}"; style="font-size:24px"></a></li>
+              {% endif %}
+	      {% if AUTHOR_BLOG %}
+	      <li><a href="{{ AUTHOR_BLOG }}" rel="me">blog</a></li>
+              {% endif %}
+	      {% if AUTHOR_CV %}
+	      <li><a href="{{ AUTHOR_CV }}" rel="me">CV</a></li>
+	      {% endif %}
+	      {% if TWITTER_USERNAME %}
+	      <li><a class="nodec icon-twitter" href="http://twitter.com/{{ TWITTER_USERNAME }}" rel="me"></a></li>
+              {% endif %}
+              {% if GITHUB_USERNAME %}
+	      <li><a class="fa fa-github"  href="http://github.com/{{ GITHUB_USERNAME }}"; style="font-size:28px"></a></li>
+              {% endif %}
+              {% if STACKOVERFLOW_ADDRESS %}
+	      <li><a class="nodec icon-stackoverflow" href="{{ STACKOVERFLOW_ADDRESS }}" rel="me"></a></li>
+	      {% endif %}
+	    </ul>
+        </header>
+
+        <div class="article_content">
+            {{ page.content }}
+        </div>
+
+    </article>
+</div>
+{% endblock %}
