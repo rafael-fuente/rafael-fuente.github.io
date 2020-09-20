@@ -3,7 +3,7 @@
 
 AUTHOR = 'Rafael de la Fuente'
 SITENAME = 'Computational Physics'
-SITEURL = ''
+SITEURL = 'rafael-fuente.github.io'
 
 PATH = 'content'
 
