@@ -108,9 +108,6 @@ header.main-header .container nav a:hover {
 }
 article {
   margin: 0;
-  margin-right: -20px;
-  margin-left: -20px;
-
 }
 article header.about {
   margin-bottom: 0px;
@@ -408,8 +405,10 @@ footer {
                     },
                     displayAlign: 'left', // Change this to 'center' to center equations.
                     "HTML-CSS": {
+                        linebreaks: { automatic: true },
                         styles: {'.MathJax_Display': {"margin": 0}}
-                    }
+                    },
+                    SVG: { linebreaks: { automatic: true } }
                 });
                 MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
             }
@@ -447,9 +446,11 @@ footer {
         </header>
 
         <div class="article_content">
-            <figure class="video_container">
-  <iframe width="769" height="432" src="https://www.youtube.com/embed/5cyzdsd6AOs" frameborder="0" allowfullscreen="true"> </iframe>
-</figure>
+            <!-- 16:9 aspect ratio -->
+
+<div class="embed-responsive embed-responsive-16by9">
+<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/5cyzdsd6AOs" allowfullscreen></iframe>
+</div>
 
 <p><br /> </p>
 <p>What happens when the <strong>double slit experiment</strong> is performed with <strong>incoherent light</strong> (for example with a light bulb)? And how it differs when it is performed with <strong>coherent light</strong>  (for example with a laser)?</p>

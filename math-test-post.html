@@ -6,7 +6,7 @@
         <meta name="author" content="Rafael de la Fuente">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-        <title>Memoryview Benchmarks | Computational Physics</title>
+        <title>Math test post | Computational Physics</title>
 
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -108,9 +108,6 @@ header.main-header .container nav a:hover {
 }
 article {
   margin: 0;
-  margin-right: -20px;
-  margin-left: -20px;
-
 }
 article header.about {
   margin-bottom: 0px;
@@ -408,8 +405,10 @@ footer {
                     },
                     displayAlign: 'left', // Change this to 'center' to center equations.
                     "HTML-CSS": {
+                        linebreaks: { automatic: true },
                         styles: {'.MathJax_Display': {"margin": 0}}
-                    }
+                    },
+                    SVG: { linebreaks: { automatic: true } }
                 });
                 MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
             }
@@ -442,12 +441,19 @@ footer {
 <div class="container post">
     <article>
         <header>
-            <h1>Memoryview Benchmarks</h1>
+            <h1>Math test post</h1>
             <time datetime="article.date.isoformat()" pubdate>mi. 08 agosto 2012</time>
         </header>
 
         <div class="article_content">
-            <p>Thanks to Dave for the tip.</p>
+            <hr>
+<h2>Difraction Integral</h2>
+<hr>
+<p>$$
+  E{(\mathbf{r},t)} = C \int\nolimits_{S'}^{}  \left(\frac{1}{k \left|{r - r'}\right|} - i\right)   \frac{e^{i k \left|{r - r'}\right|}}{\left|{r - r'}\right|} cos{(\mathbf{r - r'}, \hat{z})}\,  d^{2}r',
+\text{   con   }  \hspace{2mm}
+  C =  \frac{k E_{0} e^{- i t w}}{2 \pi i}
+$$</p>
         </div>
 
         <div class="meta">

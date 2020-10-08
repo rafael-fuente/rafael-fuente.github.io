@@ -34,8 +34,10 @@
                     },
                     displayAlign: 'left', // Change this to 'center' to center equations.
                     "HTML-CSS": {
+                        linebreaks: { automatic: true },
                         styles: {'.MathJax_Display': {"margin": 0}}
-                    }
+                    },
+                    SVG: { linebreaks: { automatic: true } }
                 });
                 MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
             }

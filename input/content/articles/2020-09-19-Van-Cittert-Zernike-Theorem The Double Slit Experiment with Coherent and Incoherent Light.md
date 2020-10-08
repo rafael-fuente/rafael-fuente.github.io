@@ -3,9 +3,11 @@ Date: 2020-09-19 11:20
 Author: Rafael de la Fuente
 Tags: Optics, Maxwell Equations, FDTD, Light Coherence
 
-<figure class="video_container">
-  <iframe width="769" height="432" src="https://www.youtube.com/embed/5cyzdsd6AOs" frameborder="0" allowfullscreen="true"> </iframe>
-</figure>
+<!-- 16:9 aspect ratio -->
+<div class="embed-responsive embed-responsive-16by9">
+<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/5cyzdsd6AOs" allowfullscreen></iframe>
+</div>
+
 
 <br /> 
 
