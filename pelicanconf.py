@@ -3,7 +3,7 @@
 
 AUTHOR = 'Rafael de la Fuente'
 SITENAME = 'Computational Physics'
-SITEURL = 'rafael-fuente.github.io'
+SITEURL = ''
 
 PATH = 'content'
 
@@ -23,9 +23,14 @@ ABOUT_PAGE = '/pages/about.html'
 
 
 DEFAULT_PAGINATION = 10
+PLUGIN_PATHS = ['./plugins']
 
 MARKUP = ['md']
-
+PLUGINS = [
+    # ...
+    'pelican_youtube',
+    # ...
+]
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
 GITHUB_USERNAME = 'rafael-fuente'
