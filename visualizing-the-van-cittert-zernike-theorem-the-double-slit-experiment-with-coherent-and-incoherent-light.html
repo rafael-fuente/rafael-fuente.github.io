@@ -229,12 +229,6 @@ article .meta a.comments_btn:hover {
   color: #FFF;
   background: #5C881C;
 }
-
-
-mjx-container mjx-math {
-    white-space: normal;
-}
-
 .index {
   max-width: 700px;
 }
@@ -390,6 +384,11 @@ mjx-container mjx-math {
   background-color: #EEEEEE;
 }
 
+footer {
+  padding: 20px 0;
+  text-align: center;
+}
+
 .MathJax_Display {
     display:flex;
     padding:0.2em;
@@ -400,14 +399,8 @@ mjx-container mjx-math {
 .MathJax_Display .MathJax {
     display:inline-block;
     width:100%;
-}
-
-
-footer {
-  padding: 20px 0;
-  text-align: center;
-}
-</style>
+    margin: 0;
+}</style>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -502,8 +495,6 @@ footer {
         });
         </script>
 
-        
-
     </head>
 
     <body>
@@ -533,7 +524,7 @@ footer {
             <time datetime="article.date.isoformat()" pubdate>sá. 19 septiembre 2020</time>
         </header>
 
-        <div class="article_content" >
+        <div class="article_content">
             <!-- 16:9 aspect ratio -->
 
 <div class="embed-responsive embed-responsive-16by9">
@@ -549,7 +540,7 @@ footer {
 <p>The incoherent light is simulated computing the field created by oscillating dipoles sources with random phases and wavelengths and randomly placed inside the light source dimensions (a rectangle). The dipoles represent the electronic transitions of the excited atoms of the light source.</p>
 <p>The microseconds and picoseconds simulations are obtained when the field is averaged over that period of time.</p>
 <p>The <strong>source code</strong> of the simulations is:</p>
-<p><a href="Source Code Link">https://github.com/rafael-fuente/Incoherent-Light-Simulation/tree/master/double_slit_simulations</a></p>
+<p><a href="https://github.com/rafael-fuente/Incoherent-Light-Simulation/tree/master/double_slit_simulations">https://github.com/rafael-fuente/Incoherent-Light-Simulation/tree/master/double_slit_simulations</a></p>
 <p>You can change the parameters of the simulations just typing the values you want in the scripts that are indicated.</p>
 <p>While the femtoseconds simulations only took a few minutes to be completed, the microsecond simulations <a href="https://www.youtube.com/watch?v=5cyzdsd6AOs&amp;t=148s">2:28</a> took hundreds of hours to be completed in a personal computer!</p>
 <p>In the femtoseconds scale you can slow down the video to x0.25 in youtube settings if you find the flickering annoying. Also the video is uploaded at HD 1440p to avoid the artifacts that youtube video encoder creates with the waves at lower resolutions. You can see all fine details of the waves if you watch the video at this resolution.</p>
