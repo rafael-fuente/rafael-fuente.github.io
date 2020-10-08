@@ -195,10 +195,9 @@ article .meta a.comments_btn:hover {
   background: #5C881C;
 }
 .post {
-  max-width: 700px;
+  max-width: 740px;
 }
 .post h2:before {
-  content: "# ";
   font-weight: bold;
   color: #DDD;
 }
