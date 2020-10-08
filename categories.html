@@ -398,19 +398,12 @@ footer {
         init_mathjax = function() {
             if (window.MathJax) {
                 // MathJax loaded
-                MathJax.Hub.Config({
-                    tex2jax: {
-                        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-                        displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
-                    },
-                    displayAlign: 'left', // Change this to 'center' to center equations.
-                    "HTML-CSS": {
-                        linebreaks: { automatic: true },
-                        styles: {'.MathJax_Display': {"margin": 0}}
-                    },
-                    SVG: { linebreaks: { automatic: true } }
-                });
-                MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+            <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+             "HTML-CSS": { linebreaks: { automatic: true } },
+                     SVG: { linebreaks: { automatic: true } }
+            });
+            </script>
             }
         }
         init_mathjax();
