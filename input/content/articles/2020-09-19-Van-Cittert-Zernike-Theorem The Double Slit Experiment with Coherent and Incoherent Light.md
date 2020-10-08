@@ -61,3 +61,5 @@ $$L = \text{ distance from the light source to the double slit}$$
 <br /> 
 
 Although this formula does not produce exact results for the scale of this simulation, you can use it for qualitative predictions. When γ = 1 the fringes are perfectly visible, and when γ = 0 they cannot be seen. The further you place the light source from the double slit, the closer the coherence degree will be of 1 .
+
+This experiment is important because it's usually the easiest to set up to measure the degree of coherence of a light source. I hope these simulations have helped you to visualize how it really works.
