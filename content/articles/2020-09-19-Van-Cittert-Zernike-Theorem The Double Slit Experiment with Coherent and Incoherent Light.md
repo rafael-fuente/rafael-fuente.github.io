@@ -23,9 +23,7 @@ The incoherent light is simulated computing the field created by oscillating dip
 
 The microseconds and picoseconds simulations are obtained when the field is averaged over that period of time.
 
-The **source code** of the simulations is:
-
-[https://github.com/rafael-fuente/Incoherent-Light-Simulation/tree/master/double\_slit\_simulations](https://github.com/rafael-fuente/Incoherent-Light-Simulation/tree/master/double_slit_simulations)
+You can find the **source code** of the simulations is in their [GitHub repository](https://github.com/rafael-fuente/Incoherent-Light-Simulation/tree/master/double_slit_simulations)
 
 You can change the parameters of the simulations just typing the values you want in the scripts that are indicated.
 
