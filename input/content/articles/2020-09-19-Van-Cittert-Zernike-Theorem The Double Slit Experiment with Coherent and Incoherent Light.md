@@ -1,4 +1,4 @@
-Title: Visualizing the Van-Cittert Zernike Theorem - The Double Slit Experiment with Coherent and Incoherent Light
+Title: Visual Explanation of the Van-Cittert Zernike Theorem - The Double Slit Experiment with Incoherent and Coherent Light
 Date: 2020-09-19 11:20
 Author: Rafael de la Fuente
 Tags: Optics, Maxwell Equations, FDTD, Light Coherence
