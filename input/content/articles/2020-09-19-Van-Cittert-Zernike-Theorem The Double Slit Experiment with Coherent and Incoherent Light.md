@@ -5,7 +5,7 @@ Tags: Optics, Maxwell Equations, FDTD, Light Coherence
 
 <!-- 16:9 aspect ratio -->
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/5cyzdsd6AOs" allowfullscreen></iframe>
+<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/5cyzdsd6AOs?vq=hd1440" allowfullscreen></iframe>
 </div>
 
 
@@ -15,23 +15,28 @@ What happens when the **double slit experiment** is performed with **incoherent 
 
 The main idea of these simulations is to answer this question, simulating the light propagating through the double slit at different time scales: (femtoseconds, picoseconds and microseconds) to show their differences.
 
+The topics shown in this video are discussed in Statistical Optics Books and usually treated with the **Van Cittert–Zernike theorem** (we'll discuss it later), but what happens it's that they are a bit mathematically obscure.
+
+I thought that a visualization of the topic could be helpful, but I found almost zero of them both in the internet and in the literature, so this is the reason I made this one to help to better understand this important topic in Optics ([Coherence](https://en.wikipedia.org/wiki/Coherence_(physics))).
+
 
 ## How I made the simulations:
 ---
 
-The simulations were done using the finite-difference time-domain method (FDTD) applied to Maxwell equations.
+The simulations were done using the [finite-difference time-domain method](https://en.wikipedia.org/wiki/Finite-difference_time-domain_method) (**FDTD**) applied to **Maxwell equations**.
 
 The incoherent light is simulated computing the field created by oscillating dipoles sources with random phases and wavelengths and randomly placed inside the light source dimensions (a rectangle). The dipoles represent the electronic transitions of the excited atoms of the light source.
 
 The microseconds and picoseconds simulations are obtained when the field is averaged over that period of time.
 
-You can find the **source code** of the simulations is their [GitHub repository](https://github.com/rafael-fuente/Incoherent-Light-Simulation/tree/master/double_slit_simulations)
+You can find the **source code** of the simulations in their [GitHub repository](https://github.com/rafael-fuente/Incoherent-Light-Simulation/tree/master/double_slit_simulations)
 
 You can change the parameters of the simulations just typing the values you want in the scripts that are indicated.
 
 While the femtoseconds simulations only took a few minutes to be completed, the microsecond simulations [2:28](https://www.youtube.com/watch?v=5cyzdsd6AOs&t=148s) took hundreds of hours to be completed in a personal computer!
 
-In the femtoseconds scale you can slow down the video to x0.25 in youtube settings if you find the flickering annoying. Also the video is uploaded at HD 1440p to avoid the artifacts that youtube video encoder creates with the waves at lower resolutions. You can see all fine details of the waves if you watch the video at this resolution.
+In the femtoseconds scale you can slow down the video to x0.25 in youtube settings if you find the flickering annoying. Also the video is uploaded at [HD 1440p](https://www.youtube.com/watch?v=5cyzdsd6AOs?vq=hd1440)
+ to avoid the artifacts that youtube video encoder creates with the waves at lower resolutions. You can see all fine details of the waves if you watch the video at this resolution.
 
 ## More explanations:
 ---

@@ -7,9 +7,9 @@ SITEURL = ''
 
 PATH = 'content'
 
-TIMEZONE = 'Europe/Madrid'
 
 DEFAULT_LANG = 'en'
+TIMEZONE = 'Europe/Madrid'
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
@@ -35,14 +35,13 @@ PLUGINS = [
 #RELATIVE_URLS = True
 GITHUB_USERNAME = 'rafael-fuente'
 #TWITTER_USERNAME = '__cenit'
-#STACKOVERFLOW_ADDRESS = 'http://stackoverflow.com/users/2937831/jakevdp'
+#STACKOVERFLOW_ADDRESS = ''
 AUTHOR_GMAIL = 'rafael.fuente.herrezuelo@gmail.com'
 #AUTHOR_BLOG = 'http://rafael-fuente.github.io'
 #AUTHOR_CV = ""
 ENABLE_MATHJAX = True
 
 SHOW_FEED = False  # Need to address large feeds
-
-
-
+DATE_FORMAT = {"en": "%a, %d %b %Y"}
+LOCALE = ("usa")
 STATIC_PATHS = ['favicon.ico']

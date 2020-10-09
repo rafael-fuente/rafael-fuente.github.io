@@ -230,7 +230,7 @@ article .meta a.comments_btn:hover {
   background: #5C881C;
 }
 .index {
-  max-width: 700px;
+  max-width: 740px;
 }
 .index article header h2 {
   font-size: 36px;
@@ -520,28 +520,31 @@ footer {
     <article>
         <header>
             <h1>Visualizing the Van-Cittert Zernike Theorem - The Double Slit Experiment with Coherent and Incoherent Light</h1>
-            <time datetime="article.date.isoformat()" pubdate>sá. 19 septiembre 2020</time>
+            <time datetime="article.date.isoformat()" pubdate>Sat 19 September 2020</time>
         </header>
 
         <div class="article_content">
             <!-- 16:9 aspect ratio -->
 
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/5cyzdsd6AOs" allowfullscreen></iframe>
+<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/5cyzdsd6AOs?vq=hd1440" allowfullscreen></iframe>
 </div>
 
 <p><br /> </p>
 <p>What happens when the <strong>double slit experiment</strong> is performed with <strong>incoherent light</strong> (for example with a light bulb)? And how it differs when it is performed with <strong>coherent light</strong>  (for example with a laser)?</p>
 <p>The main idea of these simulations is to answer this question, simulating the light propagating through the double slit at different time scales: (femtoseconds, picoseconds and microseconds) to show their differences.</p>
+<p>The topics shown in this video are discussed in Statistical Optics Books and usually treated with the <strong>Van Cittert–Zernike theorem</strong> (we'll discuss it later), but what happens it's that they are a bit mathematically obscure.</p>
+<p>I thought that a visualization of the topic could be helpful, but I found almost zero of them both in the internet and in the literature, so this is the reason I made this one to help to better understand this important topic in Optics (<a href="https://en.wikipedia.org/wiki/Coherence_(physics)">Coherence</a>).</p>
 <h2>How I made the simulations:</h2>
 <hr>
-<p>The simulations were done using the finite-difference time-domain method (FDTD) applied to Maxwell equations.</p>
+<p>The simulations were done using the <a href="https://en.wikipedia.org/wiki/Finite-difference_time-domain_method">finite-difference time-domain method</a> (<strong>FDTD</strong>) applied to <strong>Maxwell equations</strong>.</p>
 <p>The incoherent light is simulated computing the field created by oscillating dipoles sources with random phases and wavelengths and randomly placed inside the light source dimensions (a rectangle). The dipoles represent the electronic transitions of the excited atoms of the light source.</p>
 <p>The microseconds and picoseconds simulations are obtained when the field is averaged over that period of time.</p>
-<p>You can find the <strong>source code</strong> of the simulations is their <a href="https://github.com/rafael-fuente/Incoherent-Light-Simulation/tree/master/double_slit_simulations">GitHub repository</a></p>
+<p>You can find the <strong>source code</strong> of the simulations in their <a href="https://github.com/rafael-fuente/Incoherent-Light-Simulation/tree/master/double_slit_simulations">GitHub repository</a></p>
 <p>You can change the parameters of the simulations just typing the values you want in the scripts that are indicated.</p>
 <p>While the femtoseconds simulations only took a few minutes to be completed, the microsecond simulations <a href="https://www.youtube.com/watch?v=5cyzdsd6AOs&amp;t=148s">2:28</a> took hundreds of hours to be completed in a personal computer!</p>
-<p>In the femtoseconds scale you can slow down the video to x0.25 in youtube settings if you find the flickering annoying. Also the video is uploaded at HD 1440p to avoid the artifacts that youtube video encoder creates with the waves at lower resolutions. You can see all fine details of the waves if you watch the video at this resolution.</p>
+<p>In the femtoseconds scale you can slow down the video to x0.25 in youtube settings if you find the flickering annoying. Also the video is uploaded at <a href="https://www.youtube.com/watch?v=5cyzdsd6AOs?vq=hd1440">HD 1440p</a>
+ to avoid the artifacts that youtube video encoder creates with the waves at lower resolutions. You can see all fine details of the waves if you watch the video at this resolution.</p>
 <h2>More explanations:</h2>
 <hr>
 <p>- The blinking on the femtosecond time scale is because when the light is reflected on the double slit wall is due to a standing wave formed by interference from the incident and reflected waves, with an oscillation frequency equal to the frequency of the wave.</p>
