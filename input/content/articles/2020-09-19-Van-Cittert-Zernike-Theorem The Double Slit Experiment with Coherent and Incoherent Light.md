@@ -17,7 +17,7 @@ The main idea of these simulations is to answer this question, simulating the li
 
 The topics shown in this video are discussed in Statistical Optics Books and usually treated with the **Van Cittert–Zernike theorem** (we'll discuss it later), but what happens it's that they are a bit mathematically obscure.
 
-I thought that a visualization of the topic could be helpful, but I found almost zero of them both in the internet and in the literature, so this is the reason I made this one to help to better understand this important topic in Optics ([Coherence](https://en.wikipedia.org/wiki/Coherence_(physics))).
+I thought that a visualization of the topic could be helpful, but I found almost zero of them both in the internet and in the literature, so this is the reason I made these simulations, to help to better understand this important topic in Optics ([Coherence](https://en.wikipedia.org/wiki/Coherence_(physics))).
 
 
 ## How I made the simulations:
