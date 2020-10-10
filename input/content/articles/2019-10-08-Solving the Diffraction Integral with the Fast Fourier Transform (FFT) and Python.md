@@ -26,7 +26,7 @@ Its wave function is:
 \end{gathered}
 \end{equation}
 
-A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the Huygen-Fresnel principle, the wave in the plane $ z = L $ will be given by the Fresnel integral:
+A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the Huygen-Fresnel principle, the wave in the plane $ z = L $ it's given by the Fresnel integral:
 
 \begin{equation}
   \Psi{(\mathbf{r},t)} = C \int\nolimits_{S'}^{} \frac{e^{i k \left|{r - r'}\right|}}{\left|{r - r'}\right|} cos{\theta}\,  d^{2}r',
@@ -34,7 +34,7 @@ A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the Huyg
   C =  \frac{k \Psi_{0} e^{- i t w}}{2 \pi i}
 \end{equation}
 
-This approximation will be valid if $ L >> \lambda $
+This approximation is valid if $ L >> \lambda $
 
 Next we are going to simplify the integral using the Fresnel approximation.
 This consists of considering $ \theta \approx 0 $ and using the approximation in the exponential:
@@ -43,9 +43,9 @@ This consists of considering $ \theta \approx 0 $ and using the approximation in
 |{r - r'}| \approx z +\frac{(x - x')^{2} + (y - y')^{2}}{2 z}
 \end{equation}
 
-Which will be valid if $((x - x')^{2} + (y - y')^{2})^{2} << 8 \lambda  L^{3}$
+Which it is valid if $((x - x')^{2} + (y - y')^{2})^{2} << 8 \lambda  L^{3}$
 
-In the case of the denominator we will do:
+In the case of the denominator we do:
 
 \begin{equation}
 |{r - r'}| \approx L
