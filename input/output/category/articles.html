@@ -390,7 +390,7 @@ footer {
 
 .MathJax_Display {
     display:flex;
-    padding:0.2em;
+    padding:0.25em;
 
     overflow-x:auto;
     box-sizing:border-box;
@@ -404,95 +404,40 @@ footer {
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
-        <script type="text/javascript">
-        MathJax.Hub.Config({
-            tex2jax: {
-                inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-                displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
-                processEscapes: true,
-            },
-            TeX: {
-                Macros: {
-                    Alpha: "\\mbox{A}",
-                    Beta: "\\mbox{B}",
-                    Epsilon: "\\mbox{E}",
-                    Zeta: "\\mbox{Z}",
-                    Eta: "\\mbox{H}",
-                    Iota: "\\mbox{I}",
-                    Kappa: "\\mbox{K}",
-                    Mu: "\\mbox{M}",
-                    Nu: "\\mbox{N}",
-                    Omicron: "\\mbox{O}",
-                    Rho: "\\mbox{P}",
-                    Tau: "\\mbox{T}",
-                    Chi: "\\mbox{X}",
-                    and: "\\mbox{&}",
-                    or: "\\lor",
-                    exist: "\\exists",
-                    empty: "\\emptyset",
-                    P: "\\mbox{P}",
-                    tan: "\\operatorname{tg}",   // tangent
-                    tg: "\\operatorname{tg}",    // tangent
-                    cot: "\\operatorname{ctg}",  // cotangent
-                    ctg: "\\operatorname{ctg}",  // cotangent
-                    csc: "\\operatorname{cosec}",     // cosecant
-                    cosec: "\\operatorname{cosec}",   // cosecant
-                    arctan: "\\operatorname{arctg}",  // arctangent
-                    arctg: "\\operatorname{arctg}",   // arctangent
-                    arccot: "\\operatorname{arcctg}",      // arc cotangent
-                    arcctg: "\\operatorname{arcctg}",      // arc cotangent
-                    arcsec: "\\operatorname{arcsec}",      // arc secant
-                    arccsc: "\\operatorname{arccosec}",    // arc cosecant
-                    arccosec: "\\operatorname{arccosec}",  // arc cosecant
-                    sh: "\\operatorname{sh}",     // hyperbolic sine
-                    ch: "\\operatorname{ch}",     // hyperbolic cosine
-                    th: "\\operatorname{th}",     // hyperbolic tangent
-                    cth: "\\operatorname{cth}",   // hyperbolic cotangent
-                    sinh: "\\operatorname{sh}",   // hyperbolic синус
-                    cosh: "\\operatorname{ch}",   // hyperbolic cosine
-                    tanh: "\\operatorname{th}",   // hyperbolic tangent
-                    coth: "\\operatorname{cth}",  // hyperbolic cotangent
-                    sgn: "\\operatorname{sgn}",
-                    mod: "\\operatorname{mod}",
-                    inv: "\\operatorname{inv}",
-                    ge: "\\geqslant",
-                    le: "\\leqslant",
-                    geq: "\\geqslant",
-                    leq: "\\leqslant",
-                    N: "\\mathbb{N}",
-                    R: "\\mathbb{R}",
-                    Q: "\\mathbb{Q}",
-                    Z: "\\mathbb{Z}",
-                    C: "\\mathbb{C}",
-                    H: "\\mathbb{H}",
-                    P: "\\mathbb{P}",
-                    dmtr: "\\unicode{x2300}", // diameter sign
-                    deg: "\\unicode{xb0}",    // degree sign
-                    celdeg: "\\unicode{x2103}"   // degree Celsius sign
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+                    displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+                    processEscapes: true,
                 },
-                // AutoNumbering of displayed formulas
-                equationNumbers: { autoNumber: "AMS" },
-                // All mathjax extensions:
-            // http://docs.mathjax.org/en/latest/tex.html#tex-and-latex-extensions
-                // Source code for all extensions:
-            // https://github.com/mathjax/MathJax/tree/master/extensions/TeX
-                extensions: [
-                "color.js", // Color support in LaTeX
-                "autobold.js", // support for \boldsymbol{...}
-                "AMSmath.js",
-                "AMSsymbols.js",
-                "AMScd.js", // http://www.jmilne.org/not/Mamscd.pdf
-                "bbox.js", // support for \bbox[options]{math}
-                // "begingroup.js", // mainly for formulas localization
-                "cancel.js" // support for strikethrough formulas
-                // "HTML.js" // works by default
-                // "mhchem.js" // chemical formulas
-                // "uniconde.js" // works by default
-                ]
-            }
-        });
+                TeX: {
+                    // AutoNumbering of displayed formulas
+                    equationNumbers: { autoNumber: "AMS" },
+                    // All mathjax extensions:
+                // http://docs.mathjax.org/en/latest/tex.html#tex-and-latex-extensions
+                    // Source code for all extensions:
+                // https://github.com/mathjax/MathJax/tree/master/extensions/TeX
+                    extensions: [
+                    "color.js", // Color support in LaTeX
+                    "autobold.js", // support for \boldsymbol{...}
+                    "AMSmath.js",
+                    "AMSsymbols.js",
+                    "AMScd.js", // http://www.jmilne.org/not/Mamscd.pdf
+                    "bbox.js", // support for \bbox[options]{math}
+                    // "begingroup.js", // mainly for formulas localization
+                    "cancel.js" // support for strikethrough formulas
+                    // "HTML.js" // works by default
+                    // "mhchem.js" // chemical formulas
+                    // "uniconde.js" // works by default
+                    ]
+                }
+            });
         </script>
+        <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
     </head>
 
@@ -529,95 +474,40 @@ footer {
   <article>
 
 
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
-        <script type="text/javascript">
-        MathJax.Hub.Config({
-            tex2jax: {
-                inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-                displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
-                processEscapes: true,
-            },
-            TeX: {
-                Macros: {
-                    Alpha: "\\mbox{A}",
-                    Beta: "\\mbox{B}",
-                    Epsilon: "\\mbox{E}",
-                    Zeta: "\\mbox{Z}",
-                    Eta: "\\mbox{H}",
-                    Iota: "\\mbox{I}",
-                    Kappa: "\\mbox{K}",
-                    Mu: "\\mbox{M}",
-                    Nu: "\\mbox{N}",
-                    Omicron: "\\mbox{O}",
-                    Rho: "\\mbox{P}",
-                    Tau: "\\mbox{T}",
-                    Chi: "\\mbox{X}",
-                    and: "\\mbox{&}",
-                    or: "\\lor",
-                    exist: "\\exists",
-                    empty: "\\emptyset",
-                    P: "\\mbox{P}",
-                    tan: "\\operatorname{tg}",   // tangent
-                    tg: "\\operatorname{tg}",    // tangent
-                    cot: "\\operatorname{ctg}",  // cotangent
-                    ctg: "\\operatorname{ctg}",  // cotangent
-                    csc: "\\operatorname{cosec}",     // cosecant
-                    cosec: "\\operatorname{cosec}",   // cosecant
-                    arctan: "\\operatorname{arctg}",  // arctangent
-                    arctg: "\\operatorname{arctg}",   // arctangent
-                    arccot: "\\operatorname{arcctg}",      // arc cotangent
-                    arcctg: "\\operatorname{arcctg}",      // arc cotangent
-                    arcsec: "\\operatorname{arcsec}",      // arc secant
-                    arccsc: "\\operatorname{arccosec}",    // arc cosecant
-                    arccosec: "\\operatorname{arccosec}",  // arc cosecant
-                    sh: "\\operatorname{sh}",     // hyperbolic sine
-                    ch: "\\operatorname{ch}",     // hyperbolic cosine
-                    th: "\\operatorname{th}",     // hyperbolic tangent
-                    cth: "\\operatorname{cth}",   // hyperbolic cotangent
-                    sinh: "\\operatorname{sh}",   // hyperbolic синус
-                    cosh: "\\operatorname{ch}",   // hyperbolic cosine
-                    tanh: "\\operatorname{th}",   // hyperbolic tangent
-                    coth: "\\operatorname{cth}",  // hyperbolic cotangent
-                    sgn: "\\operatorname{sgn}",
-                    mod: "\\operatorname{mod}",
-                    inv: "\\operatorname{inv}",
-                    ge: "\\geqslant",
-                    le: "\\leqslant",
-                    geq: "\\geqslant",
-                    leq: "\\leqslant",
-                    N: "\\mathbb{N}",
-                    R: "\\mathbb{R}",
-                    Q: "\\mathbb{Q}",
-                    Z: "\\mathbb{Z}",
-                    C: "\\mathbb{C}",
-                    H: "\\mathbb{H}",
-                    P: "\\mathbb{P}",
-                    dmtr: "\\unicode{x2300}", // diameter sign
-                    deg: "\\unicode{xb0}",    // degree sign
-                    celdeg: "\\unicode{x2103}"   // degree Celsius sign
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+                    displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+                    processEscapes: true,
                 },
-                // AutoNumbering of displayed formulas
-                equationNumbers: { autoNumber: "AMS" },
-                // All mathjax extensions:
-            // http://docs.mathjax.org/en/latest/tex.html#tex-and-latex-extensions
-                // Source code for all extensions:
-            // https://github.com/mathjax/MathJax/tree/master/extensions/TeX
-                extensions: [
-                "color.js", // Color support in LaTeX
-                "autobold.js", // support for \boldsymbol{...}
-                "AMSmath.js",
-                "AMSsymbols.js",
-                "AMScd.js", // http://www.jmilne.org/not/Mamscd.pdf
-                "bbox.js", // support for \bbox[options]{math}
-                // "begingroup.js", // mainly for formulas localization
-                "cancel.js" // support for strikethrough formulas
-                // "HTML.js" // works by default
-                // "mhchem.js" // chemical formulas
-                // "uniconde.js" // works by default
-                ]
-            }
-        });
+                TeX: {
+                    // AutoNumbering of displayed formulas
+                    equationNumbers: { autoNumber: "AMS" },
+                    // All mathjax extensions:
+                // http://docs.mathjax.org/en/latest/tex.html#tex-and-latex-extensions
+                    // Source code for all extensions:
+                // https://github.com/mathjax/MathJax/tree/master/extensions/TeX
+                    extensions: [
+                    "color.js", // Color support in LaTeX
+                    "autobold.js", // support for \boldsymbol{...}
+                    "AMSmath.js",
+                    "AMSsymbols.js",
+                    "AMScd.js", // http://www.jmilne.org/not/Mamscd.pdf
+                    "bbox.js", // support for \bbox[options]{math}
+                    // "begingroup.js", // mainly for formulas localization
+                    "cancel.js" // support for strikethrough formulas
+                    // "HTML.js" // works by default
+                    // "mhchem.js" // chemical formulas
+                    // "uniconde.js" // works by default
+                    ]
+                }
+            });
         </script>
+        <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
     
     <header>
       <h2><a href="/visual-explanation-of-the-van-cittert-zernike-theorem-the-double-slit-experiment-with-incoherent-and-coherent-light.html">Visual Explanation of the Van-Cittert Zernike Theorem - The Double Slit Experiment with Incoherent and Coherent Light</a></h2>
@@ -659,117 +549,60 @@ footer {
   <article>
 
 
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
-        <script type="text/javascript">
-        MathJax.Hub.Config({
-            tex2jax: {
-                inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-                displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
-                processEscapes: true,
-            },
-            TeX: {
-                Macros: {
-                    Alpha: "\\mbox{A}",
-                    Beta: "\\mbox{B}",
-                    Epsilon: "\\mbox{E}",
-                    Zeta: "\\mbox{Z}",
-                    Eta: "\\mbox{H}",
-                    Iota: "\\mbox{I}",
-                    Kappa: "\\mbox{K}",
-                    Mu: "\\mbox{M}",
-                    Nu: "\\mbox{N}",
-                    Omicron: "\\mbox{O}",
-                    Rho: "\\mbox{P}",
-                    Tau: "\\mbox{T}",
-                    Chi: "\\mbox{X}",
-                    and: "\\mbox{&}",
-                    or: "\\lor",
-                    exist: "\\exists",
-                    empty: "\\emptyset",
-                    P: "\\mbox{P}",
-                    tan: "\\operatorname{tg}",   // tangent
-                    tg: "\\operatorname{tg}",    // tangent
-                    cot: "\\operatorname{ctg}",  // cotangent
-                    ctg: "\\operatorname{ctg}",  // cotangent
-                    csc: "\\operatorname{cosec}",     // cosecant
-                    cosec: "\\operatorname{cosec}",   // cosecant
-                    arctan: "\\operatorname{arctg}",  // arctangent
-                    arctg: "\\operatorname{arctg}",   // arctangent
-                    arccot: "\\operatorname{arcctg}",      // arc cotangent
-                    arcctg: "\\operatorname{arcctg}",      // arc cotangent
-                    arcsec: "\\operatorname{arcsec}",      // arc secant
-                    arccsc: "\\operatorname{arccosec}",    // arc cosecant
-                    arccosec: "\\operatorname{arccosec}",  // arc cosecant
-                    sh: "\\operatorname{sh}",     // hyperbolic sine
-                    ch: "\\operatorname{ch}",     // hyperbolic cosine
-                    th: "\\operatorname{th}",     // hyperbolic tangent
-                    cth: "\\operatorname{cth}",   // hyperbolic cotangent
-                    sinh: "\\operatorname{sh}",   // hyperbolic синус
-                    cosh: "\\operatorname{ch}",   // hyperbolic cosine
-                    tanh: "\\operatorname{th}",   // hyperbolic tangent
-                    coth: "\\operatorname{cth}",  // hyperbolic cotangent
-                    sgn: "\\operatorname{sgn}",
-                    mod: "\\operatorname{mod}",
-                    inv: "\\operatorname{inv}",
-                    ge: "\\geqslant",
-                    le: "\\leqslant",
-                    geq: "\\geqslant",
-                    leq: "\\leqslant",
-                    N: "\\mathbb{N}",
-                    R: "\\mathbb{R}",
-                    Q: "\\mathbb{Q}",
-                    Z: "\\mathbb{Z}",
-                    C: "\\mathbb{C}",
-                    H: "\\mathbb{H}",
-                    P: "\\mathbb{P}",
-                    dmtr: "\\unicode{x2300}", // diameter sign
-                    deg: "\\unicode{xb0}",    // degree sign
-                    celdeg: "\\unicode{x2103}"   // degree Celsius sign
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+                    displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+                    processEscapes: true,
                 },
-                // AutoNumbering of displayed formulas
-                equationNumbers: { autoNumber: "AMS" },
-                // All mathjax extensions:
-            // http://docs.mathjax.org/en/latest/tex.html#tex-and-latex-extensions
-                // Source code for all extensions:
-            // https://github.com/mathjax/MathJax/tree/master/extensions/TeX
-                extensions: [
-                "color.js", // Color support in LaTeX
-                "autobold.js", // support for \boldsymbol{...}
-                "AMSmath.js",
-                "AMSsymbols.js",
-                "AMScd.js", // http://www.jmilne.org/not/Mamscd.pdf
-                "bbox.js", // support for \bbox[options]{math}
-                // "begingroup.js", // mainly for formulas localization
-                "cancel.js" // support for strikethrough formulas
-                // "HTML.js" // works by default
-                // "mhchem.js" // chemical formulas
-                // "uniconde.js" // works by default
-                ]
-            }
-        });
+                TeX: {
+                    // AutoNumbering of displayed formulas
+                    equationNumbers: { autoNumber: "AMS" },
+                    // All mathjax extensions:
+                // http://docs.mathjax.org/en/latest/tex.html#tex-and-latex-extensions
+                    // Source code for all extensions:
+                // https://github.com/mathjax/MathJax/tree/master/extensions/TeX
+                    extensions: [
+                    "color.js", // Color support in LaTeX
+                    "autobold.js", // support for \boldsymbol{...}
+                    "AMSmath.js",
+                    "AMSsymbols.js",
+                    "AMScd.js", // http://www.jmilne.org/not/Mamscd.pdf
+                    "bbox.js", // support for \bbox[options]{math}
+                    // "begingroup.js", // mainly for formulas localization
+                    "cancel.js" // support for strikethrough formulas
+                    // "HTML.js" // works by default
+                    // "mhchem.js" // chemical formulas
+                    // "uniconde.js" // works by default
+                    ]
+                }
+            });
         </script>
+        <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
     
     <header>
-      <h2><a href="/math-test-post.html">Math test post</a></h2>
-      <time datetime="" title="2012-08-08T18:50:00+02:00" pubdate>Wed 08 August 2012</time>
+      <h2><a href="/solving-the-diffraction-integral-with-the-fast-fourier-transform-fft-and-python.html">Solving the Diffraction Integral with the Fast Fourier Transform (FFT) and Python</a></h2>
+      <time datetime="" title="2019-10-08T18:50:00+02:00" pubdate>Tue 08 October 2019</time>
     </header>
 
     <div class="article_content">
-      <hr>
-<h2>Difraction Integral</h2>
-<hr>
-<p>$$
-  E{(\mathbf{r},t)} = C \int\nolimits_{S'}^{}  \left(\frac{1}{k \left|{r - r'}\right|} - i\right)   \frac{e^{i k \left|{r - r'}\right|}}{\left|{r - r'}\right|} cos{(\mathbf{r - r'}, \hat{z})}\,  d^{2}r',
-\text{   con   }  \hspace{2mm}
-  C =  \frac{k E_{0 …</p>
+      <p>In this project we will show how to numerically computing the Diffraction Fresnel Integral with the Fast Fourier Transform (FFT). We'll implement the method with Python and we will apply it to the study of the diffraction patterns obtained by the particle beams in the double slit experiment, showing the …</p>
     </div>
 
     <div class="meta">
       <div>
-        <a href="/math-test-post.html" class="read_more">Read more &#8594;</a>
+        <a href="/solving-the-diffraction-integral-with-the-fast-fourier-transform-fft-and-python.html" class="read_more">Read more &#8594;</a>
       </div>
 
       <div>
+            <a href="/tag/schrodinger-equation.html" class="tag">Schrödinger Equation</a>
+            <a href="/tag/diffraction.html" class="tag">Diffraction</a>
+            <a href="/tag/double-slit-experiment.html" class="tag">Double Slit Experiment</a>
+            <a href="/tag/fft.html" class="tag">FFT</a>
       </div>
 
     </div>

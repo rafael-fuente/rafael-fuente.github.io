@@ -41,13 +41,13 @@ In the femtoseconds scale you can slow down the video to x0.25 in youtube settin
 ## More explanations:
 ---
 
-\- The blinking on the femtosecond time scale is because when the light is reflected on the double slit wall is due to a standing wave formed by interference from the incident and reflected waves, with an oscillation frequency equal to the frequency of the wave.
++ The blinking on the femtosecond time scale is because when the light is reflected on the double slit wall is due to a standing wave formed by interference from the incident and reflected waves, with an oscillation frequency equal to the frequency of the wave.
 
-\- In microseconds time scale [1:20](https://www.youtube.com/watch?v=5cyzdsd6AOs&t=80s) and any longer time scale, no incoherent light interference pattern should be visible as we observe in most of our daily life. But a stationary wave is still visible in the microseconds time scale near the double slit wall. However because its size is very small , you won't notice it at macroscopic scale and instead you will see a uniform pattern. (notice that the space scale of the simulations are 60 x 30 μm)
++ In microseconds time scale [1:20](https://www.youtube.com/watch?v=5cyzdsd6AOs&t=80s) and any longer time scale, no incoherent light interference pattern should be visible as we observe in most of our daily life. But a stationary wave is still visible in the microseconds time scale near the double slit wall. However because its size is very small , you won't notice it at macroscopic scale and instead you will see a uniform pattern. (notice that the space scale of the simulations are 60 x 30 μm)
 
 Finally, comment how the irradiance patterns on the screen at the microsecond time scale can be approximated using the Van-Cittert Zernike theorem and Fraunhofer approximation:
 
-$$I ∝ sinc^2{\left( \frac{𝜋 a x}{z λ}\right)} \left( 1 + γ  \cos{\left(\frac{2𝜋D}{zλ}  x\right)}\right) $$
+$$I ∝ \operatorname {sinc}^2{\left( \frac{𝜋 a x}{z λ}\right)} \left( 1 + γ  \cos{\left(\frac{2𝜋D}{zλ}  x\right)}\right) $$
 
 where:
 
@@ -55,7 +55,7 @@ $$D = \text{ distance between the slits}$$
 
 $$a = \text{ slits width}$$
 
-$$γ \text{  is the degree  of spatial coherence:  }  γ = sinc{\left(\frac{2 𝜋 D M}{L λ}\right)}$$
+$$γ \text{  is the degree  of spatial coherence:  }  γ = \operatorname {sinc}{\left(\frac{2 𝜋 D M}{L λ}\right)}$$
 
 $$M = \text{ width of the light source}$$
 

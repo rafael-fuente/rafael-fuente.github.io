@@ -390,7 +390,7 @@ footer {
 
 .MathJax_Display {
     display:flex;
-    padding:0.2em;
+    padding:0.25em;
 
     overflow-x:auto;
     box-sizing:border-box;
@@ -404,95 +404,40 @@ footer {
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
-        <script type="text/javascript">
-        MathJax.Hub.Config({
-            tex2jax: {
-                inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-                displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
-                processEscapes: true,
-            },
-            TeX: {
-                Macros: {
-                    Alpha: "\\mbox{A}",
-                    Beta: "\\mbox{B}",
-                    Epsilon: "\\mbox{E}",
-                    Zeta: "\\mbox{Z}",
-                    Eta: "\\mbox{H}",
-                    Iota: "\\mbox{I}",
-                    Kappa: "\\mbox{K}",
-                    Mu: "\\mbox{M}",
-                    Nu: "\\mbox{N}",
-                    Omicron: "\\mbox{O}",
-                    Rho: "\\mbox{P}",
-                    Tau: "\\mbox{T}",
-                    Chi: "\\mbox{X}",
-                    and: "\\mbox{&}",
-                    or: "\\lor",
-                    exist: "\\exists",
-                    empty: "\\emptyset",
-                    P: "\\mbox{P}",
-                    tan: "\\operatorname{tg}",   // tangent
-                    tg: "\\operatorname{tg}",    // tangent
-                    cot: "\\operatorname{ctg}",  // cotangent
-                    ctg: "\\operatorname{ctg}",  // cotangent
-                    csc: "\\operatorname{cosec}",     // cosecant
-                    cosec: "\\operatorname{cosec}",   // cosecant
-                    arctan: "\\operatorname{arctg}",  // arctangent
-                    arctg: "\\operatorname{arctg}",   // arctangent
-                    arccot: "\\operatorname{arcctg}",      // arc cotangent
-                    arcctg: "\\operatorname{arcctg}",      // arc cotangent
-                    arcsec: "\\operatorname{arcsec}",      // arc secant
-                    arccsc: "\\operatorname{arccosec}",    // arc cosecant
-                    arccosec: "\\operatorname{arccosec}",  // arc cosecant
-                    sh: "\\operatorname{sh}",     // hyperbolic sine
-                    ch: "\\operatorname{ch}",     // hyperbolic cosine
-                    th: "\\operatorname{th}",     // hyperbolic tangent
-                    cth: "\\operatorname{cth}",   // hyperbolic cotangent
-                    sinh: "\\operatorname{sh}",   // hyperbolic синус
-                    cosh: "\\operatorname{ch}",   // hyperbolic cosine
-                    tanh: "\\operatorname{th}",   // hyperbolic tangent
-                    coth: "\\operatorname{cth}",  // hyperbolic cotangent
-                    sgn: "\\operatorname{sgn}",
-                    mod: "\\operatorname{mod}",
-                    inv: "\\operatorname{inv}",
-                    ge: "\\geqslant",
-                    le: "\\leqslant",
-                    geq: "\\geqslant",
-                    leq: "\\leqslant",
-                    N: "\\mathbb{N}",
-                    R: "\\mathbb{R}",
-                    Q: "\\mathbb{Q}",
-                    Z: "\\mathbb{Z}",
-                    C: "\\mathbb{C}",
-                    H: "\\mathbb{H}",
-                    P: "\\mathbb{P}",
-                    dmtr: "\\unicode{x2300}", // diameter sign
-                    deg: "\\unicode{xb0}",    // degree sign
-                    celdeg: "\\unicode{x2103}"   // degree Celsius sign
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+                    displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+                    processEscapes: true,
                 },
-                // AutoNumbering of displayed formulas
-                equationNumbers: { autoNumber: "AMS" },
-                // All mathjax extensions:
-            // http://docs.mathjax.org/en/latest/tex.html#tex-and-latex-extensions
-                // Source code for all extensions:
-            // https://github.com/mathjax/MathJax/tree/master/extensions/TeX
-                extensions: [
-                "color.js", // Color support in LaTeX
-                "autobold.js", // support for \boldsymbol{...}
-                "AMSmath.js",
-                "AMSsymbols.js",
-                "AMScd.js", // http://www.jmilne.org/not/Mamscd.pdf
-                "bbox.js", // support for \bbox[options]{math}
-                // "begingroup.js", // mainly for formulas localization
-                "cancel.js" // support for strikethrough formulas
-                // "HTML.js" // works by default
-                // "mhchem.js" // chemical formulas
-                // "uniconde.js" // works by default
-                ]
-            }
-        });
+                TeX: {
+                    // AutoNumbering of displayed formulas
+                    equationNumbers: { autoNumber: "AMS" },
+                    // All mathjax extensions:
+                // http://docs.mathjax.org/en/latest/tex.html#tex-and-latex-extensions
+                    // Source code for all extensions:
+                // https://github.com/mathjax/MathJax/tree/master/extensions/TeX
+                    extensions: [
+                    "color.js", // Color support in LaTeX
+                    "autobold.js", // support for \boldsymbol{...}
+                    "AMSmath.js",
+                    "AMSsymbols.js",
+                    "AMScd.js", // http://www.jmilne.org/not/Mamscd.pdf
+                    "bbox.js", // support for \bbox[options]{math}
+                    // "begingroup.js", // mainly for formulas localization
+                    "cancel.js" // support for strikethrough formulas
+                    // "HTML.js" // works by default
+                    // "mhchem.js" // chemical formulas
+                    // "uniconde.js" // works by default
+                    ]
+                }
+            });
         </script>
+        <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
     </head>
 
@@ -534,7 +479,7 @@ footer {
 <p>What happens when the <strong>double slit experiment</strong> is performed with <strong>incoherent light</strong> (for example with a light bulb)? And how it differs when it is performed with <strong>coherent light</strong>  (for example with a laser)?</p>
 <p>The main idea of these simulations is to answer this question, simulating the light propagating through the double slit at different time scales: (femtoseconds, picoseconds and microseconds) to show their differences.</p>
 <p>The topics shown in this video are discussed in Statistical Optics Books and usually treated with the <strong>Van Cittert–Zernike theorem</strong> (we'll discuss it later), but what happens it's that they are a bit mathematically obscure.</p>
-<p>I thought that a visualization of the topic could be helpful, but I found almost zero of them both in the internet and in the literature, so this is the reason I made this one to help to better understand this important topic in Optics (<a href="https://en.wikipedia.org/wiki/Coherence_(physics)">Coherence</a>).</p>
+<p>I thought that a visualization of the topic could be helpful, but I found almost zero of them both in the internet and in the literature, so this is the reason I made these simulations, to help to better understand this important topic in Optics (<a href="https://en.wikipedia.org/wiki/Coherence_(physics)">Coherence</a>).</p>
 <h2>How I made the simulations:</h2>
 <hr>
 <p>The simulations were done using the <a href="https://en.wikipedia.org/wiki/Finite-difference_time-domain_method">finite-difference time-domain method</a> (<strong>FDTD</strong>) applied to <strong>Maxwell equations</strong>.</p>
@@ -547,14 +492,20 @@ footer {
  to avoid the artifacts that youtube video encoder creates with the waves at lower resolutions. You can see all fine details of the waves if you watch the video at this resolution.</p>
 <h2>More explanations:</h2>
 <hr>
-<p>- The blinking on the femtosecond time scale is because when the light is reflected on the double slit wall is due to a standing wave formed by interference from the incident and reflected waves, with an oscillation frequency equal to the frequency of the wave.</p>
-<p>- In microseconds time scale <a href="https://www.youtube.com/watch?v=5cyzdsd6AOs&amp;t=80s">1:20</a> and any longer time scale, no incoherent light interference pattern should be visible as we observe in most of our daily life. But a stationary wave is still visible in the microseconds time scale near the double slit wall. However because its size is very small , you won't notice it at macroscopic scale and instead you will see a uniform pattern. (notice that the space scale of the simulations are 60 x 30 μm)</p>
+<ul>
+<li>
+<p>The blinking on the femtosecond time scale is because when the light is reflected on the double slit wall is due to a standing wave formed by interference from the incident and reflected waves, with an oscillation frequency equal to the frequency of the wave.</p>
+</li>
+<li>
+<p>In microseconds time scale <a href="https://www.youtube.com/watch?v=5cyzdsd6AOs&amp;t=80s">1:20</a> and any longer time scale, no incoherent light interference pattern should be visible as we observe in most of our daily life. But a stationary wave is still visible in the microseconds time scale near the double slit wall. However because its size is very small , you won't notice it at macroscopic scale and instead you will see a uniform pattern. (notice that the space scale of the simulations are 60 x 30 μm)</p>
+</li>
+</ul>
 <p>Finally, comment how the irradiance patterns on the screen at the microsecond time scale can be approximated using the Van-Cittert Zernike theorem and Fraunhofer approximation:</p>
-<p>$$I ∝ sinc^2{\left( \frac{𝜋 a x}{z λ}\right)} \left( 1 + γ  \cos{\left(\frac{2𝜋D}{zλ}  x\right)}\right) $$</p>
+<p>$$I ∝ \operatorname {sinc}^2{\left( \frac{𝜋 a x}{z λ}\right)} \left( 1 + γ  \cos{\left(\frac{2𝜋D}{zλ}  x\right)}\right) $$</p>
 <p>where:</p>
 <p>$$D = \text{ distance between the slits}$$</p>
 <p>$$a = \text{ slits width}$$</p>
-<p>$$γ \text{  is the degree  of spatial coherence:  }  γ = sinc{\left(\frac{2 𝜋 D M}{L λ}\right)}$$</p>
+<p>$$γ \text{  is the degree  of spatial coherence:  }  γ = \operatorname {sinc}{\left(\frac{2 𝜋 D M}{L λ}\right)}$$</p>
 <p>$$M = \text{ width of the light source}$$</p>
 <p>$$z = \text{ distance from the screen to the double slit}$$</p>
 <p>$$L = \text{ distance from the light source to the double slit}$$</p>

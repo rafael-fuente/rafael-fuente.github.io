@@ -312,7 +312,7 @@ footer {
 
 .MathJax_Display {
     display:flex;
-    padding:0.2em;
+    padding:0.25em;
 
     overflow-x:auto;
     box-sizing:border-box;
