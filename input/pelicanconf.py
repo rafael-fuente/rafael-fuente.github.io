@@ -23,7 +23,7 @@ ABOUT_PAGE = '/pages/about.html'
 
 
 DEFAULT_PAGINATION = 10
-PLUGIN_PATHS = ['./plugins', './plugins/pelican-plugins']
+PLUGIN_PATHS = ['./plugins']
 
 MARKUP = ['md']
 PLUGINS = [
