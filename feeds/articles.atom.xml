@@ -110,7 +110,7 @@ y_{n_{y}}^{\prime}= \left\{ -L_{y}+n_{y} \frac{2 L_{y}}{N_{y}}: 0 \leq n_{y} \le
 \end{gathered}
 \end{equation}&lt;/p&gt;
 
-&lt;p&gt;And we define the Discrete Fourier Transform (DFT) of the set of points, which we will compute efficiently using the Fast Fourier Transform (FFT) algorithm:&lt;/p&gt;
+&lt;p&gt;We define the Discrete Fourier Transform (DFT) of the set of points, which we will compute efficiently using the Fast Fourier Transform (FFT) algorithm:&lt;/p&gt;
 &lt;p&gt;\begin{equation}
 \begin{gathered}
   G(\mu_{x}, \mu_{y}) = \sum _{n_{x}=0}^{N_{x}-1}\sum _{n_{y}=0}^{N_{y}-1}g(x'_{n_{x}},y'_{n_{y}})e^{-{i2\pi \mu_{x}{\frac {n_{x}}{N_{x}}} -{i2\pi \mu_{y}{\frac {n_{y}}{N_{y}}}}}},
@@ -158,6 +158,6 @@ y_{\mu_{y}}  =\frac{(\mu_{y} - N_{y}/2) L \lambda}{2 L_{y}}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;As an example we study the diffraction pattern caused by two rectangular slits separated by a distance\textit{D} with width and height denoted by \textit{lx}, \textit{ly} respectively.
+&lt;p&gt;As an example we study the diffraction pattern caused by two rectangular slits separated by a distance &lt;code&gt;D&lt;/code&gt; with width and height denoted by &lt;code&gt;lx&lt;/code&gt;, &lt;code&gt;ly&lt;/code&gt; respectively.
 The higher the values of Nx, Ny, Lx, Ly, more accurate the diffraction pattern will be.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="N|Solid" src="/images/double_slit.png"&gt;&lt;/p&gt;</content><category term="articles"></category><category term="Schrödinger Equation"></category><category term="Diffraction"></category><category term="Double Slit Experiment"></category><category term="FFT"></category></entry></feed>
+&lt;div style="text-align:center"&gt;&lt;img src="./images/double_slit.png" /&gt;&lt;/div&gt;</content><category term="articles"></category><category term="Schrödinger Equation"></category><category term="Diffraction"></category><category term="Double Slit Experiment"></category><category term="FFT"></category></entry></feed>
