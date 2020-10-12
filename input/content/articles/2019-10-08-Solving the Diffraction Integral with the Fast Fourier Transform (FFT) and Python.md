@@ -139,6 +139,6 @@ First we have defined and created a class named ```Sheet``` that contains the va
 	        self.f += np.select( [((self.xx > (x0 - lx/2) ) and (self.xx < (x0 + lx/2) )) and ((self.yy > (y0 - ly/2) ) and (self.yy < (y0 + ly/2) )),  True], [1, 0])
 
 As an example we study the diffraction pattern caused by two rectangular slits separated by a distance ```D``` with width and height denoted by ```lx```, ```ly``` respectively.
-The higher the values of Nx, Ny, Lx, Ly, more accurate the diffraction pattern will be.
+The higher the values of ```Nx```, ```Ny```, ```Lx```, ```Ly```, more accurate the diffraction pattern will be.
 
 <div style="text-align:center"><img src="./images/double_slit.png" /></div>
