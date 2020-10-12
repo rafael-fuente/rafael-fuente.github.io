@@ -3,9 +3,9 @@ date: 2019-10-08 18:50
 Author: Rafael de la Fuente
 Tags: Schrödinger Equation, Diffraction, Double Slit Experiment, FFT
 
-In this project we will show how to numerically computing the Diffraction Fresnel Integral with the Fast Fourier Transform (FFT). We'll implement the method with Python and we will apply it to the study of the diffraction patterns obtained by the particle beams in the double slit experiment, showing the dependence of the phenomenon with respect to the separation of the slits.
+In this project we will show how to numerically computing the Fresnel Diffraction Integral with the Fast Fourier Transform (FFT). We'll implement the method with Python and we will apply it to the study of the diffraction patterns obtained by the particle beams in the double slit experiment, showing the dependence of the phenomenon with respect to the separation of the slits.
 
-## Theoretical foundation
+## Theoretical model
 ---
 
 Consider a particle traveling with a well-defined momentum: 
@@ -69,8 +69,8 @@ Finally we observe that this integral can be expressed as a Fourier transform:
 
 \begin{equation}
 \begin{gathered}
- \Psi{(\mathbf{r},t)} =R   \hspace{2mm}\mathcal{F}\{f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})}\} \newline
-\mathcal{F} \{f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})}\} = \int\nolimits_{-\infty}^{\infty}\int\nolimits_{-\infty}^{\infty} f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} e^{ -\frac{i k x}{z}x' -\frac{i k y}{z}y'} \,  dx'dy'
+ \Psi{(\mathbf{r},t)} =R   \hspace{2mm}\mathcal{F} \left\[f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} \right\] \newline
+\mathcal{F} \left\[f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} \right\] = \int\nolimits_{-\infty}^{\infty}\int\nolimits_{-\infty}^{\infty} f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} e^{ -\frac{i k x}{z}x' -\frac{i k y}{z}y'} \,  dx'dy'
 \end{gathered}
 \end{equation}
 
@@ -84,7 +84,7 @@ y_{n_{y}}^{\prime}= \left\{ -L_{y}+n_{y} \frac{2 L_{y}}{N_{y}}: 0 \leq n_{y} \le
 \end{gathered}
 \end{equation}</p>
 
-And we define the Discrete Fourier Transform (DFT) of the set of points, which we will compute efficiently using the Fast Fourier Transform (FFT) algorithm:
+We define the Discrete Fourier Transform (DFT) of the set of points, which we will compute efficiently using the Fast Fourier Transform (FFT) algorithm:
 
 <p>\begin{equation}
 \begin{gathered}
@@ -101,4 +101,44 @@ y_{\mu_{y}}  =\frac{(\mu_{y} - N_{y}/2) L \lambda}{2 L_{y}}
 \end{gathered}
 \end{equation}
 
-Post in progress 
+And the impact density on the screen:
+
+\begin{equation}
+  I \propto|G(\mu_{x}, \mu_{y})|^{2} 
+\end{equation}
+
+## Implementation with Python
+---
+
+To perform the required computations, the following scripts were written in the Python programming language, making use of its scientific packages numpy, scipy and matplotlib. 
+
+
+First we have defined and created a class named ```Sheet``` that contains the variables $L_{y} , L_{x}, N_{x}, N_{y}, x_{n_{x}}^{\prime}, y_{n_{y}}^{\prime} $ and an array of points named ```f```,  with a value of $1$ in the case that the point of the slit  represents a slit  $(x_{n_{x}}^{\prime} , y_{n_{y}}^{\prime}) \in S' $ and $0$  otherwise. 
+
+<figure class='code'>
+<figcaption><span>Sheet Class sheet.py</span> <a href='/downloads/code/sheet.py'>download</a></figcaption>
+</figure>
+	import numpy as np
+
+	class Sheet():
+	    def __init__(self,rangX, rangY, Nx, Ny):
+	        self.x = np.linspace(rangX[0],rangX[1],Nx)
+	        self.y = np.linspace(rangY[0],rangY[1],Ny)
+	        self.xx,self.yy = np.meshgrid(self.x, self.y)
+	        
+	        self.Nx = np.int(Nx)
+	        self.Ny = np.int(Ny)
+	        self.f = np.zeros((int(self.Ny), int(self.Nx)))
+
+	        
+
+	    def rectangular_slit(self,x0, y0, lx, ly):
+	        """
+	        Creates a slit centered at the point (x0, y0) with width lx and height ly
+	        """
+	        self.f += np.select( [((self.xx > (x0 - lx/2) ) and (self.xx < (x0 + lx/2) )) and ((self.yy > (y0 - ly/2) ) and (self.yy < (y0 + ly/2) )),  True], [1, 0])
+
+As an example we study the diffraction pattern caused by two rectangular slits separated by a distance ```D``` with width and height denoted by ```lx```, ```ly``` respectively.
+The higher the values of Nx, Ny, Lx, Ly, more accurate the diffraction pattern will be.
+
+<div style="text-align:center"><img src="./images/double_slit.png" /></div>

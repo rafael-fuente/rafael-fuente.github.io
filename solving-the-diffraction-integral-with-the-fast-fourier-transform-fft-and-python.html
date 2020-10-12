@@ -469,8 +469,8 @@ footer {
         </header>
 
         <div class="article_content">
-            <p>In this project we will show how to numerically computing the Diffraction Fresnel Integral with the Fast Fourier Transform (FFT). We'll implement the method with Python and we will apply it to the study of the diffraction patterns obtained by the particle beams in the double slit experiment, showing the dependence of the phenomenon with respect to the separation of the slits.</p>
-<h2>Theoretical foundation</h2>
+            <p>In this project we will show how to numerically computing the Fresnel Diffraction Integral with the Fast Fourier Transform (FFT). We'll implement the method with Python and we will apply it to the study of the diffraction patterns obtained by the particle beams in the double slit experiment, showing the dependence of the phenomenon with respect to the separation of the slits.</p>
+<h2>Theoretical model</h2>
 <hr>
 <p>Consider a particle traveling with a well-defined momentum: </p>
 <p>\begin{equation}
@@ -486,20 +486,20 @@ footer {
 \end{cases}
 \end{gathered}
 \end{equation}</p>
-<p>A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the Huygen-Fresnel principle, the wave in the plane $ z = L $ will be given by the Fresnel integral:</p>
+<p>A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the Huygen-Fresnel principle, the wave in the plane $ z = L $ it's given by the Fresnel integral:</p>
 <p>\begin{equation}
   \Psi{(\mathbf{r},t)} = C \int\nolimits_{S'}^{} \frac{e^{i k \left|{r - r'}\right|}}{\left|{r - r'}\right|} cos{\theta}\,  d^{2}r',
 \quad \text{   with   } \quad  \hspace{2mm}
   C =  \frac{k \Psi_{0} e^{- i t w}}{2 \pi i}
 \end{equation}</p>
-<p>This approximation will be valid if $ L &gt;&gt; \lambda $</p>
+<p>This approximation is valid if $ L &gt;&gt; \lambda $</p>
 <p>Next we are going to simplify the integral using the Fresnel approximation.
 This consists of considering $ \theta \approx 0 $ and using the approximation in the exponential:</p>
 <p>\begin{equation}
 |{r - r'}| \approx z +\frac{(x - x')^{2} + (y - y')^{2}}{2 z}
 \end{equation}</p>
-<p>Which will be valid if $((x - x')^{2} + (y - y')^{2})^{2} &lt;&lt; 8 \lambda  L^{3}$</p>
-<p>In the case of the denominator we will do:</p>
+<p>Which it is valid if $((x - x')^{2} + (y - y')^{2})^{2} &lt;&lt; 8 \lambda  L^{3}$</p>
+<p>In the case of the denominator we do:</p>
 <p>\begin{equation}
 |{r - r'}| \approx L
 \end{equation}</p>
@@ -518,8 +518,8 @@ f(x', y') = \begin{cases}
 <p>Finally we observe that this integral can be expressed as a Fourier transform:</p>
 <p>\begin{equation}
 \begin{gathered}
- \Psi{(\mathbf{r},t)} =R   \hspace{2mm}\mathcal{F}{f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})}} \newline
-\mathcal{F} {f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})}} = \int\nolimits_{-\infty}^{\infty}\int\nolimits_{-\infty}^{\infty} f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} e^{ -\frac{i k x}{z}x' -\frac{i k y}{z}y'} \,  dx'dy'
+ \Psi{(\mathbf{r},t)} =R   \hspace{2mm}\mathcal{F} \left[f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} \right] \newline
+\mathcal{F} \left[f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} \right] = \int\nolimits_{-\infty}^{\infty}\int\nolimits_{-\infty}^{\infty} f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} e^{ -\frac{i k x}{z}x' -\frac{i k y}{z}y'} \,  dx'dy'
 \end{gathered}
 \end{equation}</p>
 <p>To estimate the diffraction pattern, we use the region $(x', y') \in [-L_{x},L_{x}] \times [-L_{y},L_{y}]$ dividing each axis in $N_{x}$ and $N_{y}$ points respectively:</p>
@@ -530,7 +530,7 @@ y_{n_{y}}^{\prime}= \left\{ -L_{y}+n_{y} \frac{2 L_{y}}{N_{y}}: 0 \leq n_{y} \le
 \end{gathered}
 \end{equation}</p>
 
-<p>And we define the Discrete Fourier Transform (DFT) of the set of points, which we will compute efficiently using the Fast Fourier Transform (FFT) algorithm:</p>
+<p>We define the Discrete Fourier Transform (DFT) of the set of points, which we will compute efficiently using the Fast Fourier Transform (FFT) algorithm:</p>
 <p>\begin{equation}
 \begin{gathered}
   G(\mu_{x}, \mu_{y}) = \sum _{n_{x}=0}^{N_{x}-1}\sum _{n_{y}=0}^{N_{y}-1}g(x'_{n_{x}},y'_{n_{y}})e^{-{i2\pi \mu_{x}{\frac {n_{x}}{N_{x}}} -{i2\pi \mu_{y}{\frac {n_{y}}{N_{y}}}}}},
@@ -544,7 +544,43 @@ x_{\mu_{x}}  = \frac{(\mu_{x} - N_{x}/2) L \lambda}{2 L_{x}} \newline
 y_{\mu_{y}}  =\frac{(\mu_{y} - N_{y}/2) L \lambda}{2 L_{y}}
 \end{gathered}
 \end{equation}</p>
-<p>Post in progress </p>
+<p>And the impact density on the screen:</p>
+<p>\begin{equation}
+  I \propto|G(\mu_{x}, \mu_{y})|^{2} 
+\end{equation}</p>
+<h2>Implementation with Python</h2>
+<hr>
+<p>To perform the required computations, the following scripts were written in the Python programming language, making use of its scientific packages numpy, scipy and matplotlib. </p>
+<p>First we have defined and created a class named <code>Sheet</code> that contains the variables $L_{y} , L_{x}, N_{x}, N_{y}, x_{n_{x}}^{\prime}, y_{n_{y}}^{\prime} $ and an array of points named <code>f</code>,  with a value of $1$ in the case that the point of the slit  represents a slit  $(x_{n_{x}}^{\prime} , y_{n_{y}}^{\prime}) \in S' $ and $0$  otherwise. </p>
+<figure class='code'>
+<figcaption><span>Sheet Class sheet.py</span> <a href='/downloads/code/sheet.py'>download</a></figcaption>
+</figure>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">class</span> <span class="nc">Sheet</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">rangX</span><span class="p">,</span> <span class="n">rangY</span><span class="p">,</span> <span class="n">Nx</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">linspace</span><span class="p">(</span><span class="n">rangX</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">rangX</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">Nx</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">linspace</span><span class="p">(</span><span class="n">rangY</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">rangY</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">Ny</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xx</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">meshgrid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Nx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">Nx</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Ny</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">Ny</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">zeros</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Ny</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Nx</span><span class="p">)))</span>
+
+
+
+    <span class="k">def</span> <span class="nf">rectangular_slit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">lx</span><span class="p">,</span> <span class="n">ly</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a slit centered at the point (x0, y0) with width lx and height ly</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="kp">select</span><span class="p">(</span> <span class="p">[((</span><span class="bp">self</span><span class="o">.</span><span class="n">xx</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">x0</span> <span class="o">-</span> <span class="n">lx</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xx</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="n">lx</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">))</span> <span class="ow">and</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">yy</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">y0</span> <span class="o">-</span> <span class="n">ly</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yy</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">y0</span> <span class="o">+</span> <span class="n">ly</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">)),</span>  <span class="kc">True</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+</code></pre></div>
+
+
+<p>As an example we study the diffraction pattern caused by two rectangular slits separated by a distance <code>D</code> with width and height denoted by <code>lx</code>, <code>ly</code> respectively.
+The higher the values of Nx, Ny, Lx, Ly, more accurate the diffraction pattern will be.</p>
+<div style="text-align:center"><img src="./images/double_slit.png" /></div>
         </div>
 
         <div class="meta">

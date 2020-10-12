@@ -23,14 +23,21 @@ ABOUT_PAGE = '/pages/about.html'
 
 
 DEFAULT_PAGINATION = 10
-PLUGIN_PATHS = ['./plugins']
+PLUGIN_PATHS = ['./plugins', './plugins/pelican-plugins']
 
 MARKUP = ['md']
 PLUGINS = [
     # ...
     'pelican_youtube',
+    'code_include',  # including code blocks
+
     # ...
 ]
+
+
+CODE_DIR = 'downloads/code'
+
+
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
 GITHUB_USERNAME = 'rafael-fuente'
@@ -44,4 +51,4 @@ ENABLE_MATHJAX = True
 SHOW_FEED = False  # Need to address large feeds
 DATE_FORMAT = {"en": "%a, %d %b %Y"}
 LOCALE = ("usa")
-STATIC_PATHS = ['favicon.ico']
+STATIC_PATHS = ['images','downloads','favicon.ico']
