@@ -1,9 +1,12 @@
 Title: Solving the Diffraction Integral with the Fast Fourier Transform (FFT) and Python
 date: 2019-10-08 18:50
 Author: Rafael de la Fuente
-Tags: Schrödinger Equation, Diffraction, Double Slit Experiment, FFT
+Tags: Quantum Physics, Diffraction, Double Slit Experiment, FFT
 
-In this project we will show how to numerically computing the Fresnel Diffraction Integral with the Fast Fourier Transform (FFT). We'll implement the method with Python and we will apply it to the study of the diffraction patterns obtained by the particle beams in the double slit experiment, showing the dependence of the phenomenon with respect to the separation of the slits.
+In this project we will show how to numerically computing the **Fresnel Diffraction Integral** with the [Fast Fourier Transform](https://en.wikipedia.org/wiki/Fast_Fourier_transform) (**FFT**). We'll implement the method with **Python** and we will apply it to the study of the diffraction patterns produced by the particle beams in the **double slit experiment**, showing the dependence of the phenomenon with respect to the separation of the slits.
+
+<div style="text-align:center"><img src="./images/fft_diffraction_integral/fft_double_slit_diffraction_screen.png" /></div>
+
 
 ## Theoretical model
 ---
@@ -26,7 +29,7 @@ Its wave function is:
 \end{gathered}
 \end{equation}
 
-A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the Huygen-Fresnel principle, the wave in the plane $ z = L $ it's given by the Fresnel integral:
+A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the [Huygen-Fresnel principle](https://en.wikipedia.org/wiki/Huygens%E2%80%93Fresnel_principle) which can be derived aplying the **Rayleigh-Sommerfeld method** to the **Schrödinger Equation**, the wave in the plane $ z = L $ it's given by the **Fresnel integral**:
 
 \begin{equation}
   \Psi{(\mathbf{r},t)} = C \int\nolimits_{S'}^{} \frac{e^{i k \left|{r - r'}\right|}}{\left|{r - r'}\right|} cos{\theta}\,  d^{2}r',
@@ -36,7 +39,7 @@ A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the Huyg
 
 This approximation is valid if $ L >> \lambda $
 
-Next we are going to simplify the integral using the Fresnel approximation.
+Next we are going to simplify the integral using the [Fresnel approximation](https://en.wikipedia.org/wiki/Fresnel_diffraction#The_Fresnel_approximation).
 This consists of considering $ \theta \approx 0 $ and using the approximation in the exponential:
 
 \begin{equation}
@@ -101,7 +104,7 @@ y_{\mu_{y}}  =\frac{(\mu_{y} - N_{y}/2) L \lambda}{2 L_{y}}
 \end{gathered}
 \end{equation}
 
-And the impact density on the screen:
+And the intensity (probability density) on the screen:
 
 \begin{equation}
   I \propto|G(\mu_{x}, \mu_{y})|^{2} 
@@ -116,7 +119,7 @@ To perform the required computations, the following scripts were written in the 
 First we have defined and created a class named ```Sheet``` that contains the variables $L_{y} , L_{x}, N_{x}, N_{y}, x_{n_{x}}^{\prime}, y_{n_{y}}^{\prime} $ and an array of points named ```f```,  with a value of $1$ in the case that the point of the slit  represents a slit  $(x_{n_{x}}^{\prime} , y_{n_{y}}^{\prime}) \in S' $ and $0$  otherwise. 
 
 <figure class='code'>
-<figcaption><span>Sheet Class sheet.py</span> <a href='/downloads/code/sheet.py'>download</a></figcaption>
+<figcaption><span>Source Code</span> <a href='/downloads/code/fft_diffraction_integral/fft_double_slit.py'>download</a></figcaption>
 </figure>
 	import numpy as np
 
@@ -141,4 +144,92 @@ First we have defined and created a class named ```Sheet``` that contains the va
 As an example we study the diffraction pattern caused by two rectangular slits separated by a distance ```D``` with width and height denoted by ```lx```, ```ly``` respectively.
 The higher the values of ```Nx```, ```Ny```, ```Lx```, ```Ly```, more accurate the diffraction pattern will be.
 
-<div style="text-align:center"><img src="./images/double_slit.png" /></div>
+
+	Lx = 1.4
+	Ly = 0.4
+	Nx= 2500
+	Ny= 1500
+
+	sheet = Sheet(extentX = [-Lx, Lx] , extentY = [-Ly, Ly], Nx= Nx, Ny= Ny)
+
+	#slit separation 
+	mm = 1e-3
+	D = 128 * mm
+
+	sheet.rectangular_slit(x0 = -D/2, y0 = 0, lx = 22 * mm , ly = 88 * mm)
+	sheet.rectangular_slit(x0 = +D/2, y0 = 0, lx = 22 * mm , ly = 88 * mm)
+
+<div style="text-align:center"><img src="./images/fft_double_slit.png" /></div>
+
+
+Next we calculate the Diffraction integral using the Fast Fourier Transform (FFT) algorithm, efficiently implemented with the **Scipy** function [fft2](https://docs.scipy.org/doc/scipy/reference/tutorial/fftpack.html#two-and-n-dimensional-discrete-fourier-transforms)
+
+
+
+	# distance from slit to the screen (mm)
+	z = 5000
+
+	# wavelength (mm)
+	λ = 18.5*1e-7
+	k = 2*np.pi/λ
+
+	from scipy.fftpack import fft2
+	from scipy.fftpack import fftshift
+
+	fft_c = fft2(sheet.f * np.exp(1j * k/(2*z) *(sheet.xx**2 + sheet.yy**2)))
+	c = fftshift(fft_c)
+
+## Results: Plotting the diffraction patterns
+---
+
+Finally we represent the results stored in the numpy array ```c``` with matplotlib.
+
+	import matplotlib.pyplot as plt
+
+	fig = plt.figure(figsize=(6, 6))
+	ax1 = fig.add_subplot(2,1,1)  
+	ax2 = fig.add_subplot(2,1,2,sharex=ax1, yticklabels=[])  
+
+	abs_c = np.absolute(c)
+
+	#screen size mm
+	Lx_screen = Nx*z*λ/(4*Lx)
+	Ly_screen = Ny*z*λ/(4*Ly)
+
+	x_max = (np.pi/Lx * (Nx//2 - 1))*z*λ/(2*np.pi)
+	y_max = (np.pi/Ly * (Ny//2 - 1))*z*λ/(2*np.pi)
+
+	ax1.imshow(abs_c, extent = [-Lx_screen, Lx_screen, -Ly_screen,Ly_screen], cmap ='gray', interpolation = "bilinear", aspect = 'auto')
+
+	ax2.plot(np.linspace(-Lx_screen,Lx_screen, len(abs_c[0])), abs_c[len(abs_c)//2]**2)
+
+	ax1.set_ylabel("y (mm)")
+	ax2.set_xlabel("x (mm)")
+	ax2.set_ylabel("Probability Density $|\psi|^{2}$")
+	ax1.set_xlim([-2,2])
+	ax2.set_xlim([-2,2])
+	ax1.set_ylim([-1,1])
+	plt.setp(ax1.get_xticklabels(), visible=False)
+
+
+	plt.show()
+
+First, We have represented the diffraction pattern of a particle with $\hspace{1mm} λ = 18.5 Å \hspace{1mm}$ due to a slit
+width $\hspace{1mm} 22 × 10^{-3} mm \hspace{1mm}$ and height $\hspace{1mm} 88 × 10^{-3} mm \hspace{1mm}$, with the screen placed at $5 m$:
+
+<div style="text-align:center"><img src="./images/fft_diffraction_integral/fft_single_slit_diffraction.png" /></div>
+
+
+Next we use two slits with the previous dimension, but now their centers are separated
+by a distance of $0.128 mm $ We can see in the following plot that the single slit interference pattern it's
+the envelope of the double slit interference.
+
+
+<div style="text-align:center"><img src="./images/fft_diffraction_integral/fft_double_slit_diffraction.png" /></div>
+
+However, this last property will not be fulfilled if the distance between the slits is large enough. To illustrate it, we have represented the interference pattern with the slits separated $\hspace{1mm} 0.500 mm \hspace{1mm} $.
+
+<div style="text-align:center"><img src="./images/fft_diffraction_integral/fft_double_slit_separated.png" /></div>
+
+As can also be seen, the distance between the interferential maximums has decreased. This is because this
+parameter decreases inversely proportional to the distance between the slits.

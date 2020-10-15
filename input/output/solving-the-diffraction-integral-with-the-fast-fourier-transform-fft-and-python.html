@@ -17,7 +17,7 @@
         <link rel="stylesheet" type="text/css" href="/theme/css/icons.css"/>
         <style>.highlight .hll { background-color: #ffffcc }
 .highlight .c { color: #60a0b0; font-style: italic } /* Comment */
-.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .err { } /* Error */
 .highlight .k { color: #007020; font-weight: bold } /* Keyword */
 .highlight .o { color: #666666 } /* Operator */
 .highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
@@ -478,7 +478,9 @@ footer {
         </header>
 
         <div class="article_content">
-            <p>In this project we will show how to numerically computing the Fresnel Diffraction Integral with the Fast Fourier Transform (FFT). We'll implement the method with Python and we will apply it to the study of the diffraction patterns obtained by the particle beams in the double slit experiment, showing the dependence of the phenomenon with respect to the separation of the slits.</p>
+            <p>In this project we will show how to numerically computing the <strong>Fresnel Diffraction Integral</strong> with the <a href="https://en.wikipedia.org/wiki/Fast_Fourier_transform">Fast Fourier Transform</a> (<strong>FFT</strong>). We'll implement the method with <strong>Python</strong> and we will apply it to the study of the diffraction patterns produced by the particle beams in the <strong>double slit experiment</strong>, showing the dependence of the phenomenon with respect to the separation of the slits.</p>
+<div style="text-align:center"><img src="./images/fft_diffraction_integral/fft_double_slit_diffraction_screen.png" /></div>
+
 <h2>Theoretical model</h2>
 <hr>
 <p>Consider a particle traveling with a well-defined momentum: </p>
@@ -495,14 +497,14 @@ footer {
 \end{cases}
 \end{gathered}
 \end{equation}</p>
-<p>A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the Huygen-Fresnel principle, the wave in the plane $ z = L $ it's given by the Fresnel integral:</p>
+<p>A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the <a href="https://en.wikipedia.org/wiki/Huygens%E2%80%93Fresnel_principle">Huygen-Fresnel principle</a> which can be derived aplying the <strong>Rayleigh-Sommerfeld method</strong> to the <strong>Schrödinger Equation</strong>, the wave in the plane $ z = L $ it's given by the <strong>Fresnel integral</strong>:</p>
 <p>\begin{equation}
   \Psi{(\mathbf{r},t)} = C \int\nolimits_{S'}^{} \frac{e^{i k \left|{r - r'}\right|}}{\left|{r - r'}\right|} cos{\theta}\,  d^{2}r',
 \quad \text{   with   } \quad  \hspace{2mm}
   C =  \frac{k \Psi_{0} e^{- i t w}}{2 \pi i}
 \end{equation}</p>
 <p>This approximation is valid if $ L &gt;&gt; \lambda $</p>
-<p>Next we are going to simplify the integral using the Fresnel approximation.
+<p>Next we are going to simplify the integral using the <a href="https://en.wikipedia.org/wiki/Fresnel_diffraction#The_Fresnel_approximation">Fresnel approximation</a>.
 This consists of considering $ \theta \approx 0 $ and using the approximation in the exponential:</p>
 <p>\begin{equation}
 |{r - r'}| \approx z +\frac{(x - x')^{2} + (y - y')^{2}}{2 z}
@@ -553,7 +555,7 @@ x_{\mu_{x}}  = \frac{(\mu_{x} - N_{x}/2) L \lambda}{2 L_{x}} \newline
 y_{\mu_{y}}  =\frac{(\mu_{y} - N_{y}/2) L \lambda}{2 L_{y}}
 \end{gathered}
 \end{equation}</p>
-<p>And the impact density on the screen:</p>
+<p>And the intensity (probability density) on the screen:</p>
 <p>\begin{equation}
   I \propto|G(\mu_{x}, \mu_{y})|^{2} 
 \end{equation}</p>
@@ -562,7 +564,7 @@ y_{\mu_{y}}  =\frac{(\mu_{y} - N_{y}/2) L \lambda}{2 L_{y}}
 <p>To perform the required computations, the following scripts were written in the Python programming language, making use of its scientific packages numpy, scipy and matplotlib. </p>
 <p>First we have defined and created a class named <code>Sheet</code> that contains the variables $L_{y} , L_{x}, N_{x}, N_{y}, x_{n_{x}}^{\prime}, y_{n_{y}}^{\prime} $ and an array of points named <code>f</code>,  with a value of $1$ in the case that the point of the slit  represents a slit  $(x_{n_{x}}^{\prime} , y_{n_{y}}^{\prime}) \in S' $ and $0$  otherwise. </p>
 <figure class='code'>
-<figcaption><span>Sheet Class sheet.py</span> <a href='/downloads/code/sheet.py'>download</a></figcaption>
+<figcaption><span>Source Code</span> <a href='/downloads/code/fft_diffraction_integral/fft_double_slit.py'>download</a></figcaption>
 </figure>
 
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -589,12 +591,94 @@ y_{\mu_{y}}  =\frac{(\mu_{y} - N_{y}/2) L \lambda}{2 L_{y}}
 
 <p>As an example we study the diffraction pattern caused by two rectangular slits separated by a distance <code>D</code> with width and height denoted by <code>lx</code>, <code>ly</code> respectively.
 The higher the values of <code>Nx</code>, <code>Ny</code>, <code>Lx</code>, <code>Ly</code>, more accurate the diffraction pattern will be.</p>
-<div style="text-align:center"><img src="./images/double_slit.png" /></div>
+<div class="highlight"><pre><span></span><code><span class="n">Lx</span> <span class="o">=</span> <span class="mi">1</span><span class="p">.</span><span class="mi">4</span>
+<span class="n">Ly</span> <span class="o">=</span> <span class="mi">0</span><span class="p">.</span><span class="mi">4</span>
+<span class="n">Nx</span><span class="o">=</span> <span class="mi">2500</span>
+<span class="n">Ny</span><span class="o">=</span> <span class="mi">1500</span>
+
+<span class="n">sheet</span> <span class="o">=</span> <span class="n">Sheet</span><span class="p">(</span><span class="n">extentX</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">Lx</span><span class="p">,</span> <span class="n">Lx</span><span class="p">]</span> <span class="p">,</span> <span class="n">extentY</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">Ly</span><span class="p">,</span> <span class="n">Ly</span><span class="p">],</span> <span class="n">Nx</span><span class="o">=</span> <span class="n">Nx</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span> <span class="n">Ny</span><span class="p">)</span>
+
+<span class="o">#</span><span class="n">slit</span> <span class="n">separation</span> 
+<span class="n">mm</span> <span class="o">=</span> <span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">3</span>
+<span class="n">D</span> <span class="o">=</span> <span class="mi">128</span> <span class="o">*</span> <span class="n">mm</span>
+
+<span class="n">sheet</span><span class="p">.</span><span class="n">rectangular_slit</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="o">-</span><span class="n">D</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">lx</span> <span class="o">=</span> <span class="mi">22</span> <span class="o">*</span> <span class="n">mm</span> <span class="p">,</span> <span class="n">ly</span> <span class="o">=</span> <span class="mi">88</span> <span class="o">*</span> <span class="n">mm</span><span class="p">)</span>
+<span class="n">sheet</span><span class="p">.</span><span class="n">rectangular_slit</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="o">+</span><span class="n">D</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">lx</span> <span class="o">=</span> <span class="mi">22</span> <span class="o">*</span> <span class="n">mm</span> <span class="p">,</span> <span class="n">ly</span> <span class="o">=</span> <span class="mi">88</span> <span class="o">*</span> <span class="n">mm</span><span class="p">)</span>
+</code></pre></div>
+
+
+<div style="text-align:center"><img src="./images/fft_double_slit.png" /></div>
+
+<p>Next we calculate the Diffraction integral using the Fast Fourier Transform (FFT) algorithm, efficiently implemented with the <strong>Scipy</strong> function <a href="https://docs.scipy.org/doc/scipy/reference/tutorial/fftpack.html#two-and-n-dimensional-discrete-fourier-transforms">fft2</a></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># distance from slit to the screen (mm)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="mi">5000</span>
+
+<span class="c1"># wavelength (mm)</span>
+<span class="err">λ</span> <span class="o">=</span> <span class="mf">18.5</span><span class="o">*</span><span class="mf">1e-7</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="err">λ</span>
+
+<span class="kn">from</span> <span class="nn">scipy.fftpack</span> <span class="kn">import</span> <span class="n">fft2</span>
+<span class="kn">from</span> <span class="nn">scipy.fftpack</span> <span class="kn">import</span> <span class="n">fftshift</span>
+
+<span class="n">fft_c</span> <span class="o">=</span> <span class="n">fft2</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">f</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1j</span> <span class="o">*</span> <span class="n">k</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">z</span><span class="p">)</span> <span class="o">*</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">xx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sheet</span><span class="o">.</span><span class="n">yy</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">fftshift</span><span class="p">(</span><span class="n">fft_c</span><span class="p">)</span>
+</code></pre></div>
+
+
+<h2>Results: Plotting the diffraction patterns</h2>
+<hr>
+<p>Finally we represent the results stored in the numpy array <code>c</code> with matplotlib.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>  
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">yticklabels</span><span class="o">=</span><span class="p">[])</span>
+
+<span class="n">abs_c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
+<span class="c1">#screen size mm</span>
+<span class="n">Lx_screen</span> <span class="o">=</span> <span class="n">Nx</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="err">λ</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">Lx</span><span class="p">)</span>
+<span class="n">Ly_screen</span> <span class="o">=</span> <span class="n">Ny</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="err">λ</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">Ly</span><span class="p">)</span>
+
+<span class="n">x_max</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">Lx</span> <span class="o">*</span> <span class="p">(</span><span class="n">Nx</span><span class="o">//</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="err">λ</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="n">y_max</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">Ly</span> <span class="o">*</span> <span class="p">(</span><span class="n">Ny</span><span class="o">//</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="err">λ</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">abs_c</span><span class="p">,</span> <span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">Lx_screen</span><span class="p">,</span> <span class="n">Lx_screen</span><span class="p">,</span> <span class="o">-</span><span class="n">Ly_screen</span><span class="p">,</span><span class="n">Ly_screen</span><span class="p">],</span> <span class="n">cmap</span> <span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">interpolation</span> <span class="o">=</span> <span class="s2">&quot;bilinear&quot;</span><span class="p">,</span> <span class="n">aspect</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">Lx_screen</span><span class="p">,</span><span class="n">Lx_screen</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">abs_c</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">abs_c</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">abs_c</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y (mm)&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x (mm)&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Probability Density $|\psi|^{2}$&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">ax1</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+
+<p>First, We have represented the diffraction pattern of a particle with $\hspace{1mm} λ = 18.5 Å \hspace{1mm}$ due to a slit
+width $\hspace{1mm} 22 × 10^{-3} mm \hspace{1mm}$ and height $\hspace{1mm} 88 × 10^{-3} mm \hspace{1mm}$, with the screen placed at $5 m$:</p>
+<div style="text-align:center"><img src="./images/fft_diffraction_integral/fft_single_slit_diffraction.png" /></div>
+
+<p>Next we use two slits with the previous dimension, but now their centers are separated
+by a distance of $0.128 mm $ We can see in the following plot that the single slit interference pattern it's
+the envelope of the double slit interference.</p>
+<div style="text-align:center"><img src="./images/fft_diffraction_integral/fft_double_slit_diffraction.png" /></div>
+
+<p>However, this last property will not be fulfilled if the distance between the slits is large enough. To illustrate it, we have represented the interference pattern with the slits separated $\hspace{1mm} 0.500 mm \hspace{1mm} $.</p>
+<div style="text-align:center"><img src="./images/fft_diffraction_integral/fft_double_slit_separated.png" /></div>
+
+<p>As can also be seen, the distance between the interferential maximums has decreased. This is because this
+parameter decreases inversely proportional to the distance between the slits.</p>
         </div>
 
         <div class="meta">
             <div>
-                    <a href="/tag/schrodinger-equation.html" class="tag">Schrödinger Equation</a>
+                    <a href="/tag/quantum-physics.html" class="tag">Quantum Physics</a>
                     <a href="/tag/diffraction.html" class="tag">Diffraction</a>
                     <a href="/tag/double-slit-experiment.html" class="tag">Double Slit Experiment</a>
                     <a href="/tag/fft.html" class="tag">FFT</a>
