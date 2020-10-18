@@ -45,7 +45,7 @@ In the femtoseconds scale you can slow down the video to x0.25 in youtube settin
 <div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-picoseconds.gif" alt="simulation of the double slit experiment with incoherent light picoseconds"/></div>
 <br /> 
 
-Interference patterns fluctuate at picoseconds time scale because this is the order of magnitude of the [coherence time](https://en.wikipedia.org/wiki/Coherence_time) of the source. This is because this is the minimum time to make the electric field change considerably [[1]](#references).
+Interference patterns fluctuate at picoseconds time scale because this is the order of magnitude of the [coherence time](https://en.wikipedia.org/wiki/Coherence_time) of the source. This is the minimum time to make the electric field change considerably [[1]](#references).
 
 \begin{equation}
 \tau_{coh} \approx \frac{λ^2}{c Δλ}  \label{eq:1}
