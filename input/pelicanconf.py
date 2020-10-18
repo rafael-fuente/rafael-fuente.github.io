@@ -30,13 +30,26 @@ PLUGINS = [
     # ...
     'pelican_youtube',
     'code_include',  # including code blocks
-
+    'sitemap'
     # ...
 ]
-
+SITEMAP = {
+    "format": "xml",
+    "priorities": {
+        "articles": 1.0,
+        "indexes": 0.0,
+        "pages": 0.1
+    },
+    "changefreqs": {
+        "articles": "monthly",
+        "indexes": "daily",
+        "pages": "monthly"
+    }
+}
 
 CODE_DIR = 'downloads/code'
 
+AUTHOR_SAVE_AS = 'rafael-de-la-fuente.html'
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
