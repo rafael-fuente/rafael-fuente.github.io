@@ -3,9 +3,10 @@ date: 2019-10-08 18:50
 Author: Rafael de la Fuente
 Tags: Quantum Physics, Diffraction, Double Slit Experiment, FFT
 
+<div style="text-align:center"><img src="./images/fft-diffraction-integral/fft-double-slit-diffraction-screen.png" alt="fft double slit diffraction python"/></div>
+
 In this project we will show how to numerically computing the **Fresnel Diffraction Integral** with the [Fast Fourier Transform](https://en.wikipedia.org/wiki/Fast_Fourier_transform) (**FFT**). We'll implement the method with **Python** and we will apply it to the study of the diffraction patterns produced by the particle beams in the **double slit experiment**, showing the dependence of the phenomenon with respect to the separation of the slits.
 
-<div style="text-align:center"><img src="./images/fft_diffraction_integral/fft_double_slit_diffraction_screen.png" /></div>
 
 
 ## Theoretical model
@@ -29,7 +30,8 @@ Its wave function is:
 \end{gathered}
 \end{equation}
 
-A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the [Huygen-Fresnel principle](https://en.wikipedia.org/wiki/Huygens%E2%80%93Fresnel_principle) which can be derived aplying the **Rayleigh-Sommerfeld method** to the **Schrödinger Equation**, the wave in the plane $ z = L $ it's given by the **Fresnel integral**:
+A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the [Huygen-Fresnel principle](https://en.wikipedia.org/wiki/Huygens%E2%80%93Fresnel_principle) which can be derived aplying the **Rayleigh-Sommerfeld method** [[1]](#references
+) to the **Schrödinger Equation**, the wave in the plane $ z = L $ it's given by the **Fresnel integral**:
 
 \begin{equation}
   \Psi{(\mathbf{r},t)} = C \int\nolimits_{S'}^{} \frac{e^{i k \left|{r - r'}\right|}}{\left|{r - r'}\right|} cos{\theta}\,  d^{2}r',
@@ -119,7 +121,7 @@ To perform the required computations, the following scripts were written in the 
 First we have defined and created a class named ```Sheet``` that contains the variables $L_{y} , L_{x}, N_{x}, N_{y}, x_{n_{x}}^{\prime}, y_{n_{y}}^{\prime} $ and an array of points named ```f```,  with a value of $1$ in the case that the point of the slit  represents a slit  $(x_{n_{x}}^{\prime} , y_{n_{y}}^{\prime}) \in S' $ and $0$  otherwise. 
 
 <figure class='code'>
-<figcaption><span>Source Code</span> <a href='/downloads/code/fft_diffraction_integral/fft_double_slit.py'>download</a></figcaption>
+<figcaption><span>Source Code</span> <a href='/downloads/code/fft-diffraction-integral/fft_double_slit.py'>download</a></figcaption>
 </figure>
 	import numpy as np
 
@@ -159,7 +161,7 @@ The higher the values of ```Nx```, ```Ny```, ```Lx```, ```Ly```, more accurate t
 	sheet.rectangular_slit(x0 = -D/2, y0 = 0, lx = 22 * mm , ly = 88 * mm)
 	sheet.rectangular_slit(x0 = +D/2, y0 = 0, lx = 22 * mm , ly = 88 * mm)
 
-<div style="text-align:center"><img src="./images/fft_double_slit.png" /></div>
+<div style="text-align:center"><img src="./images/fft-diffraction-integral/fft-double-slit-sheet.png" alt="fft double slit diffraction sheet python"/></div>
 
 
 Next we calculate the Diffraction integral using the Fast Fourier Transform (FFT) algorithm, efficiently implemented with the **Scipy** function [fft2](https://docs.scipy.org/doc/scipy/reference/tutorial/fftpack.html#two-and-n-dimensional-discrete-fourier-transforms)
@@ -214,22 +216,31 @@ Finally we represent the results stored in the numpy array ```c``` with matplotl
 
 	plt.show()
 
-First, We have represented the diffraction pattern of a particle with $\hspace{1mm} λ = 18.5 Å \hspace{1mm}$ due to a slit
-width $\hspace{1mm} 22 × 10^{-3} mm \hspace{1mm}$ and height $\hspace{1mm} 88 × 10^{-3} mm \hspace{1mm}$, with the screen placed at $5 m$:
+First, We have represented the diffraction pattern of a particle with $\hspace{1mm} λ = 18.5 \text{ Å} \hspace{1mm}$ due to a slit
+width $\hspace{1mm} 22 × 10^{-3} \text{ mm} \hspace{1mm}$ and height $\hspace{1mm} 88 × 10^{-3}  \text{ mm}$, with the screen placed at $5 \text{ m}$:
 
-<div style="text-align:center"><img src="./images/fft_diffraction_integral/fft_single_slit_diffraction.png" /></div>
+<div style="text-align:center"><img src="./images/fft-diffraction-integral/fft-single-slit-diffraction.png" alt="fft single slit diffraction python"/></div>
 
 
 Next we use two slits with the previous dimension, but now their centers are separated
-by a distance of $0.128 mm $ We can see in the following plot that the single slit interference pattern it's
-the envelope of the double slit interference.
+by a distance of $0.128 \text{ mm} $. We can see in the following plot that the single slit interference pattern it's
+the envelope of the double slit interference:
 
 
-<div style="text-align:center"><img src="./images/fft_diffraction_integral/fft_double_slit_diffraction.png" /></div>
+<div style="text-align:center"><img src="./images/fft-diffraction-integral/fft-double-slit-diffraction.png"  alt="fft double slit diffraction python"/></div>
 
-However, this last property will not be fulfilled if the distance between the slits is large enough. To illustrate it, we have represented the interference pattern with the slits separated $\hspace{1mm} 0.500 mm \hspace{1mm} $.
+However, this last property will not be fulfilled if the distance between the slits is large enough. To illustrate it, we have represented the interference pattern with the slits separated $\hspace{1mm} 0.500 \text{ mm}$:
 
-<div style="text-align:center"><img src="./images/fft_diffraction_integral/fft_double_slit_separated.png" /></div>
+<div style="text-align:center"><img src="./images/fft-diffraction-integral/fft-double-slit-small-fringes.png"  alt="fft double slit small fringes python"/></div>
 
 As can also be seen, the distance between the interferential maximums has decreased. This is because this
 parameter decreases inversely proportional to the distance between the slits.
+
+
+## Bibliography
+---
+<div class="references" id="references"></div>
+
+[1] Introduction to Fourier Optics J. Goodman sec. 3.5
+
+
