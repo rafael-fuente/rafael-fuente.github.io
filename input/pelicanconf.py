@@ -33,11 +33,15 @@ PLUGINS = [
     'sitemap'
     # ...
 ]
+
+
+
 SITEMAP = {
+    "exclude": ['tag/', 'category/', 'author/'],
     "format": "xml",
     "priorities": {
         "articles": 1.0,
-        "indexes": 0.0,
+        "indexes": 0.1,
         "pages": 0.1
     },
     "changefreqs": {
