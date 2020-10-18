@@ -106,7 +106,7 @@ $$L = \text{ distance from the light source to the double slit}$$
 
 <br /> 
 
-As Van-Cittert Zernike theorem states, $γ$ can be computed taking the Fourier Transform of intensity distribution of the light source as follows:
+As Van-Cittert Zernike theorem states, $γ$ can be computed taking the Fourier Transform of the intensity distribution of the light source as follows:
 
 \begin{equation}
   γ = \frac{\int\nolimits_{-\infty}^{\infty}  I(x') e^{i \frac{2 \pi}{\lambda L}(x x')} dx'}{\int\nolimits_{-\infty}^{\infty} I(x')  dx'} \label{eq:3}
