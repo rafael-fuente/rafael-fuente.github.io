@@ -1,5 +1,6 @@
 Title: Solving the Diffraction Integral with the Fast Fourier Transform (FFT) and Python
 date: 2019-10-08 18:50
+Modified: 2020-10-18 11:20
 Author: Rafael de la Fuente
 Tags: Quantum Physics, Diffraction, Double Slit Experiment, FFT
 

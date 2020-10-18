@@ -1,5 +1,6 @@
 Title: Visual Explanation of the Van-Cittert Zernike Theorem - The Double Slit Experiment with Incoherent and Coherent Light
 Date: 2020-09-19 11:20
+Modified: 2020-10-18 11:20
 Author: Rafael de la Fuente
 Tags: Optics, Maxwell Equations, FDTD, Light Coherence
 
@@ -39,13 +40,13 @@ In the femtoseconds scale you can slow down the video to x0.25 in youtube settin
  to avoid the artifacts that youtube video encoder creates with the waves at lower resolutions. You can see all fine details of the waves if you watch the video at this resolution.
 
 
-## Why does the interference patterns fluctuate at the picoseconds time scale?
+## Why does the interference patterns fluctuate on the picoseconds time scale?
 ---
 
 <div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-picoseconds.gif" alt="simulation of the double slit experiment with incoherent light picoseconds"/></div>
 <br /> 
 
-Interference patterns fluctuate at picoseconds time scale because this is the order of magnitude of the [coherence time](https://en.wikipedia.org/wiki/Coherence_time) of the source. This is the minimum time to make the electric field change considerably [[1]](#references).
+Interference patterns fluctuate on picoseconds time scale because this is the order of magnitude of the [coherence time](https://en.wikipedia.org/wiki/Coherence_time) of the source. This is the minimum time to make the electric field change considerably [[1]](#references).
 
 \begin{equation}
 \tau_{coh} \approx \frac{λ^2}{c Δλ}  \label{eq:1}
@@ -82,10 +83,10 @@ When the intensity is averaged over a few microseconds no fluctuations can be se
 ## The Van-Cittert Zernike Theorem
 ---
 
-Finally, we comment how the irradiance patterns on the screen at the microsecond time scale can be approximated using the [Van-Cittert Zernike theorem](https://en.wikipedia.org/wiki/Van_Cittert%E2%80%93Zernike_theorem) and [Fraunhofer approximation](https://en.wikipedia.org/wiki/Fraunhofer_diffraction):
+Finally, we comment how the irradiance patterns on the screen $I$ at the microsecond time scale can be approximated using the [Van-Cittert Zernike theorem](https://en.wikipedia.org/wiki/Van_Cittert%E2%80%93Zernike_theorem) and [Fraunhofer approximation](https://en.wikipedia.org/wiki/Fraunhofer_diffraction):
 
 \begin{equation}
-I ∝ \operatorname {sinc}^2{\left( \frac{𝜋 a x}{z λ}\right)} \left( 1 + γ  \cos{\left(\frac{2𝜋D}{zλ}  x\right)}\right) 
+I ∝ \operatorname {sinc}^2{\left( \frac{𝜋 a x}{z λ}\right)} \left( 1 + γ  \cos{\left(\frac{2𝜋D}{zλ}  x\right)}\right) \label{eq:2}
 \end{equation}
 
 where:
@@ -95,7 +96,7 @@ $$D = \text{ distance between the slits}$$
 
 $$a = \text{ slits width}$$
 
-$$γ \text{  is the degree  of spatial coherence:  }  γ = \operatorname {sinc}{\left(\frac{𝜋 D M}{L λ}\right)}$$
+$$γ = \text{ degree of spatial coherence}$$  
 
 $$M = \text{ width of the light source}$$
 
@@ -105,14 +106,39 @@ $$L = \text{ distance from the light source to the double slit}$$
 
 <br /> 
 
-Although this formula does not produce exact results for the scale of this simulation, you can use it for qualitative predictions. When $γ = 1$ the fringes are perfectly visible, and when $γ = 0$ they cannot be seen. The further you place the light source from the double slit, the closer the coherence degree will be of $1$ .
+As Van-Cittert Zernike theorem states, $γ$ can be computed taking the Fourier Transform of intensity distribution of the light source as follows:
+
+\begin{equation}
+  γ = \frac{\int\nolimits_{-\infty}^{\infty}  I(x') e^{i \frac{2 \pi}{\lambda L}(x x')} dx'}{\int\nolimits_{-\infty}^{\infty} I(x')  dx'} \label{eq:3}
+\end{equation}
+
+Using an uniform intensity distribution $I_0$ and a width of the light source of $M$:
+
+$$
+\begin{gathered}
+I(x') = \begin{cases}
+ I_0 & \text{ if } x' < \left|\frac{M}{2}\right| \newline
+ 0 & \text{ if } x' > \left|\frac{M}{2}\right| \newline 
+\end{cases}
+\end{gathered}
+$$
+
+And computing the integrals \eqref{eq:3} we finally get the degree of spatial coherence:
+
+\begin{equation}
+γ = \operatorname {sinc}{\left(\frac{𝜋 D M}{L λ}\right)} \label{eq:4}
+\end{equation}
+
+Although \eqref{eq:2} doesn't produce exact results for the scale of these simulations, you can use it for qualitative predictions. When $γ = 1$ the fringes are perfectly visible, and when $γ = 0$ they cannot be seen. The further you place the light source from the double slit, the closer the coherence degree will be of $1$ .
+
+To illustrate the equation \eqref{eq:2} we have plotted it for different degrees of coherence:
 
 <div style="text-align:center"><img src="./images/incoherent-double-slit-simulations/Van-Cittert-Zernike-Theorem-coherence.png" alt="simulation of the double slit experiment with incoherent light microseconds"/></div>
 <br /> 
 
 
 
-This experiment is important because it's usually the easiest to set up to measure the degree of coherence of a light source [[2]](#references). I hope these simulations have helped you to visualize how it really works.
+This experiment is important because it's usually the easiest to set up to measure the degree of coherence of a light source. For an experimental discussion see for example [[2]](#references). I hope these simulations have helped you to visualize how it really works.
 
 ## Bibliography
 ---
