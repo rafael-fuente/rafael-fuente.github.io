@@ -63,6 +63,7 @@ GITHUB_USERNAME = 'rafael-fuente'
 AUTHOR_GMAIL = 'rafael.fuente.herrezuelo@gmail.com'
 #AUTHOR_BLOG = 'http://rafael-fuente.github.io'
 #AUTHOR_CV = ""
+YOUTUBE = 'https://www.youtube.com/channel/UCgmKhcvQ7Xg0Wjq1OVXTDlQ'
 ENABLE_MATHJAX = True
 
 SHOW_FEED = False  # Need to address large feeds
