@@ -2,7 +2,7 @@ Title: Visual Explanation of the Van-Cittert Zernike Theorem - The Double Slit E
 Date: 2020-09-19 11:20
 Modified: 2020-10-18 11:20
 Author: Rafael de la Fuente
-Tags: Optics, Maxwell Equations, FDTD, Light Coherence
+Tags: Optics, Maxwell Equations, FDTD, Coherence
 
 <!-- 16:9 aspect ratio -->
 <div class="embed-responsive embed-responsive-16by9">

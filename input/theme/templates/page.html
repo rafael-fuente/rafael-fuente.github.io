@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block title %}{{ page.title }}{% endblock %}
 {% block headerimg %}{% if page.headerimg %}{{ page.headerimg }}{% else %}{{ DEFAULT_HEADER_BG }}{% endif %}{% endblock %}
+<link rel="stylesheet" type="text/css" href="./theme/css/icons.css"/>
+<link rel="stylesheet" type="text/css" href="./theme/css/pygments.css" />
+<link rel="stylesheet" type="text/css" href="./theme/css/main.css" />
 
 {% block content %}
 <div class="container post">

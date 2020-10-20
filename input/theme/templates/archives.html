@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Archives{% endblock %}
 {% block headerimg %}{{ DEFAUT_HEADER_BG }}{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="./theme/css/icons.css"/>
+<link rel="stylesheet" type="text/css" href="./theme/css/pygments.css" />
+<link rel="stylesheet" type="text/css" href="./theme/css/main.css" />
+{%endblock%}
 
 {% block content %}
 <div class="container list">
