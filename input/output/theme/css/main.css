@@ -320,14 +320,7 @@ footer {
 
 
 .MathJax_Display {
-    display:flex;
     padding:0.25em;
-
     overflow-x:auto;
-    box-sizing:border-box;
-}
-.MathJax_Display .MathJax {
-    display:inline-block;
-    width:100%;
-    margin: 0;
+    overflow-y: hidden;
 }

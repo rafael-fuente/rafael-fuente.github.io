@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="google-site-verification" content="gaMQTzduWzUbXAutBMDx1oMZCsDWc4mQemWCnUKHUOs" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Rafael de la Fuente">
+        <meta name="viewport" content="width=device-width">
+        <title>Solving the Diffraction Integral with the Fast Fourier Transform (FFT) and Python | Computational Physics</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Computational Physics blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script>
+MathJax = {
+  startup: {
+    //
+    //  Mapping of old extension names to new ones
+    //
+    requireMap: {
+      AMSmath: 'ams',
+      AMSsymbols: 'ams',
+      AMScd: 'amscd',
+      HTML: 'html',
+      noErrors: 'noerrors',
+      noUndefined: 'noundefined'
+    },
+    ready: function () {
+      //
+      //  Replace the require command map with a new one that checks for
+      //    renamed extensions and converts them to the new names.
+      //
+      var CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+      var requireMap = MathJax.config.startup.requireMap;
+      var RequireLoad = MathJax._.input.tex.require.RequireConfiguration.RequireLoad;
+      var RequireMethods = {
+        Require: function (parser, name) {
+          var required = parser.GetArgument(name);
+          if (required.match(/[^_a-zA-Z0-9]/) || required === '') {
+            throw new TexError('BadPackageName', 'Argument for %1 is not a valid package name', name);
+          }
+          if (requireMap.hasOwnProperty(required)) {
+            required = requireMap[required];
+          }
+          RequireLoad(parser, required);
+        }
+      };
+      new CommandMap('require', {require: 'Require'}, RequireMethods);
+      //
+      //  Do the usual startup
+      //
+      return MathJax.startup.defaultReady();
+    }
+  },
+  tex :{
+
+    inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+    displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+    tags: 'ams',
+
+    autoload: {
+      color: [],          // don't autoload the color extension
+      colorv2: ['color'], // do autoload the colorv2 extension
+    }
+  }
+};
+</script>
+<script id="MathJax-script" async
+ src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+ 
+<link rel="stylesheet" type="text/css" href="./theme/css/icons.css"/>
+<link rel="stylesheet" type="text/css" href="./theme/css/pygments.css" />
+<link rel="stylesheet" type="text/css" href="./theme/css/main.css" />
+<link rel="stylesheet" type="text/css" href="./theme/css/ipynb.css" />
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-inverse bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Computational Physics</a>
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/about.html" title="About">About</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Solving the Diffraction Integral with the Fast Fourier Transform (FFT) and Python</h1>
+            <!--<<time datetime="article.date.isoformat()" pubdate>Tue 08 October 2019</time>-->
+        </header>
+        <div class="meta">
+            <div>
+                    <a href="/tag/quantum-physics.html" class="tag">Quantum Physics</a>
+                    <a href="/tag/diffraction.html" class="tag">Diffraction</a>
+                    <a href="/tag/double-slit-experiment.html" class="tag">Double Slit Experiment</a>
+                    <a href="/tag/fft.html" class="tag">FFT</a>
+            </div>
+        </div>
+
+        <div class="article_content">
+            <div style="text-align:center"><img src="./images/fft-diffraction-integral/fft-double-slit-diffraction-screen.png" alt="fft double slit diffraction python"/></div>
+
+<p>In this project we will show how to numerically computing the <strong>Fresnel Diffraction Integral</strong> with the <a href="https://en.wikipedia.org/wiki/Fast_Fourier_transform">Fast Fourier Transform</a> (<strong>FFT</strong>). We'll implement the method with <strong>Python</strong> and we will apply it to the study of the diffraction patterns produced by the particle beams in the <strong>double slit experiment</strong>, showing the dependence of the phenomenon with respect to the separation of the slits.</p>
+<h2>Theoretical model</h2>
+<hr>
+<p>Consider a particle traveling with a well-defined momentum: </p>
+<p>\begin{equation}
+ \mathbf {p} = p_ {0} \mathbf {u_ {z}} \quad  \text{  in the region  }\quad  z &lt; 0
+\end{equation}</p>
+<p>Its wave function is:</p>
+<p>\begin{equation}
+\Psi{(\mathbf{r},t)} = \Psi_{0} e^{i (k z - w t)},\quad \text{   with   } \quad
+\begin{gathered}
+\begin{cases}
+ k = \frac{p_{0}}{\hbar} \newline
+ w = \frac{p_{0}^{2}}{2 m \hbar} \newline
+\end{cases}
+\end{gathered}
+\end{equation}</p>
+<p>A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the <a href="https://en.wikipedia.org/wiki/Huygens%E2%80%93Fresnel_principle">Huygen-Fresnel principle</a> which can be derived aplying the <strong>Rayleigh-Sommerfeld method</strong> <a href="#references">[1]</a> to the <strong>Schrödinger Equation</strong>, the wave in the plane $ z = L $ it's given by the <strong>Fresnel integral</strong>:</p>
+<p>\begin{equation}
+  \Psi{(\mathbf{r},t)} = C \int\nolimits_{S'}^{} \frac{e^{i k \left|{r - r'}\right|}}{\left|{r - r'}\right|} cos{\theta}\,  d^{2}r',
+\quad \text{   with   } \quad  \hspace{2mm}
+  C =  \frac{k \Psi_{0} e^{- i t w}}{2 \pi i}
+\end{equation}</p>
+<p>This approximation is valid if $ L &gt;&gt; \lambda $</p>
+<p>Next we are going to simplify the integral using the <a href="https://en.wikipedia.org/wiki/Fresnel_diffraction#The_Fresnel_approximation">Fresnel approximation</a>.
+This consists of considering $ \theta \approx 0 $ and using the approximation in the exponential:</p>
+<p>\begin{equation}
+|{r - r'}| \approx z +\frac{(x - x')^{2} + (y - y')^{2}}{2 z}
+\end{equation}</p>
+<p>Which it is valid if $((x - x')^{2} + (y - y')^{2})^{2} &lt;&lt; 8 \lambda  L^{3}$</p>
+<p>In the case of the denominator we do:</p>
+<p>\begin{equation}
+|{r - r'}| \approx L
+\end{equation}</p>
+<p>And the Fresnel integral becomes:</p>
+<p>\begin{equation}
+\begin{gathered}
+\Psi{(\mathbf{r},t)} = R \int\nolimits_{-\infty}^{\infty}\int\nolimits_{-\infty}^{\infty} f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} e^{ -\frac{i k x}{z}x' -\frac{i k y}{z}y'} \,  dx'dy',
+  \hspace{3mm} with \hspace{3mm}
+  R =  \frac{k \Psi_{0} e^{ i(k z - t w)}}{2 \pi i z} e^{ i k\frac{x^{2} + y^{2}}{2 z}} \newline
+f(x', y') = \begin{cases}
+ 1 &amp; \text{ if } (x' , y') \in S'\newline
+ 0 &amp; \text{ if } (x' , y') \notin S'\newline 
+\end{cases}
+\end{gathered}
+\end{equation}</p>
+<p>Finally we observe that this integral can be expressed as a Fourier transform:</p>
+<p>\begin{equation}
+\begin{gathered}
+ \Psi{(\mathbf{r},t)} =R   \hspace{2mm}\mathcal{F} \left[f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} \right] \newline
+\mathcal{F} \left[f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} \right] = \int\nolimits_{-\infty}^{\infty}\int\nolimits_{-\infty}^{\infty} f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} e^{ -\frac{i k x}{z}x' -\frac{i k y}{z}y'} \,  dx'dy'
+\end{gathered}
+\end{equation}</p>
+<p>To estimate the diffraction pattern, we use the region $(x', y') \in [-L_{x},L_{x}] \times [-L_{y},L_{y}]$ dividing each axis in $N_{x}$ and $N_{y}$ points respectively:</p>
+<p>\begin{equation}
+\begin{gathered}
+x_{n_{x}}^{\prime}= \left\{ -L_{x}+n_{x} \frac{2 L_{x}}{N_{x}}: 0 \leq n_{x} \leq N_{x}-1 \right\} \newline
+y_{n_{y}}^{\prime}= \left\{ -L_{y}+n_{y} \frac{2 L_{y}}{N_{y}}: 0 \leq n_{y} \leq N_{y}-1 \right\}
+\end{gathered}
+\end{equation}</p>
+
+<p>We define the Discrete Fourier Transform (DFT) of the set of points, which we will compute efficiently using the Fast Fourier Transform (FFT) algorithm:</p>
+<p>\begin{equation}
+\begin{gathered}
+  G(\mu_{x}, \mu_{y}) = \sum _{n_{x}=0}^{N_{x}-1}\sum _{n_{y}=0}^{N_{y}-1}g(x'_{n_{x}},y'_{n_{y}})e^{-{i2\pi \mu_{x}{\frac {n_{x}}{N_{x}}} -{i2\pi \mu_{y}{\frac {n_{y}}{N_{y}}}}}},
+\end{gathered}
+\end{equation}</p>
+
+<p>With the points of the screen located at $z = L$:</p>
+<p>\begin{equation}
+\begin{gathered}
+x_{\mu_{x}}  = \frac{(\mu_{x} - N_{x}/2) L \lambda}{2 L_{x}} \newline
+y_{\mu_{y}}  =\frac{(\mu_{y} - N_{y}/2) L \lambda}{2 L_{y}}
+\end{gathered}
+\end{equation}</p>
+<p>And the intensity (probability density) on the screen:</p>
+<p>\begin{equation}
+  I \propto|G(\mu_{x}, \mu_{y})|^{2} 
+\end{equation}</p>
+<h2>Implementation with Python</h2>
+<hr>
+<p>To perform the required computations, the following scripts were written in the Python programming language, making use of its scientific packages numpy, scipy and matplotlib. </p>
+<p>First we have defined and created a class named <code>Sheet</code> that contains the variables $L_{y} , L_{x}, N_{x}, N_{y}, x_{n_{x}}^{\prime}, y_{n_{y}}^{\prime} $ and an array of points named <code>f</code>,  with a value of $1$ in the case that the point of the slit  represents a slit  $(x_{n_{x}}^{\prime} , y_{n_{y}}^{\prime}) \in S' $ and $0$  otherwise. </p>
+<figure class='code'>
+<figcaption><span>Source Code</span> <a href='/downloads/code/fft-diffraction-integral/fft_double_slit.py'>download</a></figcaption>
+</figure>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">class</span> <span class="nc">Sheet</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">rangX</span><span class="p">,</span> <span class="n">rangY</span><span class="p">,</span> <span class="n">Nx</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">linspace</span><span class="p">(</span><span class="n">rangX</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">rangX</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">Nx</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">linspace</span><span class="p">(</span><span class="n">rangY</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">rangY</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">Ny</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xx</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">meshgrid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Nx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">Nx</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Ny</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">(</span><span class="n">Ny</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">zeros</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Ny</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Nx</span><span class="p">)))</span>
+
+
+
+    <span class="k">def</span> <span class="nf">rectangular_slit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">lx</span><span class="p">,</span> <span class="n">ly</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a slit centered at the point (x0, y0) with width lx and height ly</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="kp">select</span><span class="p">(</span> <span class="p">[((</span><span class="bp">self</span><span class="o">.</span><span class="n">xx</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">x0</span> <span class="o">-</span> <span class="n">lx</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xx</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="n">lx</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">))</span> <span class="ow">and</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">yy</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">y0</span> <span class="o">-</span> <span class="n">ly</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yy</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">y0</span> <span class="o">+</span> <span class="n">ly</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">)),</span>  <span class="kc">True</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+</code></pre></div>
+
+
+<p>As an example we study the diffraction pattern caused by two rectangular slits separated by a distance <code>D</code> with width and height denoted by <code>lx</code>, <code>ly</code> respectively.
+The higher the values of <code>Nx</code>, <code>Ny</code>, <code>Lx</code>, <code>Ly</code>, more accurate the diffraction pattern will be.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Lx</span> <span class="o">=</span> <span class="mi">1</span><span class="p">.</span><span class="mi">4</span>
+<span class="n">Ly</span> <span class="o">=</span> <span class="mi">0</span><span class="p">.</span><span class="mi">4</span>
+<span class="n">Nx</span><span class="o">=</span> <span class="mi">2500</span>
+<span class="n">Ny</span><span class="o">=</span> <span class="mi">1500</span>
+
+<span class="n">sheet</span> <span class="o">=</span> <span class="n">Sheet</span><span class="p">(</span><span class="n">extentX</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">Lx</span><span class="p">,</span> <span class="n">Lx</span><span class="p">]</span> <span class="p">,</span> <span class="n">extentY</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">Ly</span><span class="p">,</span> <span class="n">Ly</span><span class="p">],</span> <span class="n">Nx</span><span class="o">=</span> <span class="n">Nx</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span> <span class="n">Ny</span><span class="p">)</span>
+
+<span class="o">#</span><span class="n">slit</span> <span class="n">separation</span> 
+<span class="n">mm</span> <span class="o">=</span> <span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">3</span>
+<span class="n">D</span> <span class="o">=</span> <span class="mi">128</span> <span class="o">*</span> <span class="n">mm</span>
+
+<span class="n">sheet</span><span class="p">.</span><span class="n">rectangular_slit</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="o">-</span><span class="n">D</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">lx</span> <span class="o">=</span> <span class="mi">22</span> <span class="o">*</span> <span class="n">mm</span> <span class="p">,</span> <span class="n">ly</span> <span class="o">=</span> <span class="mi">88</span> <span class="o">*</span> <span class="n">mm</span><span class="p">)</span>
+<span class="n">sheet</span><span class="p">.</span><span class="n">rectangular_slit</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="o">+</span><span class="n">D</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">lx</span> <span class="o">=</span> <span class="mi">22</span> <span class="o">*</span> <span class="n">mm</span> <span class="p">,</span> <span class="n">ly</span> <span class="o">=</span> <span class="mi">88</span> <span class="o">*</span> <span class="n">mm</span><span class="p">)</span>
+</code></pre></div>
+
+
+<div style="text-align:center"><img src="./images/fft-diffraction-integral/fft-double-slit-sheet.png" alt="fft double slit diffraction sheet python"/></div>
+
+<p>Next we calculate the Diffraction integral using the Fast Fourier Transform (FFT) algorithm, efficiently implemented with the <strong>Scipy</strong> function <a href="https://docs.scipy.org/doc/scipy/reference/tutorial/fftpack.html#two-and-n-dimensional-discrete-fourier-transforms">fft2</a></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># distance from slit to the screen (mm)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="mi">5000</span>
+
+<span class="c1"># wavelength (mm)</span>
+<span class="err">λ</span> <span class="o">=</span> <span class="mf">18.5</span><span class="o">*</span><span class="mf">1e-7</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="err">λ</span>
+
+<span class="kn">from</span> <span class="nn">scipy.fftpack</span> <span class="kn">import</span> <span class="n">fft2</span>
+<span class="kn">from</span> <span class="nn">scipy.fftpack</span> <span class="kn">import</span> <span class="n">fftshift</span>
+
+<span class="n">fft_c</span> <span class="o">=</span> <span class="n">fft2</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">f</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1j</span> <span class="o">*</span> <span class="n">k</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">z</span><span class="p">)</span> <span class="o">*</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">xx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sheet</span><span class="o">.</span><span class="n">yy</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">fftshift</span><span class="p">(</span><span class="n">fft_c</span><span class="p">)</span>
+</code></pre></div>
+
+
+<h2>Results: Plotting the diffraction patterns</h2>
+<hr>
+<p>Finally we represent the results stored in the numpy array <code>c</code> with matplotlib.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>  
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">yticklabels</span><span class="o">=</span><span class="p">[])</span>
+
+<span class="n">abs_c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
+<span class="c1">#screen size mm</span>
+<span class="n">Lx_screen</span> <span class="o">=</span> <span class="n">Nx</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="err">λ</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">Lx</span><span class="p">)</span>
+<span class="n">Ly_screen</span> <span class="o">=</span> <span class="n">Ny</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="err">λ</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">Ly</span><span class="p">)</span>
+
+<span class="n">x_max</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">Lx</span> <span class="o">*</span> <span class="p">(</span><span class="n">Nx</span><span class="o">//</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="err">λ</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="n">y_max</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">Ly</span> <span class="o">*</span> <span class="p">(</span><span class="n">Ny</span><span class="o">//</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="err">λ</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">abs_c</span><span class="p">,</span> <span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">Lx_screen</span><span class="p">,</span> <span class="n">Lx_screen</span><span class="p">,</span> <span class="o">-</span><span class="n">Ly_screen</span><span class="p">,</span><span class="n">Ly_screen</span><span class="p">],</span> <span class="n">cmap</span> <span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">interpolation</span> <span class="o">=</span> <span class="s2">&quot;bilinear&quot;</span><span class="p">,</span> <span class="n">aspect</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">Lx_screen</span><span class="p">,</span><span class="n">Lx_screen</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">abs_c</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">abs_c</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">abs_c</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y (mm)&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x (mm)&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Probability Density $|\psi|^{2}$&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">ax1</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+
+<p>First, We have represented the diffraction pattern of a particle with $\hspace{1mm} λ = 18.5 \text{ Å} \hspace{1mm}$ due to a slit
+width $\hspace{1mm} 22 × 10^{-3} \text{ mm} \hspace{1mm}$ and height $\hspace{1mm} 88 × 10^{-3}  \text{ mm}$, with the screen placed at $5 \text{ m}$:</p>
+<div style="text-align:center"><img src="./images/fft-diffraction-integral/fft-single-slit-diffraction.png" alt="fft single slit diffraction python"/></div>
+
+<p>Next we use two slits with the previous dimension, but now their centers are separated
+by a distance of $0.128 \text{ mm} $. We can see in the following plot that the single slit interference pattern it's
+the envelope of the double slit interference:</p>
+<div style="text-align:center"><img src="./images/fft-diffraction-integral/fft-double-slit-diffraction.png"  alt="fft double slit diffraction python"/></div>
+
+<p>However, this last property will not be fulfilled if the distance between the slits is large enough. To illustrate it, we have represented the interference pattern with the slits separated $\hspace{1mm} 0.500 \text{ mm}$:</p>
+<div style="text-align:center"><img src="./images/fft-diffraction-integral/fft-double-slit-small-fringes.png"  alt="fft double slit small fringes python"/></div>
+
+<p>As can also be seen, the distance between the interferential maximums has decreased. This is because this
+parameter decreases inversely proportional to the distance between the slits.</p>
+<h2>Bibliography</h2>
+<hr>
+<p><div class="references" id="references"></div></p>
+<p>[1] Introduction to Fourier Optics J. Goodman sec. 3.5</p>
+        </div>
+
+    </article>
+
+
+
+    <div class="license" >
+
+      <p>
+        © 2019-2020 Rafael de la Fuente
+      </p>
+    </div>
+
+</div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+          <a href="mailto:rafael.fuente.herrezuelo@gmail.com"><img src="./theme/svg-icons/email-icon.svg"></img></a>
+
+
+          <a href="http://github.com/rafael-fuente"><img src="./theme/svg-icons/github-icon.svg"></img></a>
+
+
+          <a href="https://www.youtube.com/channel/UCgmKhcvQ7Xg0Wjq1OVXTDlQ"><img src="./theme/svg-icons/youtube-icon.svg"></img></a>
+
+        </footer>
+      </div>
+    </div>    
+
+        </div>
+    </body>
+</html>
