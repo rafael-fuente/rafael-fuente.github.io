@@ -17,39 +17,61 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+MathJax = {
+  startup: {
+    //
+    //  Mapping of old extension names to new ones
+    //
+    requireMap: {
+      AMSmath: 'ams',
+      AMSsymbols: 'ams',
+      AMScd: 'amscd',
+      HTML: 'html',
+      noErrors: 'noerrors',
+      noUndefined: 'noundefined'
+    },
+    ready: function () {
+      //
+      //  Replace the require command map with a new one that checks for
+      //    renamed extensions and converts them to the new names.
+      //
+      var CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+      var requireMap = MathJax.config.startup.requireMap;
+      var RequireLoad = MathJax._.input.tex.require.RequireConfiguration.RequireLoad;
+      var RequireMethods = {
+        Require: function (parser, name) {
+          var required = parser.GetArgument(name);
+          if (required.match(/[^_a-zA-Z0-9]/) || required === '') {
+            throw new TexError('BadPackageName', 'Argument for %1 is not a valid package name', name);
+          }
+          if (requireMap.hasOwnProperty(required)) {
+            required = requireMap[required];
+          }
+          RequireLoad(parser, required);
+        }
+      };
+      new CommandMap('require', {require: 'Require'}, RequireMethods);
+      //
+      //  Do the usual startup
+      //
+      return MathJax.startup.defaultReady();
+    }
+  },
+  tex :{
 
-        <script type="text/x-mathjax-config">
-            MathJax.Hub.Config({
-                tex2jax: {
-                    inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-                    displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
-                    skipTags: ["script","noscript","style","textarea","pre","footer","link"],
+    inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+    displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
 
-                },
-                TeX: {
-                    // AutoNumbering of displayed formulas
-                    equationNumbers: { autoNumber: "AMS" },
-                    // All mathjax extensions:
-                // http://docs.mathjax.org/en/latest/tex.html#tex-and-latex-extensions
-                    // Source code for all extensions:
-                // https://github.com/mathjax/MathJax/tree/master/extensions/TeX
-                    extensions: [
-                    //"color.js", // Color support in LaTeX
-                    //"autobold.js", // support for \boldsymbol{...}
-                    //"AMSmath.js",
-                    //"AMSsymbols.js",
-                    //"AMScd.js", // http://www.jmilne.org/not/Mamscd.pdf
-                    "bbox.js", // support for \bbox[options]{math}
-                    // "begingroup.js", // mainly for formulas localization
-                    //"cancel.js" // support for strikethrough formulas
-                    // "HTML.js" // works by default
-                    // "mhchem.js" // chemical formulas
-                    // "uniconde.js" // works by default
-                    ]
-                }
-            });
-        </script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+    autoload: {
+      color: [],          // don't autoload the color extension
+      colorv2: ['color'], // do autoload the colorv2 extension
+    }
+  }
+};
+</script>
+<script id="MathJax-script" async
+ src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 <link rel="stylesheet" type="text/css" href="./theme/css/icons.css"/>
 <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css" />
 <link rel="stylesheet" type="text/css" href="./theme/css/main.css" />
