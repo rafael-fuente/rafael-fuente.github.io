@@ -55,6 +55,19 @@
 <link rel="stylesheet" type="text/css" href="./theme/css/main.css" />
 <link rel="stylesheet" type="text/css" href="./theme/css/ipynb.css" />
 
+<script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.8.0.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function()//preload images
+{ $(".img-swap").each(function () {$.ajax({url: this.src})})})
+jQuery(function(){
+ $(".img-swap").live('click', function() {
+    if ($(this).attr("class") == "img-swap") { this.src = this.src.replace(".png",".gif"); } 
+    else {this.src = this.src.replace(".gif",".png");   }
+    $(this).toggleClass("on");});});
+</script>
+
+
+
     </head>
 
     <body>
@@ -116,7 +129,7 @@
  to avoid the artifacts that youtube video encoder creates with the waves at lower resolutions. You can see all fine details of the waves if you watch the video at this resolution.</p>
 <h2>Why does the interference patterns fluctuate on the picoseconds time scale?</h2>
 <hr>
-<div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-picoseconds.gif" alt="simulation of the double slit experiment with incoherent light picoseconds"/></div>
+<div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-picoseconds.png" class="img-swap"alt="simulation of the double slit experiment with incoherent light picoseconds"/></div>
 
 <p><br /> </p>
 <p>Interference patterns fluctuate on picoseconds time scale because this is the order of magnitude of the <a href="https://en.wikipedia.org/wiki/Coherence_time">coherence time</a> of the source. This is the minimum time to make the electric field change considerably <a href="#references">[1]</a>.</p>
@@ -133,11 +146,11 @@
 <p>When the intensity is averaged over a few microseconds no fluctuations can be seen. This is the reason that although the wave-like behaviour of light, we don't usually see the interferences.</p>
 <h2>More explanations:</h2>
 <hr>
-<p><div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-femtoseconds.gif" alt="simulation of the double slit experiment with incoherent light femtoseconds"/></div></p>
+<p><div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-femtoseconds.png" class="img-swap" alt="simulation of the double slit experiment with incoherent light femtoseconds"/></div></p>
 <ul>
 <li>The blinking on the femtosecond time scale is because when the light is reflected on the double slit wall is due to a standing wave formed by interference from the incident and reflected waves, with an oscillation frequency equal to the frequency of the wave.</li>
 </ul>
-<div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-microseconds.gif" alt="simulation of the double slit experiment with incoherent light microseconds"/></div>
+<div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-microseconds.png" class="img-swap" alt="simulation of the double slit experiment with incoherent light microseconds"/></div>
 
 <p><br /> </p>
 <ul>

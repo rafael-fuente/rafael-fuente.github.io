@@ -42,7 +42,7 @@ In the femtoseconds scale you can slow down the video to x0.25 in youtube settin
 ## Why does the interference patterns fluctuate on the picoseconds time scale?
 ---
 
-<div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-picoseconds.gif" alt="simulation of the double slit experiment with incoherent light picoseconds"/></div>
+<div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-picoseconds.png" class="img-swap"alt="simulation of the double slit experiment with incoherent light picoseconds"/></div>
 <br /> 
 
 Interference patterns fluctuate on picoseconds time scale because this is the order of magnitude of the [coherence time](https://en.wikipedia.org/wiki/Coherence_time) of the source. This is the minimum time to make the electric field change considerably [[1]](#references).
@@ -70,11 +70,11 @@ When the intensity is averaged over a few microseconds no fluctuations can be se
 
 ## More explanations:
 ---
-<div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-femtoseconds.gif" alt="simulation of the double slit experiment with incoherent light femtoseconds"/></div>
+<div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-femtoseconds.png" class="img-swap" alt="simulation of the double slit experiment with incoherent light femtoseconds"/></div>
 
 + The blinking on the femtosecond time scale is because when the light is reflected on the double slit wall is due to a standing wave formed by interference from the incident and reflected waves, with an oscillation frequency equal to the frequency of the wave.
 
-<div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-microseconds.gif" alt="simulation of the double slit experiment with incoherent light microseconds"/></div>
+<div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-microseconds.png" class="img-swap" alt="simulation of the double slit experiment with incoherent light microseconds"/></div>
 <br /> 
 
 + In microseconds time scale [1:20](https://www.youtube.com/watch?v=5cyzdsd6AOs&t=80s) and any longer time scale, no incoherent light interference pattern should be visible as we observe in most of our daily life. But a stationary wave is still visible in the microseconds time scale near the double slit wall. However because its size is very small , you won't notice it at macroscopic scale and instead you will see a uniform pattern. (notice that the space scale of the simulations are 60 x 30 μm)
