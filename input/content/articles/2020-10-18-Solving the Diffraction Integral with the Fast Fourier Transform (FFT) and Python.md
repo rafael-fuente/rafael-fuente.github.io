@@ -1,6 +1,5 @@
 Title: Solving the Diffraction Integral with the Fast Fourier Transform (FFT) and Python
-date: 2019-10-08 18:50
-Modified: 2020-10-18 11:20
+date: 2020-10-18 18:50
 Author: Rafael de la Fuente
 Tags: Quantum Physics, Diffraction, Double Slit Experiment, FFT
 
@@ -230,7 +229,7 @@ the envelope of the double slit interference:
 
 <div style="text-align:center"><img src="./images/fft-diffraction-integral/fft-double-slit-diffraction.png"  alt="fft double slit diffraction python"/></div>
 
-However, this last property will not be fulfilled if the distance between the slits is large enough. To illustrate it, we have represented the interference pattern with the slits separated $\hspace{1mm} 0.500 \text{ mm}$:
+However, this last property will not be fulfilled if the distance between the slits is large enough. To illustrate it, we have represented the interference pattern with the slits separated $0.500 \text{ mm}$:
 
 <div style="text-align:center"><img src="./images/fft-diffraction-integral/fft-double-slit-small-fringes.png"  alt="fft double slit small fringes python"/></div>
 

@@ -5,28 +5,28 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://rafael-fuente.github.io/</loc>
-<lastmod>2020-10-25T00:43:25-00:00</lastmod>
+<lastmod>2020-10-25T02:59:04-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.1</priority>
 </url>
 
 <url>
 <loc>https://rafael-fuente.github.io/pages/about.html</loc>
-<lastmod>2020-10-25T00:43:25-00:00</lastmod>
+<lastmod>2020-10-25T02:59:04-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.1</priority>
 </url>
 
 <url>
 <loc>https://rafael-fuente.github.io/visual-explanation-of-the-van-cittert-zernike-theorem-the-double-slit-experiment-with-incoherent-and-coherent-light.html</loc>
-<lastmod>2020-10-18T11:20:00+02:00</lastmod>
+<lastmod>2020-10-24T23:20:00+02:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>1.0</priority>
 </url>
 
 <url>
 <loc>https://rafael-fuente.github.io/solving-the-diffraction-integral-with-the-fast-fourier-transform-fft-and-python.html</loc>
-<lastmod>2020-10-18T11:20:00+02:00</lastmod>
+<lastmod>2020-10-18T18:50:00+02:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>1.0</priority>
 </url>
