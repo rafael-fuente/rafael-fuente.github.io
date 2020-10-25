@@ -319,7 +319,12 @@ footer {
 }
 
 
-.has-jax {
+.MathJax_Display  {
+    padding:0.25em;
+    overflow-x:auto;
+    overflow-y: hidden;
+}
+.MathJax {
     padding:0.25em;
     overflow-x:auto;
     overflow-y: hidden;
