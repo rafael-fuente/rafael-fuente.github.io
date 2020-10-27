@@ -2,10 +2,21 @@
 {% block title %}{{ article.title }}{% endblock %}
 {% block headerimg %}{% if article.headerimg %}{{ article.headerimg }}{% else %}{{ DEFAULT_HEADER_BG }}{% endif %}{% endblock %}
 {% block open_graph %}
+        {% if article.description %}
+        <meta name="description" content="{{ article.description }}" />
+        {% endif %}
         <meta property="og:type" content="article" />
         <meta property="og:title" content="{{ article.title }}"/>
+        {% if article.description %}
+        <meta property="og:description" content="{{ article.description }}" />
+        {% endif %}
         {% if article.image %}
         <meta property="og:image" content="{{ article.image }}">
+        {% endif %}
+        <meta name="twitter:title" content="{{ article.title }}">
+        {% if article.image %}
+        <meta name="twitter:image" content="{{ article.image }}">
+        <meta name="twitter:card" content="summary_large_image">
         {% endif %}
 {% endblock %}
 {% block extra_head %}

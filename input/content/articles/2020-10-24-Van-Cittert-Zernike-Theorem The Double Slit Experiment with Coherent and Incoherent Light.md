@@ -1,4 +1,5 @@
 Title: Visual Explanation of the Van-Cittert Zernike Theorem - The Double Slit Experiment with Incoherent and Coherent Light
+Description: What happens when the double slit experiment is performed with incoherent light (for example with a light bulb)? And how it differs when it is performed with coherent light (for example with a laser)?
 Date: 2020-10-24 23:20
 Author: Rafael de la Fuente
 Tags: Optics, Maxwell Equations, FDTD, Coherence

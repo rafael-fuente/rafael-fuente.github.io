@@ -1,4 +1,5 @@
 Title: Solving the Diffraction Integral with the Fast Fourier Transform (FFT) and Python
+Description: In this project we show how to compute the Diffraction Integral with the Fast Fourier Transform (FFT) and Python
 date: 2020-10-18 18:50
 Author: Rafael de la Fuente
 Tags: Quantum Physics, Diffraction, Double Slit Experiment, FFT
@@ -6,7 +7,7 @@ Image: https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-doubl
 
 <div style="text-align:center"><img src="./images/fft-diffraction-integral/fft-double-slit-diffraction-screen.png" alt="fft double slit diffraction python"/></div>
 
-In this project we will show how to numerically computing the **Fresnel Diffraction Integral** with the [Fast Fourier Transform](https://en.wikipedia.org/wiki/Fast_Fourier_transform) (**FFT**). We'll implement the method with **Python** and we will apply it to the study of the diffraction patterns produced by the particle beams in the **double slit experiment**, showing the dependence of the phenomenon with respect to the separation of the slits.
+In this project we will show how to numerically compute the **Fresnel Diffraction Integral** with the [Fast Fourier Transform](https://en.wikipedia.org/wiki/Fast_Fourier_transform) (**FFT**). We'll implement the method with **Python** and we will apply it to the study of the diffraction patterns produced by the particle beams in the **double slit experiment**, showing the dependence of the phenomenon with respect to the separation of the slits.
 
 
 
