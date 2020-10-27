@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 {% block title %}{{ article.title }}{% endblock %}
 {% block headerimg %}{% if article.headerimg %}{{ article.headerimg }}{% else %}{{ DEFAULT_HEADER_BG }}{% endif %}{% endblock %}
-
+{% block open_graph %}
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="{{ article.title }}"/>
+        {% if article.image %}
+        <meta property="og:image" itemprop="image" content="{{ article.image }}">
+        {% endif %}
+{% endblock %}
 {% block extra_head %}
 <link rel="stylesheet" type="text/css" href="./theme/css/icons.css"/>
 <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css" />

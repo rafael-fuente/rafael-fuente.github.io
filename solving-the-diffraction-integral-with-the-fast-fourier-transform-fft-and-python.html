@@ -7,6 +7,9 @@
         <meta name="author" content="Rafael de la Fuente">
         <meta name="viewport" content="width=device-width">
         <title>Solving the Diffraction Integral with the Fast Fourier Transform (FFT) and Python | Computational Physics</title>
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="Solving the Diffraction Integral with the Fast Fourier Transform (FFT) and Python"/>
+        <meta property="og:image" itemprop="image" content="https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-double-slit-diffraction-screen.png">
 
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -121,7 +124,7 @@
 \end{equation}</p>
 <p>This approximation is valid if $ L &gt;&gt; \lambda $</p>
 <p>Next we are going to simplify the integral using the <a href="https://en.wikipedia.org/wiki/Fresnel_diffraction#The_Fresnel_approximation">Fresnel approximation</a>.
-This consists of considering $ \theta \approx 0 $ and using the approximation in the exponential:</p>
+This consists of making $ \theta \approx 0 $ and using the approximation in the exponential:</p>
 <p>\begin{equation}
 |{r - r'}| \approx z +\frac{(x - x')^{2} + (y - y')^{2}}{2 z}
 \end{equation}</p>

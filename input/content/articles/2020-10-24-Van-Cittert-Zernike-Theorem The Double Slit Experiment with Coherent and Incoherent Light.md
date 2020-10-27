@@ -2,6 +2,7 @@ Title: Visual Explanation of the Van-Cittert Zernike Theorem - The Double Slit E
 Date: 2020-10-24 23:20
 Author: Rafael de la Fuente
 Tags: Optics, Maxwell Equations, FDTD, Coherence
+Image: https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/visualization-of-the-Van-Cittert-Zernike-theorem.png
 
 <!-- 16:9 aspect ratio -->
 <div class="embed-responsive embed-responsive-16by9">
@@ -39,7 +40,7 @@ In the femtoseconds scale you can slow down the video to x0.25 in youtube settin
  to avoid the artifacts that youtube video encoder creates with the waves at lower resolutions. You can see all fine details of the waves if you watch the video at this resolution.
 
 
-## Why does the interference patterns fluctuate on the picoseconds time scale?
+## Why do the interference patterns fluctuate on the picoseconds time scale?
 ---
 <div class="object-and-details">
 <div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-picoseconds.jpg" alt="simulation of the double slit experiment with incoherent light picoseconds" loading="lazy"/></div>

@@ -2,6 +2,7 @@ Title: Solving the Diffraction Integral with the Fast Fourier Transform (FFT) an
 date: 2020-10-18 18:50
 Author: Rafael de la Fuente
 Tags: Quantum Physics, Diffraction, Double Slit Experiment, FFT
+Image: https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-double-slit-diffraction-screen.png
 
 <div style="text-align:center"><img src="./images/fft-diffraction-integral/fft-double-slit-diffraction-screen.png" alt="fft double slit diffraction python"/></div>
 
@@ -42,7 +43,7 @@ A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the [Huy
 This approximation is valid if $ L >> \lambda $
 
 Next we are going to simplify the integral using the [Fresnel approximation](https://en.wikipedia.org/wiki/Fresnel_diffraction#The_Fresnel_approximation).
-This consists of considering $ \theta \approx 0 $ and using the approximation in the exponential:
+This consists of making $ \theta \approx 0 $ and using the approximation in the exponential:
 
 \begin{equation}
 |{r - r'}| \approx z +\frac{(x - x')^{2} + (y - y')^{2}}{2 z}
