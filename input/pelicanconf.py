@@ -51,6 +51,9 @@ SITEMAP = {
     }
 }
 
+
+
+
 CODE_DIR = 'downloads/code'
 
 AUTHOR_SAVE_AS = 'rafael-de-la-fuente.html'
@@ -70,3 +73,5 @@ SHOW_FEED = False  # Need to address large feeds
 DATE_FORMAT = {"en": "%a, %d %b %Y"}
 LOCALE = ("usa")
 STATIC_PATHS = ['images','downloads','favicon.ico']
+
+

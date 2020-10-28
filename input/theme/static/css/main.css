@@ -329,3 +329,9 @@ footer {
     overflow-x:auto;
     overflow-y: hidden;
 }
+.katex { 
+    font-size: 1.2em; 
+    padding:0.25em;
+    overflow-x:auto;
+    overflow-y: hidden;
+}
