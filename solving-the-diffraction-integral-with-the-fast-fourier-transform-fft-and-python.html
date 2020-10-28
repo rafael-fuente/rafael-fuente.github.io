@@ -95,12 +95,14 @@
 <p>In this project we will show how to numerically compute the <strong>Fresnel Diffraction Integral</strong> with the <a href="https://en.wikipedia.org/wiki/Fast_Fourier_transform">Fast Fourier Transform</a> (<strong>FFT</strong>). We'll implement the method with <strong>Python</strong> and we will apply it to the study of the diffraction patterns produced by the particle beams in the <strong>double slit experiment</strong>, showing the dependence of the phenomenon with respect to the separation of the slits.</p>
 <h2>Theoretical model</h2>
 <hr>
-<p>Consider a particle traveling with a well-defined momentum: </p>
-<p>$$
- \mathbf {p} = p_ {0} \mathbf {u_ {z}} \quad  \text{  in the region  }\quad  z &lt; 0
-$$</p>
-<p>Its wave function is:</p>
-<p>$$
+<p>Consider a particle traveling with a well-defined momentum: 
+<p class="math">
+$$
+ \mathbf {p} = p_ {0} \mathbf {u_ {z}} \quad  \text{  in the region  }\quad  z &lt; 0 
+$$</p></p>
+<p>Its wave function is:
+<p class="math">
+$$
 \Psi{(\mathbf{r},t)} = \Psi_{0} e^{i (k z - w t)},\quad \text{   with   } \quad
 \begin{gathered}
 \begin{cases}
@@ -108,26 +110,30 @@ $$</p>
  w = \frac{p_{0}^{2}}{2 m \hbar} \\
 \end{cases}
 \end{gathered}
-$$</p>
-<p>A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the <a href="https://en.wikipedia.org/wiki/Huygens%E2%80%93Fresnel_principle">Huygen-Fresnel principle</a> which can be derived aplying the <strong>Rayleigh-Sommerfeld method</strong> <a href="#references">[1]</a> to the <strong>Schrödinger Equation</strong>, the wave in the plane $ z = L $ it's given by the <strong>Fresnel integral</strong>:</p>
-<p>$$
+$$</p></p>
+<p>A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the <a href="https://en.wikipedia.org/wiki/Huygens%E2%80%93Fresnel_principle">Huygen-Fresnel principle</a> which can be derived aplying the <strong>Rayleigh-Sommerfeld method</strong> <a href="#references">[1]</a> to the <strong>Schrödinger Equation</strong>, the wave function in the plane $ z = L $ it's given by the <strong>Fresnel integral</strong>:
+<p class="math">
+$$
   \Psi{(\mathbf{r},t)} = C \int\nolimits_{S'}^{} \frac{e^{i k \left|{r - r'}\right|}}{\left|{r - r'}\right|} cos{\theta}\,  d^{2}r',
 \quad \text{   with   } \quad  \hspace{2mm}
   C =  \frac{k \Psi_{0} e^{- i t w}}{2 \pi i}
-$$</p>
+$$</p></p>
 <p>This approximation is valid if $ L &gt;&gt; \lambda $</p>
 <p>Next we are going to simplify the integral using the <a href="https://en.wikipedia.org/wiki/Fresnel_diffraction#The_Fresnel_approximation">Fresnel approximation</a>.
-This consists of making $ \theta \approx 0 $ and using the approximation in the exponential:</p>
-<p>$$
+This consists of making $ \theta \approx 0 $ and using the approximation in the exponential:
+<p class="math">
+$$
 |{r - r'}| \approx z +\frac{(x - x')^{2} + (y - y')^{2}}{2 z}
-$$</p>
+$$</p></p>
 <p>Which it is valid if $((x - x')^{2} + (y - y')^{2})^{2} &lt;&lt; 8 \lambda  L^{3}$</p>
-<p>In the case of the denominator we do:</p>
-<p>$$
+<p>In the case of the denominator we do:
+<p class="math">
+$$
 |{r - r'}| \approx L
-$$</p>
-<p>And the Fresnel integral becomes:</p>
-<p>$$
+$$</p></p>
+<p>And the Fresnel integral becomes:
+<p class="math">
+\begin{equation}
 \begin{gathered}
 \Psi{(\mathbf{r},t)} = R \int\nolimits_{-\infty}^{\infty}\int\nolimits_{-\infty}^{\infty} f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} e^{ -\frac{i k x}{z}x' -\frac{i k y}{z}y'} \,  dx'dy',
   \hspace{3mm} with \hspace{3mm}
@@ -137,40 +143,44 @@ f(x', y') = \begin{cases}
  0 &amp; \text{ if } (x' , y') \notin S'\\ 
 \end{cases}
 \end{gathered}
-$$</p>
+\end{equation}</p>
 <p>Finally we observe that this integral can be expressed as a Fourier transform:</p>
-<p>$$
+<p class="math">
+$$
 \begin{gathered}
  \Psi{(\mathbf{r},t)} =R   \hspace{2mm}\mathcal{F} \left[f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} \right] \\
 \mathcal{F} \left[f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} \right] = \int\nolimits_{-\infty}^{\infty}\int\nolimits_{-\infty}^{\infty} f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} e^{ -\frac{i k x}{z}x' -\frac{i k y}{z}y'} \,  dx'dy'
 \end{gathered}
 $$</p>
+
 <p>To estimate the diffraction pattern, we use the region $(x', y') \in [-L_{x},L_{x}] \times [-L_{y},L_{y}]$ dividing each axis in $N_{x}$ and $N_{y}$ points respectively:</p>
-<p>$$
+<p class="math">$$
 \begin{gathered}
-x_{n_{x}}^{\prime}= \left\{ -L_{x}+n_{x} \frac{2 L_{x}}{N_{x}}: 0 \leq n_{x} \leq N_{x}-1 \right\} \\\\
+x_{n_{x}}^{\prime}= \left\{ -L_{x}+n_{x} \frac{2 L_{x}}{N_{x}}: 0 \leq n_{x} \leq N_{x}-1 \right\} \\
 y_{n_{y}}^{\prime}= \left\{ -L_{y}+n_{y} \frac{2 L_{y}}{N_{y}}: 0 \leq n_{y} \leq N_{y}-1 \right\}
 \end{gathered}
 $$</p>
 
 <p>We define the Discrete Fourier Transform (DFT) of the set of points, which we will compute efficiently using the Fast Fourier Transform (FFT) algorithm:</p>
-<p>$$
+<p class="math">$$
 \begin{gathered}
   G(\mu_{x}, \mu_{y}) = \sum _{n_{x}=0}^{N_{x}-1}\sum _{n_{y}=0}^{N_{y}-1}g(x'_{n_{x}},y'_{n_{y}})e^{-{i2\pi \mu_{x}{\frac {n_{x}}{N_{x}}} -{i2\pi \mu_{y}{\frac {n_{y}}{N_{y}}}}}},
 \end{gathered}
 $$</p>
 
-<p>With the points of the screen located at $z = L$:</p>
-<p>$$
+<p>With the points of the screen located at $z = L$:
+<p class="math">
+$$
 \begin{gathered}
 x_{\mu_{x}}  = \frac{(\mu_{x} - N_{x}/2) L \lambda}{2 L_{x}} \\
 y_{\mu_{y}}  =\frac{(\mu_{y} - N_{y}/2) L \lambda}{2 L_{y}}
 \end{gathered}
-$$</p>
-<p>And the intensity (probability density) on the screen:</p>
-<p>$$
+$$</p></p>
+<p>And the intensity (probability density) on the screen:
+<p class="math">
+$$
   I \propto|G(\mu_{x}, \mu_{y})|^{2} 
-$$</p>
+$$</p></p>
 <h2>Implementation with Python</h2>
 <hr>
 <p>To perform the required computations, the following scripts were written in the Python programming language, making use of its scientific packages numpy, scipy and matplotlib. </p>

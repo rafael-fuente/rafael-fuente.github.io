@@ -4,7 +4,7 @@ Date: 2020-10-24 23:20
 Author: Rafael de la Fuente
 Tags: Optics, Maxwell Equations, FDTD, Coherence
 Image: https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/visualization-of-the-Van-Cittert-Zernike-theorem.jpg
-mathjax2: True
+mathjax3: True
 
 <!-- 16:9 aspect ratio -->
 <div class="embed-responsive embed-responsive-16by9">
@@ -58,24 +58,29 @@ In the femtoseconds scale you can slow down the video to x0.25 in youtube settin
 
 Interference patterns fluctuate on picoseconds time scale because this is the order of magnitude of the [coherence time](https://en.wikipedia.org/wiki/Coherence_time) of the source. This is the minimum time to make the electric field change considerably [[1]](#references).
 
+<p class="math">
 \begin{equation}
-\tau_{coh} \approx \frac{λ^2}{c Δλ}  \label{eq:1}
+\tau_{coh} \approx \frac{ \lambda ^2}{c \Delta \lambda}  \label{eq:1}
 \end{equation}
+</p>
 
 where:
 
-$$ Δλ = \text{bandwidth of the light source}$$
+<p class="math">
+$$ \Delta \lambda = \text{bandwidth of the light source}$$
 
-$$ λ = \text{center wavelength}$$
+$$ \lambda = \text{center wavelength}$$
 
 $$ c = \text{speed of light}$$
+</p>
 
+In the simulation was used a wavelength of $ \lambda = 650 \text{ nm}$ and a bandwidth of $\Delta \lambda = 1 \text{ nm}$. Plugging these values in the formula \eqref{eq:1} we get a coherence time of:
 
-In the simulation was used a wavelength of $λ = 650 \text{ nm}$ and a bandwidth of $Δλ = 1 \text{ nm}$. Plugging these values in the formula \eqref{eq:1} we get a coherence time of:
-
+<p class="math">
 $$\tau_{coh} \approx 1.4 \text{ picoseconds} $$
+</p>
 
-You can see that a very narrow bandwidth $Δλ = 1 \text{ nm}$ is enough to make interferences fluctuate very fast. $λ = 650 \text{ nm}$ correspond to red light, and the narrow bandwidth makes almost no difference in color to the human eye.
+You can see that a very narrow bandwidth $ \Delta \lambda  = 1 \text{ nm}$ is enough to make interferences fluctuate very fast. $ \lambda  = 650 \text{ nm}$ correspond to red light, and the narrow bandwidth makes almost no difference in color to the human eye.
 
 When the intensity is averaged over a few microseconds no fluctuations can be seen. This is the reason that although the wave-like behaviour of light, we don't usually see the interferences.
 
@@ -113,35 +118,40 @@ When the intensity is averaged over a few microseconds no fluctuations can be se
 
 Finally, we comment how the irradiance patterns on the screen $I$ at the microsecond time scale can be approximated using the [Van-Cittert Zernike theorem](https://en.wikipedia.org/wiki/Van_Cittert%E2%80%93Zernike_theorem) and [Fraunhofer approximation](https://en.wikipedia.org/wiki/Fraunhofer_diffraction):
 
+<p class="math">
 \begin{equation}
-I ∝ \operatorname {sinc}^2{\left( \frac{𝜋 a x}{z λ}\right)} \left( 1 + γ  \cos{\left(\frac{2𝜋D}{zλ}  x\right)}\right) \label{eq:2}
+I ∝ \operatorname {sinc}^2{\left( \frac{𝜋 a x}{z \lambda}\right)} \left( 1 + \gamma  \cos{\left(\frac{2𝜋D}{z\lambda}  x\right)}\right) \label{eq:2}
 \end{equation}
+</p>
+
 
 where:
 
-
+<p class="math">
 $$D = \text{ distance between the slits}$$
 
 $$a = \text{ slits width}$$
 
-$$γ = \text{ degree of spatial coherence}$$  
+$$\gamma = \text{ degree of spatial coherence}$$  
 
 $$M = \text{ width of the light source}$$
 
 $$z = \text{ distance from the screen to the double slit}$$
 
 $$L = \text{ distance from the light source to the double slit}$$
+</p>
 
-<br /> 
+As Van-Cittert Zernike theorem states, $\gamma$ can be computed taking the Fourier Transform of the intensity distribution of the light source as follows:
 
-As Van-Cittert Zernike theorem states, $γ$ can be computed taking the Fourier Transform of the intensity distribution of the light source as follows:
-
+<p class="math">
 \begin{equation}
-  γ = \frac{\int\nolimits_{-\infty}^{\infty}  I(x') e^{i \frac{2 \pi D}{\lambda L} x'} dx'}{\int\nolimits_{-\infty}^{\infty} I(x')  dx'} \label{eq:3}
+  \gamma = \frac{\int\nolimits_{-\infty}^{\infty}  I(x') e^{i \frac{2 \pi D}{\lambda L} x'} dx'}{\int\nolimits_{-\infty}^{\infty} I(x')  dx'} \label{eq:3}
 \end{equation}
+</p>
 
 Using an uniform intensity distribution $I_0$ and a width of the light source of $M$:
 
+<p class="math">
 $$
 \begin{gathered}
 I(x') = \begin{cases}
@@ -150,14 +160,17 @@ I(x') = \begin{cases}
 \end{cases}
 \end{gathered}
 $$
+</p>
 
 And computing the integrals \eqref{eq:3} we finally get the degree of spatial coherence:
 
+<p class="math">
 \begin{equation}
-γ = \operatorname {sinc}{\left(\frac{𝜋 D M}{L λ}\right)} \label{eq:4}
+\gamma = \operatorname {sinc}{\left(\frac{𝜋 D M}{L \lambda}\right)} \label{eq:4}
 \end{equation}
+</p>
 
-Although \eqref{eq:2} doesn't produce exact results for the scale of these simulations, you can use it for qualitative predictions. When $γ = 1$ the fringes are perfectly visible, and when $γ = 0$ they cannot be seen. The further you place the light source from the double slit, the closer the coherence degree will be of $1$ .
+Although \eqref{eq:2} doesn't produce exact results for the scale of these simulations, you can use it for qualitative predictions. When $\gamma = 1$ the fringes are perfectly visible, and when $\gamma = 0$ they cannot be seen. The further you place the light source from the double slit, the closer the coherence degree will be of $1$ .
 
 To illustrate the equation \eqref{eq:2} we have plotted it for different degrees of coherence:
 

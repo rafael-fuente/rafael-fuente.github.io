@@ -16,13 +16,13 @@ In this project we will show how to numerically compute the **Fresnel Diffractio
 ---
 
 Consider a particle traveling with a well-defined momentum: 
-
+<p class="math">
 $$
- \mathbf {p} = p_ {0} \mathbf {u_ {z}} \quad  \text{  in the region  }\quad  z < 0
-$$
+ \mathbf {p} = p_ {0} \mathbf {u_ {z}} \quad  \text{  in the region  }\quad  z < 0 
+$$</p>
 
 Its wave function is:
-
+<p class="math">
 $$
 \Psi{(\mathbf{r},t)} = \Psi_{0} e^{i (k z - w t)},\quad \text{   with   } \quad
 \begin{gathered}
@@ -31,37 +31,37 @@ $$
  w = \frac{p_{0}^{2}}{2 m \hbar} \\\\
 \end{cases}
 \end{gathered}
-$$
+$$</p>
 
 A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the [Huygen-Fresnel principle](https://en.wikipedia.org/wiki/Huygens%E2%80%93Fresnel_principle) which can be derived aplying the **Rayleigh-Sommerfeld method** [[1]](#references
-) to the **Schrödinger Equation**, the wave in the plane $ z = L $ it's given by the **Fresnel integral**:
-
+) to the **Schrödinger Equation**, the wave function in the plane $ z = L $ it's given by the **Fresnel integral**:
+<p class="math">
 $$
   \Psi{(\mathbf{r},t)} = C \int\nolimits_{S'}^{} \frac{e^{i k \left|{r - r'}\right|}}{\left|{r - r'}\right|} cos{\theta}\,  d^{2}r',
 \quad \text{   with   } \quad  \hspace{2mm}
   C =  \frac{k \Psi_{0} e^{- i t w}}{2 \pi i}
-$$
+$$</p>
 
 This approximation is valid if $ L >> \lambda $
 
 Next we are going to simplify the integral using the [Fresnel approximation](https://en.wikipedia.org/wiki/Fresnel_diffraction#The_Fresnel_approximation).
 This consists of making $ \theta \approx 0 $ and using the approximation in the exponential:
-
+<p class="math">
 $$
 |{r - r'}| \approx z +\frac{(x - x')^{2} + (y - y')^{2}}{2 z}
-$$
+$$</p>
 
 Which it is valid if $((x - x')^{2} + (y - y')^{2})^{2} << 8 \lambda  L^{3}$
 
 In the case of the denominator we do:
-
+<p class="math">
 $$
 |{r - r'}| \approx L
-$$
+$$</p>
 
 And the Fresnel integral becomes:
-
-$$
+<p class="math">
+\begin{equation}
 \begin{gathered}
 \Psi{(\mathbf{r},t)} = R \int\nolimits_{-\infty}^{\infty}\int\nolimits_{-\infty}^{\infty} f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} e^{ -\frac{i k x}{z}x' -\frac{i k y}{z}y'} \,  dx'dy',
   \hspace{3mm} with \hspace{3mm}
@@ -71,49 +71,50 @@ f(x', y') = \begin{cases}
  0 & \text{ if } (x' , y') \notin S'\\\\ 
 \end{cases}
 \end{gathered}
-$$
+\end{equation}
+
 
 Finally we observe that this integral can be expressed as a Fourier transform:
 
+<p class="math">
 $$
 \begin{gathered}
- \Psi{(\mathbf{r},t)} =R   \hspace{2mm}\mathcal{F} \left\[f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} \right\] \\\\
-\mathcal{F} \left\[f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} \right\] = \int\nolimits_{-\infty}^{\infty}\int\nolimits_{-\infty}^{\infty} f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} e^{ -\frac{i k x}{z}x' -\frac{i k y}{z}y'} \,  dx'dy'
+ \Psi{(\mathbf{r},t)} =R   \hspace{2mm}\mathcal{F} \left[f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} \right] \\
+\mathcal{F} \left[f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} \right] = \int\nolimits_{-\infty}^{\infty}\int\nolimits_{-\infty}^{\infty} f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} e^{ -\frac{i k x}{z}x' -\frac{i k y}{z}y'} \,  dx'dy'
 \end{gathered}
-$$
-
+$$</p>
 
 To estimate the diffraction pattern, we use the region $(x', y') \in [-L_{x},L_{x}] \times [-L_{y},L_{y}]$ dividing each axis in $N_{x}$ and $N_{y}$ points respectively:
 
-<p>$$
+<p class="math">$$
 \begin{gathered}
-x_{n_{x}}^{\prime}= \left\{ -L_{x}+n_{x} \frac{2 L_{x}}{N_{x}}: 0 \leq n_{x} \leq N_{x}-1 \right\} \\\\
+x_{n_{x}}^{\prime}= \left\{ -L_{x}+n_{x} \frac{2 L_{x}}{N_{x}}: 0 \leq n_{x} \leq N_{x}-1 \right\} \\
 y_{n_{y}}^{\prime}= \left\{ -L_{y}+n_{y} \frac{2 L_{y}}{N_{y}}: 0 \leq n_{y} \leq N_{y}-1 \right\}
 \end{gathered}
 $$</p>
 
 We define the Discrete Fourier Transform (DFT) of the set of points, which we will compute efficiently using the Fast Fourier Transform (FFT) algorithm:
 
-<p>$$
+<p class="math">$$
 \begin{gathered}
   G(\mu_{x}, \mu_{y}) = \sum _{n_{x}=0}^{N_{x}-1}\sum _{n_{y}=0}^{N_{y}-1}g(x'_{n_{x}},y'_{n_{y}})e^{-{i2\pi \mu_{x}{\frac {n_{x}}{N_{x}}} -{i2\pi \mu_{y}{\frac {n_{y}}{N_{y}}}}}},
 \end{gathered}
 $$</p>
 
 With the points of the screen located at $z = L$:
-
+<p class="math">
 $$
 \begin{gathered}
 x_{\mu_{x}}  = \frac{(\mu_{x} - N_{x}/2) L \lambda}{2 L_{x}} \\\\
 y_{\mu_{y}}  =\frac{(\mu_{y} - N_{y}/2) L \lambda}{2 L_{y}}
 \end{gathered}
-$$
+$$</p>
 
 And the intensity (probability density) on the screen:
-
+<p class="math">
 $$
   I \propto|G(\mu_{x}, \mu_{y})|^{2} 
-$$
+$$</p>
 
 ## Implementation with Python
 ---
