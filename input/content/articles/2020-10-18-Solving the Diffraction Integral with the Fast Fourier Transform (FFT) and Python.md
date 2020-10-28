@@ -45,7 +45,7 @@ $$</p>
 This approximation is valid if $ L >> \lambda $
 
 Next we are going to simplify the integral using the [Fresnel approximation](https://en.wikipedia.org/wiki/Fresnel_diffraction#The_Fresnel_approximation).
-This consists of making $ \theta \approx 0 $ and using the approximation in the exponential:
+This consists of assuming $ \theta \approx 0 $ and using the approximation in the exponential:
 <p class="math">
 $$
 |{r - r'}| \approx z +\frac{(x - x')^{2} + (y - y')^{2}}{2 z}
