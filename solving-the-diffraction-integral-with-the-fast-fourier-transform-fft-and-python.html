@@ -111,7 +111,7 @@ $$
 \end{cases}
 \end{gathered}
 $$</p></p>
-<p>A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the <a href="https://en.wikipedia.org/wiki/Huygens%E2%80%93Fresnel_principle">Huygen-Fresnel principle</a> which can be derived aplying the <strong>Rayleigh-Sommerfeld method</strong> <a href="#references">[1]</a> to the <strong>Schrödinger Equation</strong>, the wave function in the plane $ z = L $ it's given by the <strong>Fresnel integral</strong>:
+<p>A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the <a href="https://en.wikipedia.org/wiki/Huygens%E2%80%93Fresnel_principle">Huygen-Fresnel principle</a> which can be derived applying the <strong>Rayleigh-Sommerfeld method</strong> <a href="#references">[1]</a> to the <strong>Schrödinger Equation</strong>, the wave function in the plane $ z = L $ it's given by the <strong>Fresnel integral</strong>:
 <p class="math">
 $$
   \Psi{(\mathbf{r},t)} = C \int\nolimits_{S'}^{} \frac{e^{i k \left|{r - r'}\right|}}{\left|{r - r'}\right|} cos{\theta}\,  d^{2}r',
@@ -126,7 +126,7 @@ $$
 |{r - r'}| \approx z +\frac{(x - x')^{2} + (y - y')^{2}}{2 z}
 $$</p></p>
 <p>Which it is valid if $((x - x')^{2} + (y - y')^{2})^{2} &lt;&lt; 8 \lambda  L^{3}$</p>
-<p>In the case of the denominator we do:
+<p>In the case of the denominator, we do:
 <p class="math">
 $$
 |{r - r'}| \approx L
@@ -144,7 +144,7 @@ f(x', y') = \begin{cases}
 \end{cases}
 \end{gathered}
 \end{equation}</p>
-<p>Finally we observe that this integral can be expressed as a Fourier transform:</p>
+<p>Finally, we observe that this integral can be expressed as a Fourier transform:</p>
 <p class="math">
 $$
 \begin{gathered}
@@ -161,7 +161,7 @@ y_{n_{y}}^{\prime}= \left\{ -L_{y}+n_{y} \frac{2 L_{y}}{N_{y}}: 0 \leq n_{y} \le
 \end{gathered}
 $$</p>
 
-<p>We define the Discrete Fourier Transform (DFT) of the set of points, which we will compute efficiently using the Fast Fourier Transform (FFT) algorithm:</p>
+<p>We define the Discrete Fourier Transform (DFT) of the set of points, which we will efficiently compute using the Fast Fourier Transform (FFT) algorithm:</p>
 <p class="math">$$
 \begin{gathered}
   G(\mu_{x}, \mu_{y}) = \sum _{n_{x}=0}^{N_{x}-1}\sum _{n_{y}=0}^{N_{y}-1}g(x'_{n_{x}},y'_{n_{y}})e^{-{i2\pi \mu_{x}{\frac {n_{x}}{N_{x}}} -{i2\pi \mu_{y}{\frac {n_{y}}{N_{y}}}}}},
@@ -249,7 +249,7 @@ The higher the values of <code>Nx</code>, <code>Ny</code>, <code>Lx</code>, <cod
 
 <h2>Results: Plotting the diffraction patterns</h2>
 <hr>
-<p>Finally we represent the results stored in the numpy array <code>c</code> with matplotlib.</p>
+<p>Finally, we represent the results stored in the numpy array <code>c</code> with matplotlib.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>

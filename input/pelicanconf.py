@@ -42,11 +42,11 @@ SITEMAP = {
     "priorities": {
         "articles": 1.0,
         "indexes": 0.1,
-        "pages": 0.1
+        "pages": 0.01
     },
     "changefreqs": {
         "articles": "monthly",
-        "indexes": "daily",
+        "indexes": "monthly",
         "pages": "monthly"
     }
 }

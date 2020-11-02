@@ -33,7 +33,7 @@ $$
 \end{gathered}
 $$</p>
 
-A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the [Huygen-Fresnel principle](https://en.wikipedia.org/wiki/Huygens%E2%80%93Fresnel_principle) which can be derived aplying the **Rayleigh-Sommerfeld method** [[1]](#references
+A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the [Huygen-Fresnel principle](https://en.wikipedia.org/wiki/Huygens%E2%80%93Fresnel_principle) which can be derived applying the **Rayleigh-Sommerfeld method** [[1]](#references
 ) to the **Schrödinger Equation**, the wave function in the plane $ z = L $ it's given by the **Fresnel integral**:
 <p class="math">
 $$
@@ -53,7 +53,7 @@ $$</p>
 
 Which it is valid if $((x - x')^{2} + (y - y')^{2})^{2} << 8 \lambda  L^{3}$
 
-In the case of the denominator we do:
+In the case of the denominator, we do:
 <p class="math">
 $$
 |{r - r'}| \approx L
@@ -74,7 +74,7 @@ f(x', y') = \begin{cases}
 \end{equation}
 
 
-Finally we observe that this integral can be expressed as a Fourier transform:
+Finally, we observe that this integral can be expressed as a Fourier transform:
 
 <p class="math">
 $$
@@ -93,7 +93,7 @@ y_{n_{y}}^{\prime}= \left\{ -L_{y}+n_{y} \frac{2 L_{y}}{N_{y}}: 0 \leq n_{y} \le
 \end{gathered}
 $$</p>
 
-We define the Discrete Fourier Transform (DFT) of the set of points, which we will compute efficiently using the Fast Fourier Transform (FFT) algorithm:
+We define the Discrete Fourier Transform (DFT) of the set of points, which we will efficiently compute using the Fast Fourier Transform (FFT) algorithm:
 
 <p class="math">$$
 \begin{gathered}
@@ -188,7 +188,7 @@ Next we calculate the Diffraction integral using the Fast Fourier Transform (FFT
 ## Results: Plotting the diffraction patterns
 ---
 
-Finally we represent the results stored in the numpy array ```c``` with matplotlib.
+Finally, we represent the results stored in the numpy array ```c``` with matplotlib.
 
 	import matplotlib.pyplot as plt
 
