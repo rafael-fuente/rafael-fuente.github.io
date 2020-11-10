@@ -45,12 +45,12 @@ In the femtoseconds scale you can slow down the video to x0.25 in youtube settin
 ## Why do the interference patterns fluctuate on the picoseconds time scale?
 ---
 <div class="object-and-details">
-<div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-picoseconds.jpg" alt="simulation of the double slit experiment with incoherent light picoseconds" loading="lazy"/></div>
+<div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-picoseconds.jpg" alt="simulation of the double slit experiment with incoherent light at picoseconds" loading="lazy"/></div>
   <details>
     <!-- added role=button to summary to resolve iOS funkiness -->
     <summary role="button" aria-label="static image"></summary>
     <div class="object-and-details1">
-      <img src="./images/incoherent-double-slit-simulations/simulation-incoherent-picoseconds.gif" alt="simulation of the double slit experiment with incoherent light picoseconds" loading="lazy">
+      <img src="./images/incoherent-double-slit-simulations/simulation-incoherent-picoseconds.gif" alt="simulation of the double slit experiment with incoherent light at picoseconds" loading="lazy">
     </div>
   </details>
 </div>
@@ -87,12 +87,12 @@ When the intensity is averaged over a few microseconds no fluctuations can be se
 ## More explanations:
 ---
 <div class="object-and-details">
-<div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-femtoseconds.jpg" alt="simulation of the double slit experiment with incoherent light femtoseconds" loading="lazy"/></div>
+<div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-femtoseconds.jpg" alt="simulation of the double slit experiment with incoherent light at femtoseconds" loading="lazy"/></div>
   <details>
     <!-- added role=button to summary to resolve iOS funkiness -->
     <summary role="button" aria-label="static image"></summary>
     <div class="object-and-details1">
-      <img src="./images/incoherent-double-slit-simulations/simulation-incoherent-femtoseconds.gif" alt="simulation of the double slit experiment with incoherent light femtoseconds" loading="lazy">
+      <img src="./images/incoherent-double-slit-simulations/simulation-incoherent-femtoseconds.gif" alt="simulation of the double slit experiment with incoherent light at femtoseconds" loading="lazy">
     </div>
   </details>
 </div>
@@ -100,12 +100,12 @@ When the intensity is averaged over a few microseconds no fluctuations can be se
 + The blinking on the femtosecond time scale is because when the light is reflected on the double slit wall is due to a standing wave formed by interference from the incident and reflected waves, with an oscillation frequency equal to the frequency of the wave.
 
 <div class="object-and-details">
-<div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-microseconds.jpg" alt="simulation of the double slit experiment with incoherent light microseconds" loading="lazy"/></div>
+<div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-microseconds.jpg" alt="simulation of the double slit experiment with incoherent light at microseconds" loading="lazy"/></div>
   <details>
     <!-- added role=button to summary to resolve iOS funkiness -->
     <summary role="button" aria-label="static image"></summary>
     <div class="object-and-details1">
-      <img src="./images/incoherent-double-slit-simulations/simulation-incoherent-microseconds.gif" alt="simulation of the double slit experiment with incoherent light microseconds" loading="lazy">
+      <img src="./images/incoherent-double-slit-simulations/simulation-incoherent-microseconds.gif" alt="simulation of the double slit experiment with incoherent light at microseconds" loading="lazy">
     </div>
   </details>
 </div>
@@ -174,7 +174,7 @@ Although \eqref{eq:2} doesn't produce exact results for the scale of these simul
 
 To illustrate the equation \eqref{eq:2} we have plotted it for different degrees of coherence:
 
-<div style="text-align:center"><img src="./images/incoherent-double-slit-simulations/Van-Cittert-Zernike-Theorem-coherence.png" alt="simulation of the double slit experiment with incoherent light microseconds"/></div>
+<div style="text-align:center"><img src="./images/incoherent-double-slit-simulations/Van-Cittert-Zernike-Theorem-coherence.png" alt="Van Cittert-Zernike theorem coherence"/></div>
 <br /> 
 
 
