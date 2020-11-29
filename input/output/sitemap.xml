@@ -5,14 +5,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://rafael-fuente.github.io/</loc>
-<lastmod>2020-11-16T18:38:05-00:00</lastmod>
+<lastmod>2020-11-29T02:47:23-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.1</priority>
 </url>
 
 <url>
 <loc>https://rafael-fuente.github.io/pages/about.html</loc>
-<lastmod>2020-11-16T18:38:05-00:00</lastmod>
+<lastmod>2020-11-29T02:47:23-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.01</priority>
 </url>
@@ -22,6 +22,38 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <lastmod>2020-10-24T23:20:00+02:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-femtoseconds.jpg</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-microseconds.jpg</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-picoseconds.jpg</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-femtoseconds.gif</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-microseconds.gif</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-picoseconds.gif</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/Van-Cittert-Zernike-Theorem-coherence.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/visualization-of-the-Van-Cittert-Zernike-theorem.jpg</image:loc>
+      <image:title>Visualization of the Van-Cittert Zernike theorem</image:title>
+    </image:image>
 </url>
 
 <url>
@@ -29,6 +61,17 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <lastmod>2020-10-18T18:50:00+02:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-single-slit-diffraction.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-double-slit-diffraction.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-double-slit-small-fringes.png</image:loc>
+    </image:image>
 </url>
 
 </urlset>

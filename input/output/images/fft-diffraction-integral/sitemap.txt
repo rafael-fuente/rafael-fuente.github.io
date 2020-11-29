@@ -1,0 +1,11 @@
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-single-slit-diffraction.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-double-slit-diffraction.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-double-slit-small-fringes.png</image:loc>
+    </image:image>

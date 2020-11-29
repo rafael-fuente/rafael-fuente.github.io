@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
-xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://rafael-fuente.github.io/</loc>
-<lastmod>2020-11-10T15:41:28-00:00</lastmod>
+<lastmod>2020-11-29T02:47:23-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.1</priority>
 </url>
 
 <url>
 <loc>https://rafael-fuente.github.io/pages/about.html</loc>
-<lastmod>2020-11-10T15:41:28-00:00</lastmod>
+<lastmod>2020-11-29T02:47:23-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.01</priority>
 </url>
@@ -54,8 +54,6 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.goog
       <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/visualization-of-the-Van-Cittert-Zernike-theorem.jpg</image:loc>
       <image:title>Visualization of the Van-Cittert Zernike theorem</image:title>
     </image:image>
-
-
 </url>
 
 <url>
@@ -63,6 +61,17 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.goog
 <lastmod>2020-10-18T18:50:00+02:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-single-slit-diffraction.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-double-slit-diffraction.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-double-slit-small-fringes.png</image:loc>
+    </image:image>
 </url>
 
 </urlset>
