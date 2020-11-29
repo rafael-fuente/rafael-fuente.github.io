@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
-xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
 <url>
 <loc>https://rafael-fuente.github.io/</loc>
-<lastmod>2020-11-29T02:47:23-00:00</lastmod>
+<lastmod>2020-11-29T03:10:17-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.1</priority>
 </url>
 
 <url>
 <loc>https://rafael-fuente.github.io/pages/about.html</loc>
-<lastmod>2020-11-29T02:47:23-00:00</lastmod>
+<lastmod>2020-11-29T03:10:17-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.01</priority>
 </url>
