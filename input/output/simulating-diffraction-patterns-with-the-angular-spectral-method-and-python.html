@@ -6,13 +6,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="author" content="Rafael de la Fuente">
         <meta name="viewport" content="width=device-width">
-        <title>Computing Diffraction Patterns with the Angular Spectral Method and Python | Computational Physics</title>
+        <title>Simulating Diffraction Patterns with the Angular Spectral Method and Python | Computational Physics</title>
         <meta name="description" content="In this project we'll show how to compute the Diffraction Patterns with the Angular Spectral Method and Python." />
         <meta property="og:type" content="article" />
-        <meta property="og:title" content="Computing Diffraction Patterns with the Angular Spectral Method and Python"/>
+        <meta property="og:title" content="Simulating Diffraction Patterns with the Angular Spectral Method and Python"/>
         <meta property="og:description" content="In this project we'll show how to compute the Diffraction Patterns with the Angular Spectral Method and Python." />
         <meta property="og:image" content="https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/visualization-of-the-Van-Cittert-Zernike-theorem.jpg">
-        <meta name="twitter:title" content="Computing Diffraction Patterns with the Angular Spectral Method and Python">
+        <meta name="twitter:title" content="Simulating Diffraction Patterns with the Angular Spectral Method and Python">
         <meta name="twitter:image" content="https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/visualization-of-the-Van-Cittert-Zernike-theorem.jpg">
         <meta name="twitter:card" content="summary_large_image">
 
@@ -118,7 +118,7 @@
 <div class="container post">
     <article>
         <header>
-            <h1>Computing Diffraction Patterns with the Angular Spectral Method and Python</h1>
+            <h1>Simulating Diffraction Patterns with the Angular Spectral Method and Python</h1>
             <time datetime="article.date.isoformat()" pubdate>Sat 24 October 2020</time>
         </header>
         <div class="meta">
@@ -140,13 +140,13 @@
 <p>In this project we will show how to numerically compute <strong>Diffraction Patterns</strong> with the <strong>Angular Spectral Method</strong>. We'll implement the method with <strong>Python</strong> and discuss how to simulate them both with monochromatic and polychromatic light like it's shown in the video above.</p>
 <h2>The Angular Spectrum</h2>
 <hr>
-<p>In a previous post we have discussed how to solve the Frensel Integral with a single Fast Fourier Transform (FFT). However although this method is quite simple, it has some drawbacks:<br /> 
+<p>In a previous post we have discussed how to solve the Fresnel Integral with a single Fast Fourier Transform (FFT). However although this method is quite simple, it has some drawbacks:<br /> 
 It is limited by the requeriment of a diffrent grid scale than the aperture figure, and by the approximation of the Fresnel and Fraunhofer regimes.<br /> 
 As we will see next, the <strong>The Angular Spectral Method</strong> is free of these problems. It uses the same scale that the aperture figure, and it solves the wave equation exactly.</p>
 <div style="text-align:center"><img src="./images/angular-spectral-method/angular-spectral-method-single-slit-diffraction.png" alt="Angular Spectral Method Single Slit Diffraction"/></div>
 
 <p><br /> </p>
-<p>Suppose that a monochromatic wave is incident on a transverse $(x', y')$ plane traveling with a component of propagation in the negative $z$ direction. Let the complex field across that $z = 0$ plane (Diffraction Sheet Plane) be represented by:
+<p>Suppose that a monochromatic wave is incident on a transverse $(x', y')$ plane traveling with a component of propagation in the negative $z$ direction. Let the complex field across that $z = 0$ plane (Diffraction Sheet) be represented by:
 $$u(x', y', 0; t) = U(x', y', 0) e^{-\omega t i}$$
 Our ultimate objective is to calculate the resulting field $U(x, y, -L)$ that appears
 across a second, parallel plane (Screen) a distance $L$ to the right of the first plane. </p>
@@ -154,38 +154,43 @@ across a second, parallel plane (Screen) a distance $L$ to the right of the firs
 <p class="math">
 \begin{equation}
 A\left(k_{x}, k_{y} ; 0\right)=\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} U(x', y', 0) e^{-(k_{x} x' + k_{y} y') i}   \mathrm{d} x' \mathrm{dy'}
-\end{equation}
-</p>
+\label{eq:1}
+\end{equation}</p>
 
 <p>where $A\left(k_{x}, k_{y} ; 0\right)$ is called the <strong>angular spectrum</strong> of the distrubance $U(x, y, 0)$<br /> </p>
 <h2>Propagation of the Angular Spectrum</h2>
 <hr>
-<p>Consider now the angular spectrum of the disturbance U across a plane parallel to the
+<p>Consider now the angular spectrum of the disturbance $U(x, y, 0)$ across a plane parallel to the
 $z = 0$ plane but at a distance z from it. Let the function $A(k_{x}, k_{y}, z)$ represent the
 angular spectrum of $U(x, y, z)$; that is</p>
 <p class="math">
 \begin{equation}
 A\left(k_{x}, k_{y} ; z\right)=\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} U(x, y, z) e^{-(k_{x} x + k_{y} y) i}   \mathrm{d} x \mathrm{dy}
-\end{equation}</p>
+\label{eq:2}
+\end{equation}
+</p>
 
 <p>and with its inverse transform given by:</p>
 <p class="math">
 \begin{equation}
 U\left(x, y , z\right)=\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} A(k_{x}, k_{y}; z) e^{(k_{x} x + k_{y} y) i}   \mathrm{d} k_{x} \mathrm{d} k_{y} 
+\label{eq:3}
 \end{equation}
 </p>
 
-<p>To know how the disturbance $U(x, y, z)$ varies with z, we are going to use the <a href="https://en.wikipedia.org/wiki/Helmholtz_equation">Helmholtz equation</a> \eqref{eq:3} which is obtained simply from the wave equation after separating the temporal part:</p>
+<p>To know how the disturbance $U(x, y, z)$ varies with $z$, we are going to use the <a href="https://en.wikipedia.org/wiki/Helmholtz_equation">Helmholtz equation</a> \eqref{eq:4} which is obtained simply from the wave equation after separating the temporal part:</p>
 <p class="math">
 \begin{equation}
-\nabla^{2} U + k^{2} U=0 \quad \text{with} \quad k = \frac{2 \pi}{\lambda}
+\nabla^{2} U + k^{2} U=0 \quad \text{with} \quad k = \frac{2 \pi}{\lambda}  
+\label{eq:4}
 \end{equation}
 </p>
 
-<p>Now if we plug equation \eqref{eq:2} in to the Helmholtz equation we obtain the following relationship:</p>
+<p>Now if we plug equation \eqref{eq:3} into the Helmholtz equation we obtain the following relationship:</p>
 <p class="math">
 \begin{equation}
 \frac{d^{2}}{d z^{2}} A + k_{z} A = 0  \quad \text{with} \quad k_{z} = \sqrt{k^2 - k_{x}^2 + k_{y}^2}
+\label{eq:5}
 \end{equation}
 </p>
 
@@ -193,16 +198,133 @@ U\left(x, y , z\right)=\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} A(k_{x}, 
 <p class="math">
 \begin{equation}
 A{\left(k_{x},k_{y}; z \right)} = A{\left(k_{x},k_{y}; 0 \right)} e^{- k_{z} z i}
+\label{eq:6}
 \end{equation}
 </p>
 
-<p>Finally, we note that the disturbance observed at $z = -L$ can be written in terms of the initial angular spectrum by inverse transforming \label{eq:2} using \label{eq:3}, giving:</p>
+<p>Finally, we note that the disturbance observed at $z = -L$ can be written in terms of the initial angular spectrum by inverse transforming \eqref{eq:6} using \eqref{eq:3}, giving:</p>
 <p class="math">
 \begin{equation}
 U\left(x, y , -L\right)=\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} A(k_{x}, k_{y}; 0) e^{k_{z} L} e^{(k_{x} x + k_{y} y) i}   \mathrm{d} k_{x} \mathrm{d} k_{y} 
+\label{eq:7}
 \end{equation}
 </p>
 
+<p>Now, we define the <strong>amplitude transmittance function</strong> $t_{A}(x', y')$ of the aperture as the ratio of the transmitted field amplitude $U(x', y', 0)$ to the incident field amplitude $U_{0}(x, y, 0)$ at each $(x, y)$ in the $z = 0$ plane:
+<p class="math">
+\begin{equation}
+U(x', y', 0)=U_{0}(x', y', 0) t_{A}(x', y')
+\label{eq:8}
+\end{equation}
+</p></p>
+<p>The amplitude transmittance function has the value 1 at $(x, y)$ if light can pass through it, and 0 if it cannot. So it represents the shape of the aperture.</p>
+<p>The equations \eqref{eq:8}, \eqref{eq:1} and \eqref{eq:7} are everything we need to compute the electric field at $z = -L$. In order to accomplish such task, we realize that realize that \eqref{eq:1} and \eqref{eq:7} can be represented as <a href="https://en.wikipedia.org/wiki/Fast_Fourier_transform">Fast Fourier Transforms (FFT)</a> as follows:</p>
+<p>First, we discretize the region $(x', y') \in [-L_{x},L_{x}] \times [-L_{y},L_{y}]$ dividing each axis in $N_{x}$ and $N_{y}$ points respectively:</p>
+<p class="math">$$
+\begin{gathered}
+x_{s_{x}}^{\prime}= \left\{ -L_{x}+s_{x} \frac{2 L_{x}}{N_{x}}: 0 \leq s_{x} \leq N_{x}-1 \right\} \\
+y_{s_{y}}^{\prime}= \left\{ -L_{y}+s_{y} \frac{2 L_{y}}{N_{y}}: 0 \leq s_{y} \leq N_{y}-1 \right\}
+\end{gathered}
+$$</p>
+
+<p>Now we express \eqref{eq:1} as the Discrete Fourier Transform (DFT) of that set of points, which we will efficiently compute using the Fast Fourier Transform (FFT) algorithm:</p>
+<p class="math">
+\begin{equation}
+c\left(n_x,n_y\right)=\sum_{s_x=0}^{N_x-1}\sum_{s_y=0}^{N_y-1}{U\left(x_{s_x}^{\prime},\ y_{s_y}^{\prime}, 0\right)e^{i\frac{-2\pi s_x}{N_x}n_x}e^{i\frac{-2\pi s_y}{N_y}n_y}}
+\label{eq:9}
+\end{equation}
+</p>
+
+<p>And \eqref{eq:7} with the inverse Fast Fourier Transform (iFFT):</p>
+<p class="math">
+\begin{equation}
+U\left(x_{s_x},y_{s_y},-\ L\right)=\frac{1}{N_xN_y}\sum_{n_x=\frac{N_x}{2}}^{\frac{N_x}{2}-1}\sum_{n_y=-\frac{N_y}{2}}^{\frac{N_y}{2}-1}{c\left(n_x,n_y\right)e^{ik_zL}e^{i\frac{2\pi n_y}{N_x}s_x}e^{i\frac{2\pi n_y}{N_y}s_y}}
+\label{eq:10}
+\end{equation}
+</p>
+
+<p>where: $k_z =  \sqrt{   ( \frac{2 \pi}{\lambda} )^{2} -  (\frac{\pi n_{x}}{L_{x}} )^{2}  -  (\frac{\pi n_{y}}{L_{y}} )^{2}  }$</p>
+<p>Finally, we get the intensity of the diffraction pattern in the screen plane by multiplying $U$ by its conjugate: </p>
+<p class="math">
+\begin{equation}
+I\left(x,y,-L\right) \propto{\ U}^\ast\left(x,y,-L\right) \cdot U\left(x,y,-L\right)
+\label{eq:11}
+\end{equation}
+</p>
+
+<p>In the Implementation with Python section will translate \eqref{eq:8}, \eqref{eq:9}, \eqref{eq:10} and \eqref{eq:11} in to computer code using Python scientific packages numpy and scipy.</p>
+<h2>Implementation with Python</h2>
+<hr>
+<p>All of the source code of the implementation can be found in its GitHub repository. In this section we are going to show a brief description of it.</p>
+<p>We have defined and created a class named <code>MonochromaticField</code> that will serve as the simulation interface. This class is initialized with the arguments <code>wavelength</code>, <code>extent_x</code>, <code>extent_y</code>, <code>Nx</code>, <code>Ny</code>. 
+<code>extent_x</code>, <code>extent_y</code> are the length and height of the rectangular grid and <code>Nx</code>, <code>Ny</code> the dimension of the grid respectively.</p>
+<p>The class <code>MonochromaticField</code> contains a method called <code>add_aperture_from_image(path, pad = None , Nx = None, Ny = None)</code>
+This method load an image specified as a string with the argument <code>path</code> . The image is supossed to be a greymap and will serve as the amplitude transmittance function $t_{A}(x', y')$ defined in \eqref{eq:8}. White pixels will be loaded as value 1 and black pixels as 0.<br />
+The optional argument <code>pad</code>  add zeros (black color) padded to the edges of each axis.
+If <code>Nx</code> and <code>Ny</code> is specified, the method will interpolate the image to a new specified resolution.</p>
+<p>The image below is an image of a outlined hexagon aperture loaded with <code>add_aperture_from_image</code> method:</p>
+<div style="text-align:center"><img src="./images/angular-spectral-method/outlined-hexagon-diffraction-aperture.png" alt="Outlined Hexagon Diffraction Aperture"/></div>
+
+<p>Finally we can compute the diffraction pattern at a specified distance <code>z</code> with <code>compute_colors_at(z)</code>.<br />
+This method will compute \eqref{eq:9}, \eqref{eq:10} and \eqref{eq:11} making use of the <a href="https://docs.scipy.org/doc/scipy/reference/tutorial/fft.html">FFT algorithm implemented with scipy</a>.<br />
+The method return an array of RGB colors with the same dimension of the aperture, that later can be plotted with <code>plot(self,rgb, figsize=(6,6), xlim = None, ylim = None)</code> making use of the matplotlib library.</p>
+<p>As an example of the methods explained we present here the source code to simulate the diffraction pattern of the above outlined hexagon:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">nm</span> <span class="o">=</span> <span class="mf">1e-9</span>
+<span class="n">mm</span> <span class="o">=</span> <span class="mf">1e-3</span>
+
+<span class="n">Lx</span> <span class="o">=</span> <span class="mf">1.714</span><span class="o">*</span><span class="n">mm</span>
+<span class="n">Ly</span> <span class="o">=</span> <span class="mf">1.714</span><span class="o">*</span><span class="n">mm</span>
+
+<span class="n">Nx</span><span class="o">=</span> <span class="mi">400</span>
+<span class="n">Ny</span><span class="o">=</span> <span class="mi">400</span>
+<span class="n">cf</span><span class="o">.</span><span class="n">clip_method</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">F</span> <span class="o">=</span> <span class="n">MonochromaticField</span><span class="p">(</span><span class="n">wavelength</span> <span class="o">=</span><span class="mf">632.8</span>  <span class="o">*</span><span class="n">nm</span><span class="p">,</span> <span class="n">extent_x</span> <span class="o">=</span> <span class="n">Lx</span> <span class="p">,</span> <span class="n">extent_y</span> <span class="o">=</span> <span class="n">Ly</span><span class="p">,</span> <span class="n">Nx</span><span class="o">=</span> <span class="n">Nx</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span> <span class="n">Ny</span><span class="p">)</span>
+
+<span class="n">F</span><span class="o">.</span><span class="n">add_aperture_from_image</span><span class="p">(</span><span class="s2">&quot;hexagon.jpg&quot;</span><span class="p">,</span> <span class="n">pad</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span> <span class="o">*</span><span class="n">mm</span><span class="p">,</span> <span class="mi">12</span><span class="o">*</span><span class="n">mm</span><span class="p">),</span>  <span class="n">Nx</span> <span class="o">=</span> <span class="mi">1600</span><span class="p">,</span> <span class="n">Ny</span> <span class="o">=</span> <span class="mi">1600</span><span class="p">)</span>
+
+<span class="n">rgb</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">compute_colors_at</span><span class="p">(</span><span class="n">z</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">)</span>
+<span class="n">F</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="n">xlim</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span> <span class="n">ylim</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">])</span>
+</code></pre></div>
+
+
+<p>When this code is ran with different wavelengths, it will return the following diffraction patterns:</p>
+<div style="text-align:center"><img src="./images/angular-spectral-method/diffraction-hexagon.jpg" alt="Hexagon Diffraction"/></div>
+
+<p>As we can see in the plots, the higher the wavelength of the light is, the longer the diffraction pattern is.</p>
+<h2>Polychromatic Light</h2>
+<hr>
+<p>For getting the total field that irradiates on the screen for a broad spectrum, we must compute $U(x, y, -L)$ for each wavelength and integrate it over the entire spectrum. But what we are going to show here is how to compute the colors produced by the diffraction pattern in a way that can be displayed by a computer monitor. This can be achieved using <a href="https://en.wikipedia.org/wiki/CIE_1931_color_space#Color_matching_functions">CIE's color matching functions</a>.<br/> 
+These are three integrals $\hat{x}(\lambda), \hat{y}(\lambda) \text { and } \hat{z}(\lambda)$ that describe the chromatic response of the observer as a function of the wavelength yielding to CIE tristimulus values $X, Y \text { and } Z$:</p>
+<p class="math">
+$$
+\begin{aligned}
+X &=\int_{\lambda} I(\lambda, x, y) \hat{x}(\lambda) d \lambda \\
+Y &=\int_{\lambda} I(\lambda, x, y) \hat{y}(\lambda) d \lambda \\
+Z &=\int_{\lambda} I(\lambda, x, y) \hat{z}(\lambda) d \lambda
+\end{aligned}
+$$
+</p>
+
+<div style="text-align:center"><img src="./images/angular-spectral-method/color-matching-functions.png" alt="Color Matching Functions"/></div>
+
+<p>The tabulated values of these functions can be found here (add link).
+These $X, Y \text { and } Z$ values can be transformed to some RGB space to be displayed. For example, assuming standard sRGB primaries and white point we have the following relation for the RGB values:</p>
+<p class="math">
+$$
+\left[\begin{matrix}R\\G\\B\end{matrix}\right] = \left[\begin{matrix}3.2406 & -1.5372 & -0.4986\\-0.9689 & 1.8758 & 0.0415\\0.0557 & -0.204 & 1.057\end{matrix}\right] \left[\begin{matrix}X\\Y\\Z\end{matrix}\right]
+$$
+</p>
+
+<p>There is one step more to do. Human eye doesn't perceive the color intensity linearly, so this is reason that we apply a gamma correction to the final RGB values:</p>
+<p class="math">
+$$
+RGB_{out} = \begin{cases} 12.92 \cdot RGB_{linear} & \text{for}\: RGB_{linear} \leq 0.00304 \\1.055 \cdot RGB_{linear}^{0.42} - 0.055 & \text{otherwise} \end{cases}
+$$
+</p>
+
+<p>All of these transformations has been implemented colour_functions.py:</p>
 <p>The simulations were done using the <a href="https://en.wikipedia.org/wiki/Finite-difference_time-domain_method">finite-difference time-domain method</a> (<strong>FDTD</strong>) applied to <strong>Maxwell equations</strong>.</p>
 <p>Finally, we comment how the irradiance patterns on the screen $I$ at the microsecond time scale can be approximated using the <a href="https://en.wikipedia.org/wiki/Van_Cittert%E2%80%93Zernike_theorem">Van-Cittert Zernike theorem</a> and <a href="https://en.wikipedia.org/wiki/Fraunhofer_diffraction">Fraunhofer approximation</a>:</p>
 <p class="math">
