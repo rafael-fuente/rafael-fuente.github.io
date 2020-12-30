@@ -245,7 +245,7 @@ This class is initialized with the arguments ```spectrum```, ```extent_x```, ```
 
 ```spectrum``` must be an array with spectral intensity if light sampled on 380-780 nm interval, while the last four arguments are the same ones defined for ```MonochromaticField```
 
-The method ```compute_colors_at(z,spectrum_divisions,grid_divisions)``` now has two new arguments:
+The method ```compute_colors_at``` now has two new arguments:
 ```spectrum_divisions``` is the number of divisionS of the spectrum that will be used for computing the integrals \eqref{eq:12}. A higher value will return to more accurate colors.<br/> 
 ```grid_divisions```  is the number of divisions of the grid that will be used for the computations. Raise this number if your computer doesn't have enough RAM to hold the entire grid array.<br/> 
 

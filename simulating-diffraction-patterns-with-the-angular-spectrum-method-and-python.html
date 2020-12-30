@@ -328,7 +328,7 @@ $$
 <p>For computing diffraction patterns for broad spectrums, we have defined the class <code>PolychromaticField</code> which has an analogous role to <code>MonochromaticField</code> defined before.</p>
 <p>This class is initialized with the arguments <code>spectrum</code>, <code>extent_x</code>, <code>extent_y</code>, <code>Nx</code>, <code>Ny</code>.</p>
 <p><code>spectrum</code> must be an array with spectral intensity if light sampled on 380-780 nm interval, while the last four arguments are the same ones defined for <code>MonochromaticField</code></p>
-<p>The method <code>compute_colors_at(z,spectrum_divisions,grid_divisions)</code> now has two new arguments:
+<p>The method <code>compute_colors_at</code> now has two new arguments:
 <code>spectrum_divisions</code> is the number of divisionS of the spectrum that will be used for computing the integrals \eqref{eq:12}. A higher value will return to more accurate colors.<br/> 
 <code>grid_divisions</code>  is the number of divisions of the grid that will be used for the computations. Raise this number if your computer doesn't have enough RAM to hold the entire grid array.<br/> </p>
 <p>The complete implementation of this class can be found in <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/polychromatic_simulator.py">polychromatic_simulator.py</a></p>
