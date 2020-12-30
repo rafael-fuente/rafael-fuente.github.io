@@ -6,21 +6,21 @@ xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
 <url>
 <loc>https://rafael-fuente.github.io/</loc>
-<lastmod>2020-12-23T02:54:27-00:00</lastmod>
+<lastmod>2020-12-30T04:32:12-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.1</priority>
 </url>
 
 <url>
 <loc>https://rafael-fuente.github.io/pages/about.html</loc>
-<lastmod>2020-12-23T02:54:27-00:00</lastmod>
+<lastmod>2020-12-30T04:32:12-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.01</priority>
 </url>
 
 <url>
-<loc>https://rafael-fuente.github.io/simulating-diffraction-patterns-with-the-angular-spectral-method-and-python.html</loc>
-<lastmod>2020-10-24T23:20:00+02:00</lastmod>
+<loc>https://rafael-fuente.github.io/simulating-diffraction-patterns-with-the-angular-spectrum-method-and-python.html</loc>
+<lastmod>2020-12-30T22:20:00+01:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>1.0</priority>
 </url>

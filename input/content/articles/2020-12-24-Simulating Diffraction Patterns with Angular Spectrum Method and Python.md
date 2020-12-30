@@ -1,20 +1,20 @@
-Title: Simulating Diffraction Patterns with the Angular Spectral Method and Python
-Description: In this project we'll show how to compute the Diffraction Patterns with the Angular Spectral Method and Python.
-Date: 2020-10-24 23:20
+Title: Simulating Diffraction Patterns with the Angular Spectrum Method and Python
+Description: In this project we'll show how to compute the Diffraction Patterns with the Angular Spectrum Method and Python.
+Date: 2020-12-30 22:20
 Author: Rafael de la Fuente
 Tags: Optics, Diffraction, FFT
-Image: https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/visualization-of-the-Van-Cittert-Zernike-theorem.jpg
+Image: https://rafael-fuente.github.io/images/angular-spectral-method/Angular-Spectrum-Method.png
 mathjax3: True
 
 <!-- 16:9 aspect ratio -->
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/5cyzdsd6AOs?vq=hd1440" alt="Simulation of the Double Slit Experiment with Incoherent and Coherent Light" allowfullscreen></iframe>
+<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Ft8CMEooBAE" alt="Simulations of White Light Diffraction Patterns" allowfullscreen></iframe>
 </div>
 
 
 <br /> 
 
-In this project we will show how to numerically compute **Diffraction Patterns** with the **Angular Spectral Method**. We'll implement the method with **Python** and discuss how to simulate them both with monochromatic and polychromatic light like it's shown in the video above.
+In this project we will show how to numerically compute **Diffraction Patterns** with the **Angular Spectrum Method**. We'll implement the method with **Python** and discuss how to simulate them both with monochromatic and polychromatic light like it's shown in the video above.
 
 
 ## The Angular Spectrum
@@ -22,7 +22,7 @@ In this project we will show how to numerically compute **Diffraction Patterns**
 
 In a previous post we have discussed how to solve the Fresnel Integral with a single Fast Fourier Transform (FFT). However although this method is quite simple, it has some drawbacks:<br /> 
 It is limited by the requeriment of a diffrent grid scale than the aperture figure, and by the approximation of the Fresnel and Fraunhofer regimes.<br /> 
-As we will see next, the **The Angular Spectral Method** is free of these problems. It uses the same scale that the aperture figure, and it solves the wave equation exactly.
+As we will see next, the **The Angular Spectrum Method** is free of these problems. It uses the same scale that the aperture figure, and it solves the wave equation exactly.
 
 <div style="text-align:center"><img src="./images/angular-spectral-method/angular-spectral-method-single-slit-diffraction.png" alt="Angular Spectral Method Single Slit Diffraction"/></div>
 <br /> 
@@ -158,51 +158,47 @@ In the Implementation with Python section will translate \eqref{eq:8}, \eqref{eq
 ## Implementation with Python
 ---
 
-All of the source code of the implementation can be found in its GitHub repository. In this section we are going to show a brief description of it.
+All of the source code of the implementation can be found in its [GitHub repository](https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method). In this section we are going to show a brief description of it.
 
 We have defined and created a class named ```MonochromaticField``` that will serve as the simulation interface. This class is initialized with the arguments ```wavelength```, ```extent_x```, ```extent_y```, ```Nx```, ```Ny```. 
 ```extent_x```, ```extent_y``` are the length and height of the rectangular grid and ```Nx```, ```Ny``` the dimension of the grid respectively.
 
 The class ```MonochromaticField``` contains a method called ```add_aperture_from_image(path, pad = None , Nx = None, Ny = None)```
-This method load an image specified as a string with the argument ```path``` . The image is supossed to be a greymap and will serve as the amplitude transmittance function $t_{A}(x', y')$ defined in \eqref{eq:8}. White pixels will be loaded as value 1 and black pixels as 0.<br />
-The optional argument ```pad```  add zeros (black color) padded to the edges of each axis.
+This method load an image specified as a string with the argument ```path``` . The image is supposed to be a greymap and will serve as the amplitude transmittance function $t_{A}(x', y')$ defined in \eqref{eq:8}. White pixels will be loaded as value 1 and black pixels as 0.<br />
+The optional argument ```pad```  add zeros (black color) padded to each axis's edges.
 If ```Nx``` and ```Ny``` is specified, the method will interpolate the image to a new specified resolution.
 
-The image below is an image of a outline hexagon aperture loaded with ```add_aperture_from_image``` method:
+The image below is an image of an outline hexagon aperture loaded with ```add_aperture_from_image``` method:
 
 <div style="text-align:center"><img src="./images/angular-spectral-method/outline-hexagon-diffraction-aperture.png" alt="Outline Hexagon Diffraction Aperture"/></div>
 
-Finally we can compute the diffraction pattern at a specified distance ``z`` with ```compute_colors_at(z)```.<br />
+Finally, we can compute the diffraction pattern at a specified distance ``z`` with ```compute_colors_at(z)```.<br />
 This method will compute \eqref{eq:9}, \eqref{eq:10} and \eqref{eq:11} making use of the [FFT algorithm implemented with scipy](https://docs.scipy.org/doc/scipy/reference/tutorial/fft.html).<br />
 The method return an array of RGB colors with the same dimension of the aperture, that later can be plotted with ```plot(self,rgb, figsize=(6,6), xlim = None, ylim = None)``` making use of the matplotlib library.
 
-As an example of the methods explained we present here the source code to simulate the diffraction pattern of the above outline hexagon:
+As an example of the methods explained, we present here the source code to simulate the diffraction pattern of the above outline hexagon:
 
-
+<figure class='code'>
+<figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/examples/hexagon_monochromatic.py'>hexagon_monochromatic.py</a></figcaption>
+</figure>
 	from monochromatic_simulator import *
 	import numpy as np
 
 	nm = 1e-9
 	mm = 1e-3
 
-	Lx = 1.714*mm
-	Ly = 1.714*mm
+	F = MonochromaticField(wavelength =632.8 *nm, extent_x = 5.6*mm , extent_y = 5.6*mm, Nx= 500, Ny= 500)
 
-	Nx= 400
-	Ny= 400
-	cf.clip_method = 0
-	F = MonochromaticField(wavelength =632.8  *nm, extent_x = Lx , extent_y = Ly, Nx= Nx, Ny= Ny)
+	F.add_aperture_from_image("hexagon.jpg", pad = (10 *mm, 10*mm),  Nx = 1400, Ny = 1400)
 
-	F.add_aperture_from_image("hexagon.jpg", pad = (12 *mm, 12*mm),  Nx = 1600, Ny = 1600)
-
-	rgb = F.compute_colors_at(z = 1.5)
+	rgb = F.compute_colors_at(z = 0.8)
 	F.plot(rgb, figsize=(8,8), xlim = [-7,7], ylim = [-7,7])
 
-When this code is ran with different wavelengths, it will return the following diffraction patterns:
+When this script is run with different wavelengths, it will return the following diffraction patterns:
 
 <div style="text-align:center"><img src="./images/angular-spectral-method/diffraction-hexagon.jpg" alt="Hexagon Diffraction"/></div>
 
-As we can see in the plots, the higher the wavelength of the light is, the longer the diffraction pattern is.
+As we can see in the plots, the higher the light's wavelength, the longer the diffraction pattern is.
 
 ## Polychromatic Light
 ---
@@ -211,19 +207,20 @@ For getting the total field that irradiates on the screen for a broad spectrum, 
 These are three integrals $\hat{x}(\lambda), \hat{y}(\lambda) \text { and } \hat{z}(\lambda)$ that describe the chromatic response of the observer as a function of the wavelength yielding to CIE tristimulus values $X, Y \text { and } Z$:
 
 <p class="math">
-$$
+\begin{equation}
 \begin{aligned}
 X &=\int_{\lambda} I(\lambda, x, y) \hat{x}(\lambda) d \lambda \\
 Y &=\int_{\lambda} I(\lambda, x, y) \hat{y}(\lambda) d \lambda \\
 Z &=\int_{\lambda} I(\lambda, x, y) \hat{z}(\lambda) d \lambda
 \end{aligned}
-$$
+\label{eq:12}
+\end{equation}
 </p>
 
 <div style="text-align:center"><img src="./images/angular-spectral-method/color-matching-functions.png" alt="Color Matching Functions"/></div>
 
-The tabulated values of these functions can be found here (add link).
-These $X, Y \text { and } Z$ values can be transformed to some RGB space to be displayed. For example, assuming standard sRGB primaries and white point we have the following relation for the RGB values:
+The tabulated values of these functions can be found in [cie-cmf.txt](https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/cie-cmf.txt).
+The $X, Y \text { and } Z$ values can be transformed to some RGB space to be displayed. For example, assuming standard sRGB primaries and white point we have the following relation for the RGB values:
 
 <p class="math">
 $$
@@ -231,7 +228,7 @@ $$
 $$
 </p>
 
-There is one step more to do. Human eye doesn't perceive the color intensity linearly, so this is reason that we apply a gamma correction to the final RGB values:
+There is one step more to do. The human eye doesn't perceive the color intensity linearly, so this is the reason that we apply a gamma correction to the final RGB values:
 
 <p class="math">
 $$
@@ -240,82 +237,55 @@ $$
 </p>
 
 
-All of these transformations has been implemented colour_functions.py:
+All of the transformations described has been implemented in [colour_functions.py](https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/colour_functions.py):
 
-The simulations were done using the [finite-difference time-domain method](https://en.wikipedia.org/wiki/Finite-difference_time-domain_method) (**FDTD**) applied to **Maxwell equations**.
+For computing diffraction patterns for broad spectrums, we have defined the class ```PolychromaticField``` which has an analogous role to ```MonochromaticField``` defined before.
 
+This class is initialized with the arguments ```spectrum```, ```extent_x```, ```extent_y```, ```Nx```, ```Ny```.
 
-Finally, we comment how the irradiance patterns on the screen $I$ at the microsecond time scale can be approximated using the [Van-Cittert Zernike theorem](https://en.wikipedia.org/wiki/Van_Cittert%E2%80%93Zernike_theorem) and [Fraunhofer approximation](https://en.wikipedia.org/wiki/Fraunhofer_diffraction):
+```spectrum``` must be an array with spectral intensity if light sampled on 380-780 nm interval, while the last four arguments are the same ones defined for ```MonochromaticField```
 
-<p class="math">
-\begin{equation}
-I ∝ \operatorname {sinc}^2{\left( \frac{𝜋 a x}{z \lambda}\right)} \left( 1 + \gamma  \cos{\left(\frac{2𝜋D}{z\lambda}  x\right)}\right) \label{eq:2}
-\end{equation}
-</p>
+The method ```compute_colors_at(z,spectrum_divisions,grid_divisions)``` now has two new arguments:
+```spectrum_divisions``` is the number of divisionS of the spectrum that will be used for computing the integrals \eqref{eq:12}. A higher value will return to more accurate colors.<br/> 
+```grid_divisions```  is the number of divisions of the grid that will be used for the computations. Raise this number if your computer doesn't have enough RAM to hold the entire grid array.<br/> 
 
+The complete implementation of this class can be found in [polychromatic_simulator.py](https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/polychromatic_simulator.py)
 
-where:
+Now we are going to give an example of how to use this class. We are going to use the outline hexagon aperture from the previous example, but this time using a **white light** spectrum. This can be achieved using the [Illuminant D65](https://en.wikipedia.org/wiki/Illuminant_D65) whose sample list can be found in [illuminant_d65.txt](https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/illuminant_d65.txt).
 
-<p class="math">
-$$D = \text{ distance between the slits}$$
+<figure class='code'>
+<figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/examples/hexagon_monochromatic.py'>hexagon_polychromatic.py</a></figcaption>
+</figure>
 
-$$a = \text{ slits width}$$
+	from polychromatic_simulator import *
+	import numpy as np
 
-$$\gamma = \text{ degree of spatial coherence}$$  
+	nm = 1e-9
+	mm = 1e-3
 
-$$M = \text{ width of the light source}$$
+    F = PolychromaticField(spectrum = 2*cf.illuminant_d65, extent_x = 5.6*mm , extent_y = 5.6*mm, Nx= 500, Ny= 500)
 
-$$z = \text{ distance from the screen to the double slit}$$
+	F.add_aperture_from_image("hexagon.jpg", pad = (10 *mm, 10*mm),  Nx = 1400, Ny = 1400)
 
-$$L = \text{ distance from the light source to the double slit}$$
-</p>
+	rgb = F.compute_colors_at(z = 0.8, spectrum_divisions = 40,grid_divisions = 10)
+	F.plot(rgb, figsize=(8,8), xlim = [-7,7], ylim = [-7,7])
 
-As Van-Cittert Zernike theorem states, $\gamma$ can be computed taking the Fourier Transform of the intensity distribution of the light source as follows:
+This script returns the following plot:
 
-<p class="math">
-\begin{equation}
-  \gamma = \frac{\int\nolimits_{-\infty}^{\infty}  I(x') e^{i \frac{2 \pi D}{\lambda L} x'} dx'}{\int\nolimits_{-\infty}^{\infty} I(x')  dx'} \label{eq:3}
-\end{equation}
-</p>
-
-Using an uniform intensity distribution $I_0$ and a width of the light source of $M$:
-
-<p class="math">
-$$
-\begin{gathered}
-I(x') = \begin{cases}
- I_0 & \text{ if } x' < \left|\frac{M}{2}\right| \newline
- 0 & \text{ if } x' > \left|\frac{M}{2}\right| \newline 
-\end{cases}
-\end{gathered}
-$$
-</p>
-
-And computing the integrals \eqref{eq:3} we finally get the degree of spatial coherence:
-
-<p class="math">
-\begin{equation}
-\gamma = \operatorname {sinc}{\left(\frac{𝜋 D M}{L \lambda}\right)} \label{eq:4}
-\end{equation}
-</p>
-
-Although \eqref{eq:2} doesn't produce exact results for the scale of these simulations, you can use it for qualitative predictions. When $\gamma = 1$ the fringes are perfectly visible, and when $\gamma = 0$ they cannot be seen. The further you place the light source from the double slit, the closer the coherence degree will be of $1$ .
-
-To illustrate the equation \eqref{eq:2} we have plotted it for different degrees of coherence:
-
-<div style="text-align:center"><img src="./images/incoherent-double-slit-simulations/Van-Cittert-Zernike-Theorem-coherence.png" alt="Van Cittert-Zernike theorem coherence"/></div>
-<br /> 
+<div style="text-align:center"><img src="./images/angular-spectral-method/diffraction-hexagon-white-light.jpg" alt="Hexagon Diffraction with White Light"/></div>
 
 
-
-This experiment is important because it's usually the easiest to set up to measure the degree of coherence of a light source. For an experimental discussion see for example [[2]](#references). I hope these simulations have helped you to visualize how it really works.
-
-## Bibliography
+## Final discussion
 ---
 
-<div class="references" id="references"></div>
+The source code uploaded allows simulating arbitrary diffraction patterns with only 8 lines of code, making its possible study easier.
 
-[1] Goodman J W Statistical Optics sec. 5.1<br /> 
+<div style="text-align:center"><img src="./images/angular-spectral-method/diffraction-rectangular-grating-white-light-near-field.jpg" alt="Rectangilar Grating Diffraction with White Light near field"/></div>
 
-[2] Brett J. Pearson, Natalie Ferris, Ruthie Strauss, Hongyi Li, and David P. Jackson, "Measurements of slit-width effects in Young’s double-slit experiment for a partially-coherent source," OSA Continuum 1, 755-763 (2018)
+
+A remarkable characteristic observed is how much the diffraction patterns change with increasing the screen distance or decreasing the aperture size.
+For example, let's take a look at the rectangular grating aperture showed in the image below.
+
+<div style="text-align:center"><img src="./images/angular-spectral-method/diffraction-rectangular-grating-white-light.jpg" alt="Rectangilar Grating Diffraction with White Light"/></div>
+
 
