@@ -20,7 +20,7 @@ In this project we will show how to numerically compute **Diffraction Patterns**
 ## The Angular Spectrum
 ---
 
-In a previous post we have discussed how to solve the Fresnel Integral with a single Fast Fourier Transform (FFT). However although this method is quite simple, it has some drawbacks:<br /> 
+In a [previous post](https://rafael-fuente.github.io/solving-the-diffraction-integral-with-the-fast-fourier-transform-fft-and-python.html) we have discussed how to solve the Fresnel Integral with a single Fast Fourier Transform (FFT). However although this method is quite simple, it has some drawbacks:<br /> 
 It is limited by the requeriment of a diffrent grid scale than the aperture figure, and by the approximation of the Fresnel and Fraunhofer regimes.<br /> 
 As we will see next, the **The Angular Spectrum Method** is free of these problems. It uses the same scale that the aperture figure, and it solves the wave equation exactly.
 

@@ -1,0 +1,27 @@
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/angular-spectral-method-single-slit-diffraction.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/diffraction-hexagon.jpg</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/color-matching-functions.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/diffraction-hexagon-white-light.jpg</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/diffraction-rectangular-grating-white-light-near-field.jpg</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/diffraction-rectangular-grating-white-light.jpg</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/Angular-Spectrum-Method.png</image:loc>
+    </image:image>
