@@ -125,7 +125,7 @@ To perform the required computations, the following scripts were written in the 
 First we have defined and created a class named ```Sheet``` that contains the variables $L_{y} , L_{x}, N_{x}, N_{y}, x_{n_{x}}^{\prime}, y_{n_{y}}^{\prime} $ and an array of points named ```f```,  with a value of $1$ in the case that the point of the slit  represents a slit  $(x_{n_{x}}^{\prime} , y_{n_{y}}^{\prime}) \in S' $ and $0$  otherwise. 
 
 <figure class='code'>
-<figcaption><span>Source Code</span> <a href='/downloads/code/fft-diffraction-integral/fft_double_slit.py'>download</a></figcaption>
+<figcaption><span>Source Code</span> <a href='/downloads/code/fft_diffraction_integral/fft_double_slit.py'>download</a></figcaption>
 </figure>
 	import numpy as np
 

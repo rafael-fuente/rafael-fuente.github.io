@@ -270,7 +270,7 @@ This method will compute \eqref{eq:9}, \eqref{eq:10} and \eqref{eq:11} making us
 The method return an array of RGB colors with the same dimension of the aperture, that later can be plotted with <code>plot(self,rgb, figsize=(6,6), xlim = None, ylim = None)</code> making use of the matplotlib library.</p>
 <p>As an example of the methods explained, we present here the source code to simulate the diffraction pattern of the above outline hexagon:</p>
 <figure class='code'>
-<figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/examples/hexagon_monochromatic.py'>hexagon_monochromatic.py</a></figcaption>
+<figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/hexagon_monochromatic.py'>hexagon_monochromatic.py</a></figcaption>
 </figure>
 
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">monochromatic_simulator</span> <span class="kn">import</span> <span class="o">*</span>
@@ -334,7 +334,7 @@ $$
 <p>The complete implementation of this class can be found in <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/polychromatic_simulator.py">polychromatic_simulator.py</a></p>
 <p>Now we are going to give an example of how to use this class. We are going to use the outline hexagon aperture from the previous example, but this time using a <strong>white light</strong> spectrum. This can be achieved using the <a href="https://en.wikipedia.org/wiki/Illuminant_D65">Illuminant D65</a> whose sample list can be found in <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/illuminant_d65.txt">illuminant_d65.txt</a>.</p>
 <figure class='code'>
-<figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/examples/hexagon_monochromatic.py'>hexagon_polychromatic.py</a></figcaption>
+<figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/hexagon_monochromatic.py'>hexagon_polychromatic.py</a></figcaption>
 </figure>
 
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">polychromatic_simulator</span> <span class="kn">import</span> <span class="o">*</span>

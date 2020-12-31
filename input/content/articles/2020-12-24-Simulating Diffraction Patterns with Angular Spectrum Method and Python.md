@@ -179,7 +179,7 @@ The method return an array of RGB colors with the same dimension of the aperture
 As an example of the methods explained, we present here the source code to simulate the diffraction pattern of the above outline hexagon:
 
 <figure class='code'>
-<figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/examples/hexagon_monochromatic.py'>hexagon_monochromatic.py</a></figcaption>
+<figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/hexagon_monochromatic.py'>hexagon_monochromatic.py</a></figcaption>
 </figure>
 	from monochromatic_simulator import *
 	import numpy as np
@@ -254,7 +254,7 @@ The complete implementation of this class can be found in [polychromatic_simulat
 Now we are going to give an example of how to use this class. We are going to use the outline hexagon aperture from the previous example, but this time using a **white light** spectrum. This can be achieved using the [Illuminant D65](https://en.wikipedia.org/wiki/Illuminant_D65) whose sample list can be found in [illuminant_d65.txt](https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/illuminant_d65.txt).
 
 <figure class='code'>
-<figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/examples/hexagon_monochromatic.py'>hexagon_polychromatic.py</a></figcaption>
+<figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/hexagon_monochromatic.py'>hexagon_polychromatic.py</a></figcaption>
 </figure>
 
 	from polychromatic_simulator import *
