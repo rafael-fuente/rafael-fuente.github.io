@@ -273,16 +273,14 @@ The method return an array of RGB colors with the same dimension of the aperture
 <figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/hexagon_monochromatic.py'>hexagon_monochromatic.py</a></figcaption>
 </figure>
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">simulator</span> <span class="kn">import</span> <span class="n">MonochromaticField</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">nm</span><span class="p">,</span> <span class="n">cm</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">diffsim</span> <span class="kn">import</span> <span class="n">MonochromaticField</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">nm</span><span class="p">,</span> <span class="n">cm</span>
 
 <span class="n">F</span> <span class="o">=</span> <span class="n">MonochromaticField</span><span class="p">(</span>
     <span class="n">wavelength</span><span class="o">=</span><span class="mf">632.8</span> <span class="o">*</span> <span class="n">nm</span><span class="p">,</span> <span class="n">extent_x</span><span class="o">=</span><span class="mf">5.6</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">extent_y</span><span class="o">=</span><span class="mf">5.6</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">Nx</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span><span class="mi">500</span>
 <span class="p">)</span>
 
 <span class="n">F</span><span class="o">.</span><span class="n">add_aperture_from_image</span><span class="p">(</span>
-    <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;./apertures/hexagon.jpg&quot;</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">mm</span><span class="p">),</span> <span class="n">Nx</span><span class="o">=</span><span class="mi">1400</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span><span class="mi">1400</span>
+    <span class="s2">&quot;./apertures/hexagon.jpg&quot;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">mm</span><span class="p">),</span> <span class="n">Nx</span><span class="o">=</span><span class="mi">1400</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span><span class="mi">1400</span>
 <span class="p">)</span>
 
 <span class="n">rgb</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">compute_colors_at</span><span class="p">(</span><span class="mi">80</span><span class="o">*</span><span class="n">cm</span><span class="p">)</span>
@@ -311,7 +309,7 @@ Z &=\int_{\lambda} I(\lambda, x, y) \hat{z}(\lambda) d \lambda
 
 <div style="text-align:center"><img src="./images/angular-spectral-method/color-matching-functions.png" alt="Color Matching Functions"/></div>
 
-<p>The tabulated values of these functions can be found in <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/cie-cmf.txt">cie-cmf.txt</a>.
+<p>The tabulated values of these functions can be found in <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/diffsim/data/cie-cmf.txt">cie-cmf.txt</a>.
 The $X, Y \text { and } Z$ values can be transformed to some RGB space to be displayed. For example, assuming standard sRGB primaries and white point we have the following relation for the RGB values:</p>
 <p class="math">
 $$
@@ -326,21 +324,20 @@ RGB_{out} = \begin{cases} 12.92 \cdot RGB_{linear} & \text{for}\: RGB_{linear} \
 $$
 </p>
 
-<p>All of the transformations described has been implemented in <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/simulator/colour_functions.py">colour_functions.py</a>:</p>
+<p>All of the transformations described has been implemented in <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/diffsim/colour_functions.py">colour_functions.py</a>:</p>
 <p>For computing diffraction patterns for broad spectrums, we have defined the class <code>PolychromaticField</code> which has an analogous role to <code>MonochromaticField</code> defined before.</p>
 <p>This class is initialized with the arguments <code>spectrum</code>, <code>extent_x</code>, <code>extent_y</code>, <code>Nx</code>, <code>Ny</code>.</p>
 <p><code>spectrum</code> must be an array with spectral intensity if light sampled on 380-780 nm interval, while the last four arguments are the same ones defined for <code>MonochromaticField</code></p>
 <p>The method <code>compute_colors_at</code> now has two new arguments:
 <code>spectrum_divisions</code> is the number of divisionS of the spectrum that will be used for computing the integrals \eqref{eq:12}. A higher value will return to more accurate colors.<br/> 
 <code>grid_divisions</code>  is the number of divisions of the grid that will be used for the computations. Raise this number if your computer doesn't have enough RAM to hold the entire grid array.<br/> </p>
-<p>The complete implementation of this class can be found in <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/simulator/polychromatic_simulator.py">polychromatic_simulator.py</a></p>
-<p>Now we are going to give an example of how to use this class. We are going to use the outline hexagon aperture from the previous example, but this time using a <strong>white light</strong> spectrum. This can be achieved using the <a href="https://en.wikipedia.org/wiki/Illuminant_D65">Illuminant D65</a> whose sample list can be found in <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/illuminant_d65.txt">illuminant_d65.txt</a>.</p>
+<p>The complete implementation of this class can be found in <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/diffsim/polychromatic_simulator.py">polychromatic_simulator.py</a></p>
+<p>Now we are going to give an example of how to use this class. We are going to use the outline hexagon aperture from the previous example, but this time using a <strong>white light</strong> spectrum. This can be achieved using the <a href="https://en.wikipedia.org/wiki/Illuminant_D65">Illuminant D65</a> whose sample list can be found in <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/diffsim/data/illuminant_d65.txt">illuminant_d65.txt</a>.</p>
 <figure class='code'>
 <figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/hexagon_monochromatic.py'>hexagon_polychromatic.py</a></figcaption>
 </figure>
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">simulator</span> <span class="kn">import</span> <span class="n">PolychromaticField</span><span class="p">,</span> <span class="n">cf</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">cm</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">diffsim</span> <span class="kn">import</span> <span class="n">PolychromaticField</span><span class="p">,</span> <span class="n">cf</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">cm</span>
 
 
 <span class="n">F</span> <span class="o">=</span> <span class="n">PolychromaticField</span><span class="p">(</span>
@@ -348,7 +345,7 @@ $$
 <span class="p">)</span>
 
 <span class="n">F</span><span class="o">.</span><span class="n">add_aperture_from_image</span><span class="p">(</span>
-    <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;./apertures/hexagon.jpg&quot;</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">mm</span><span class="p">),</span> <span class="n">Nx</span><span class="o">=</span><span class="mi">1400</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span><span class="mi">1400</span>
+    <span class="s2">&quot;./apertures/hexagon.jpg&quot;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">mm</span><span class="p">),</span> <span class="n">Nx</span><span class="o">=</span><span class="mi">1400</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span><span class="mi">1400</span>
 <span class="p">)</span>
 
 <span class="n">rgb</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">compute_colors_at</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">80</span><span class="o">*</span><span class="n">cm</span><span class="p">,</span> <span class="n">spectrum_divisions</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">grid_divisions</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>

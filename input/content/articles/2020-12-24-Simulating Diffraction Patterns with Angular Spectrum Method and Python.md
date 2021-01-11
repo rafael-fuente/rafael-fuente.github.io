@@ -181,16 +181,14 @@ As an example of the methods explained, we present here the source code to simul
 <figure class='code'>
 <figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/hexagon_monochromatic.py'>hexagon_monochromatic.py</a></figcaption>
 </figure>
-	from simulator import MonochromaticField, mm, nm, cm
-	from pathlib import Path
-
+	from diffsim import MonochromaticField, mm, nm, cm
 
 	F = MonochromaticField(
 	    wavelength=632.8 * nm, extent_x=5.6 * mm, extent_y=5.6 * mm, Nx=500, Ny=500
 	)
 
 	F.add_aperture_from_image(
-	    Path("./apertures/hexagon.jpg"), pad=(10 * mm, 10 * mm), Nx=1400, Ny=1400
+	    "./apertures/hexagon.jpg", pad=(10 * mm, 10 * mm), Nx=1400, Ny=1400
 	)
 
 	rgb = F.compute_colors_at(80*cm)
@@ -221,7 +219,7 @@ Z &=\int_{\lambda} I(\lambda, x, y) \hat{z}(\lambda) d \lambda
 
 <div style="text-align:center"><img src="./images/angular-spectral-method/color-matching-functions.png" alt="Color Matching Functions"/></div>
 
-The tabulated values of these functions can be found in [cie-cmf.txt](https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/cie-cmf.txt).
+The tabulated values of these functions can be found in [cie-cmf.txt](https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/diffsim/data/cie-cmf.txt).
 The $X, Y \text { and } Z$ values can be transformed to some RGB space to be displayed. For example, assuming standard sRGB primaries and white point we have the following relation for the RGB values:
 
 <p class="math">
@@ -239,7 +237,7 @@ $$
 </p>
 
 
-All of the transformations described has been implemented in [colour_functions.py](https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/simulator/colour_functions.py):
+All of the transformations described has been implemented in [colour_functions.py](https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/diffsim/colour_functions.py):
 
 For computing diffraction patterns for broad spectrums, we have defined the class ```PolychromaticField``` which has an analogous role to ```MonochromaticField``` defined before.
 
@@ -251,16 +249,15 @@ The method ```compute_colors_at``` now has two new arguments:
 ```spectrum_divisions``` is the number of divisionS of the spectrum that will be used for computing the integrals \eqref{eq:12}. A higher value will return to more accurate colors.<br/> 
 ```grid_divisions```  is the number of divisions of the grid that will be used for the computations. Raise this number if your computer doesn't have enough RAM to hold the entire grid array.<br/> 
 
-The complete implementation of this class can be found in [polychromatic_simulator.py](https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/simulator/polychromatic_simulator.py)
+The complete implementation of this class can be found in [polychromatic_simulator.py](https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/diffsim/polychromatic_simulator.py)
 
-Now we are going to give an example of how to use this class. We are going to use the outline hexagon aperture from the previous example, but this time using a **white light** spectrum. This can be achieved using the [Illuminant D65](https://en.wikipedia.org/wiki/Illuminant_D65) whose sample list can be found in [illuminant_d65.txt](https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/illuminant_d65.txt).
+Now we are going to give an example of how to use this class. We are going to use the outline hexagon aperture from the previous example, but this time using a **white light** spectrum. This can be achieved using the [Illuminant D65](https://en.wikipedia.org/wiki/Illuminant_D65) whose sample list can be found in [illuminant_d65.txt](https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/diffsim/data/illuminant_d65.txt).
 
 <figure class='code'>
 <figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/hexagon_monochromatic.py'>hexagon_polychromatic.py</a></figcaption>
 </figure>
 
-	from simulator import PolychromaticField, cf, mm, cm
-	from pathlib import Path
+	from diffsim import PolychromaticField, cf, mm, cm
 
 
 	F = PolychromaticField(
@@ -268,7 +265,7 @@ Now we are going to give an example of how to use this class. We are going to us
 	)
 
 	F.add_aperture_from_image(
-	    Path("./apertures/hexagon.jpg"), pad=(10 * mm, 10 * mm), Nx=1400, Ny=1400
+	    "./apertures/hexagon.jpg", pad=(10 * mm, 10 * mm), Nx=1400, Ny=1400
 	)
 
 	rgb = F.compute_colors_at(z=80*cm, spectrum_divisions=40, grid_divisions=10)
