@@ -181,7 +181,7 @@ As an example of the methods explained, we present here the source code to simul
 <figure class='code'>
 <figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/hexagon_monochromatic.py'>hexagon_monochromatic.py</a></figcaption>
 </figure>
-	from diffsim import MonochromaticField, mm, nm, cm
+	from diffractsim import MonochromaticField, mm, nm, cm
 
 	F = MonochromaticField(
 	    wavelength=632.8 * nm, extent_x=5.6 * mm, extent_y=5.6 * mm, Nx=500, Ny=500
@@ -257,7 +257,7 @@ Now we are going to give an example of how to use this class. We are going to us
 <figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/hexagon_monochromatic.py'>hexagon_polychromatic.py</a></figcaption>
 </figure>
 
-	from diffsim import PolychromaticField, cf, mm, cm
+	from diffractsim import PolychromaticField, cf, mm, cm
 
 
 	F = PolychromaticField(

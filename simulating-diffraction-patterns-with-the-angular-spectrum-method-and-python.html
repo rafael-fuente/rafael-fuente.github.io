@@ -273,7 +273,7 @@ The method return an array of RGB colors with the same dimension of the aperture
 <figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/hexagon_monochromatic.py'>hexagon_monochromatic.py</a></figcaption>
 </figure>
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">diffsim</span> <span class="kn">import</span> <span class="n">MonochromaticField</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">nm</span><span class="p">,</span> <span class="n">cm</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">diffractsim</span> <span class="kn">import</span> <span class="n">MonochromaticField</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">nm</span><span class="p">,</span> <span class="n">cm</span>
 
 <span class="n">F</span> <span class="o">=</span> <span class="n">MonochromaticField</span><span class="p">(</span>
     <span class="n">wavelength</span><span class="o">=</span><span class="mf">632.8</span> <span class="o">*</span> <span class="n">nm</span><span class="p">,</span> <span class="n">extent_x</span><span class="o">=</span><span class="mf">5.6</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">extent_y</span><span class="o">=</span><span class="mf">5.6</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">Nx</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span><span class="mi">500</span>
@@ -337,7 +337,7 @@ $$
 <figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/hexagon_monochromatic.py'>hexagon_polychromatic.py</a></figcaption>
 </figure>
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">diffsim</span> <span class="kn">import</span> <span class="n">PolychromaticField</span><span class="p">,</span> <span class="n">cf</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">cm</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">diffractsim</span> <span class="kn">import</span> <span class="n">PolychromaticField</span><span class="p">,</span> <span class="n">cf</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">cm</span>
 
 
 <span class="n">F</span> <span class="o">=</span> <span class="n">PolychromaticField</span><span class="p">(</span>
