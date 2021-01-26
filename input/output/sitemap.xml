@@ -6,14 +6,14 @@ xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
 <url>
 <loc>https://rafael-fuente.github.io/</loc>
-<lastmod>2021-01-14T18:10:35-00:00</lastmod>
+<lastmod>2021-01-26T17:20:14-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.1</priority>
 </url>
 
 <url>
 <loc>https://rafael-fuente.github.io/pages/about.html</loc>
-<lastmod>2021-01-14T18:10:35-00:00</lastmod>
+<lastmod>2021-01-26T17:20:14-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.01</priority>
 </url>
@@ -23,33 +23,6 @@ xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 <lastmod>2020-12-30T22:20:00+01:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/angular-spectral-method-single-slit-diffraction.png</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/diffraction-hexagon.jpg</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/color-matching-functions.png</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/diffraction-hexagon-white-light.jpg</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/diffraction-rectangular-grating-white-light-near-field.jpg</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/diffraction-rectangular-grating-white-light.jpg</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/Angular-Spectrum-Method.png</image:loc>
-    </image:image>
     <image:image>
       <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/angular-spectral-method-single-slit-diffraction.png</image:loc>
     </image:image>
@@ -116,38 +89,6 @@ xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
       <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/visualization-of-the-Van-Cittert-Zernike-theorem.jpg</image:loc>
       <image:title>Visualization of the Van-Cittert Zernike theorem</image:title>
     </image:image>
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-femtoseconds.jpg</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-microseconds.jpg</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-picoseconds.jpg</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-femtoseconds.gif</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-microseconds.gif</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-picoseconds.gif</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/Van-Cittert-Zernike-Theorem-coherence.png</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/visualization-of-the-Van-Cittert-Zernike-theorem.jpg</image:loc>
-      <image:title>Visualization of the Van-Cittert Zernike theorem</image:title>
-    </image:image>
 </url>
 
 <url>
@@ -155,17 +96,6 @@ xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 <lastmod>2020-10-18T18:50:00+02:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-single-slit-diffraction.png</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-double-slit-diffraction.png</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-double-slit-small-fringes.png</image:loc>
-    </image:image>
     <image:image>
       <image:loc>https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-single-slit-diffraction.png</image:loc>
     </image:image>
