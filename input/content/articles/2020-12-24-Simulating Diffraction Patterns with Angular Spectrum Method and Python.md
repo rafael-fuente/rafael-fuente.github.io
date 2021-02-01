@@ -28,7 +28,9 @@ As we will see next, the **The Angular Spectrum Method** is free of these proble
 <br /> 
 
 Suppose that a monochromatic wave is incident on a transverse $(x', y')$ plane traveling with a component of propagation in the negative $z$ direction. Let the complex field across that $z = 0$ plane (Diffraction Sheet) be represented by:
+<p class="math">
 $$u(x', y', 0; t) = U(x', y', 0) e^{-\omega t i}$$
+</p>
 Our ultimate objective is to calculate the resulting field $U(x, y, -L)$ that appears
 across a second, parallel plane (Screen) a distance $L$ to the right of the first plane. 
 
@@ -142,7 +144,12 @@ U\left(x_{s_x},y_{s_y},-\ L\right)=\frac{1}{N_xN_y}\sum_{n_x=\frac{N_x}{2}}^{\fr
 \end{equation}
 </p>
 
-where: $k_z =  \sqrt{   \( \frac{2 \pi}{\lambda} \)^{2} -  \(\frac{\pi n_{x}}{L_{x}} \)^{2}  -  \(\frac{\pi n_{y}}{L_{y}} \)^{2}  }$
+where: 
+<p class="math">
+$$
+k_z =  \sqrt{   \left( \frac{2 \pi}{\lambda} \right)^{2} -  \left(\frac{\pi n_{x}}{L_{x}} \right)^{2}  -  \left(\frac{\pi n_{y}}{L_{y}} \right)^{2}  }
+$$
+</p>
 
 Finally, we get the intensity of the diffraction pattern in the screen plane by multiplying $U$ by its conjugate: 
 
