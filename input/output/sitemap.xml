@@ -1,112 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
-xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
-xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
-<loc>https://rafael-fuente.github.io/</loc>
-<lastmod>2021-02-01T01:17:20-00:00</lastmod>
+<loc>/</loc>
+<lastmod>2021-04-07T03:41:09-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.1</priority>
 </url>
 
 <url>
-<loc>https://rafael-fuente.github.io/pages/about.html</loc>
-<lastmod>2021-02-01T01:17:20-00:00</lastmod>
+<loc>/pages/about.html</loc>
+<lastmod>2021-04-07T03:41:09-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.01</priority>
 </url>
 
 <url>
-<loc>https://rafael-fuente.github.io/simulating-diffraction-patterns-with-the-angular-spectrum-method-and-python.html</loc>
+<loc>/simulating-diffraction-patterns-with-the-angular-spectrum-method-and-python.html</loc>
 <lastmod>2020-12-30T22:20:00+01:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/angular-spectral-method-single-slit-diffraction.png</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/diffraction-hexagon.jpg</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/color-matching-functions.png</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/diffraction-hexagon-white-light.jpg</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/diffraction-rectangular-grating-white-light-near-field.jpg</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/diffraction-rectangular-grating-white-light.jpg</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/Angular-Spectrum-Method.png</image:loc>
-    </image:image>
 </url>
 
 <url>
-<loc>https://rafael-fuente.github.io/visual-explanation-of-the-van-cittert-zernike-theorem-the-double-slit-experiment-with-incoherent-and-coherent-light.html</loc>
+<loc>/visual-explanation-of-the-van-cittert-zernike-theorem-the-double-slit-experiment-with-incoherent-and-coherent-light.html</loc>
 <lastmod>2020-10-24T23:20:00+02:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-femtoseconds.jpg</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-microseconds.jpg</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-picoseconds.jpg</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-femtoseconds.gif</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-microseconds.gif</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-picoseconds.gif</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/Van-Cittert-Zernike-Theorem-coherence.png</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/visualization-of-the-Van-Cittert-Zernike-theorem.jpg</image:loc>
-      <image:title>Visualization of the Van-Cittert Zernike theorem</image:title>
-    </image:image>
 </url>
 
 <url>
-<loc>https://rafael-fuente.github.io/solving-the-diffraction-integral-with-the-fast-fourier-transform-fft-and-python.html</loc>
+<loc>/solving-the-diffraction-integral-with-the-fast-fourier-transform-fft-and-python.html</loc>
 <lastmod>2020-10-18T18:50:00+02:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-single-slit-diffraction.png</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-double-slit-diffraction.png</image:loc>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-double-slit-small-fringes.png</image:loc>
-    </image:image>
 </url>
 
 </urlset>

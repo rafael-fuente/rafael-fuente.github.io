@@ -131,7 +131,6 @@
 
         <div class="article_content">
             <!-- 16:9 aspect ratio -->
-
 <div class="embed-responsive embed-responsive-16by9">
 <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Ft8CMEooBAE" alt="Simulations of White Light Diffraction Patterns" allowfullscreen></iframe>
 </div>
@@ -144,13 +143,12 @@
 It is limited by the requeriment of a diffrent grid scale than the aperture figure, and by the approximation of the Fresnel and Fraunhofer regimes.<br /> 
 As we will see next, the <strong>The Angular Spectrum Method</strong> is free of these problems. It uses the same scale that the aperture figure, and it solves the wave equation exactly.</p>
 <div style="text-align:center"><img src="./images/angular-spectral-method/angular-spectral-method-single-slit-diffraction.png" alt="Angular Spectral Method Single Slit Diffraction"/></div>
-
 <p><br /> </p>
-<p>Suppose that a monochromatic wave is incident on a transverse $(x', y')$ plane traveling with a component of propagation in the negative $z$ direction. Let the complex field across that $z = 0$ plane (Diffraction Sheet) be represented by:
+<p>Suppose that a monochromatic wave is incident on a transverse $(x', y')$ plane traveling with a component of propagation in the negative $z$ direction. Let the complex field across that $z = 0$ plane (Diffraction Sheet) be represented by:</p>
 <p class="math">
 $$u(x', y', 0; t) = U(x', y', 0) e^{-\omega t i}$$
 </p>
-Our ultimate objective is to calculate the resulting field $U(x, y, -L)$ that appears
+<p>Our ultimate objective is to calculate the resulting field $U(x, y, -L)$ that appears
 across a second, parallel plane (Screen) a distance $L$ to the right of the first plane. </p>
 <p>Across the $z = 0$ plane, the function $U(x, y, 0)$ has a two-dimensional Fourier transform given by:</p>
 <p class="math">
@@ -212,13 +210,14 @@ U\left(x, y , -L\right)=\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} A(k_{x},
 \end{equation}
 </p>
 
-<p>Now, we define the <strong>amplitude transmittance function</strong> $t_{A}(x', y')$ of the aperture as the ratio of the transmitted field amplitude $U(x', y', 0)$ to the incident field amplitude $U_{0}(x, y, 0)$ at each $(x, y)$ in the $z = 0$ plane:
+<p>Now, we define the <strong>amplitude transmittance function</strong> $t_{A}(x', y')$ of the aperture as the ratio of the transmitted field amplitude $U(x', y', 0)$ to the incident field amplitude $U_{0}(x, y, 0)$ at each $(x, y)$ in the $z = 0$ plane:</p>
 <p class="math">
 \begin{equation}
 U(x', y', 0)=U_{0}(x', y', 0) t_{A}(x', y')
 \label{eq:8}
 \end{equation}
-</p></p>
+</p>
+
 <p>The amplitude transmittance function has the value 1 at $(x, y)$ if light can pass through it, and 0 if it cannot. So it represents the shape of the aperture.</p>
 <p>The equations \eqref{eq:8}, \eqref{eq:1} and \eqref{eq:7} are everything we need to compute the electric field at $z = -L$. In order to accomplish such task, we realize that realize that \eqref{eq:1} and \eqref{eq:7} can be represented as <a href="https://en.wikipedia.org/wiki/Fast_Fourier_transform">Fast Fourier Transforms (FFT)</a> as follows:</p>
 <p>First, we discretize the region $(x', y') \in [-L_{x},L_{x}] \times [-L_{y},L_{y}]$ dividing each axis in $N_{x}$ and $N_{y}$ points respectively:</p>
@@ -245,12 +244,13 @@ U\left(x_{s_x},y_{s_y},-\ L\right)=\frac{1}{N_xN_y}\sum_{n_x=\frac{N_x}{2}}^{\fr
 \end{equation}
 </p>
 
-<p>where: 
+<p>where: </p>
 <p class="math">
 $$
 k_z =  \sqrt{   \left( \frac{2 \pi}{\lambda} \right)^{2} -  \left(\frac{\pi n_{x}}{L_{x}} \right)^{2}  -  \left(\frac{\pi n_{y}}{L_{y}} \right)^{2}  }
 $$
-</p></p>
+</p>
+
 <p>Finally, we get the intensity of the diffraction pattern in the screen plane by multiplying $U$ by its conjugate: </p>
 <p class="math">
 \begin{equation}
@@ -277,10 +277,10 @@ This method will compute \eqref{eq:9}, \eqref{eq:10} and \eqref{eq:11} making us
 The method return an array of RGB colors with the same dimension of the aperture, that later can be plotted with <code>plot(self,rgb, figsize=(6,6), xlim = None, ylim = None)</code> making use of the matplotlib library.</p>
 <p>As an example of the methods explained, we present here the source code to simulate the diffraction pattern of the above outline hexagon:</p>
 <figure class='code'>
-<figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/hexagon_monochromatic.py'>hexagon_monochromatic.py</a></figcaption>
+<figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/examples/hexagon_monochromatic.py'>hexagon_monochromatic.py</a></figcaption>
 </figure>
-
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">diffractsim</span> <span class="kn">import</span> <span class="n">MonochromaticField</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">nm</span><span class="p">,</span> <span class="n">cm</span>
+<span class="n">diffractsim</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="s2">&quot;CPU&quot;</span><span class="p">)</span> <span class="c1">#Change the string to &quot;CUDA&quot; to use GPU acceleration</span>
 
 <span class="n">F</span> <span class="o">=</span> <span class="n">MonochromaticField</span><span class="p">(</span>
     <span class="n">wavelength</span><span class="o">=</span><span class="mf">632.8</span> <span class="o">*</span> <span class="n">nm</span><span class="p">,</span> <span class="n">extent_x</span><span class="o">=</span><span class="mf">5.6</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">extent_y</span><span class="o">=</span><span class="mf">5.6</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">Nx</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span><span class="mi">500</span>
@@ -293,7 +293,6 @@ The method return an array of RGB colors with the same dimension of the aperture
 <span class="n">rgb</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">compute_colors_at</span><span class="p">(</span><span class="mi">80</span><span class="o">*</span><span class="n">cm</span><span class="p">)</span>
 <span class="n">F</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
 </code></pre></div>
-
 
 <p>When this script is run with different wavelengths, it will return the following diffraction patterns:</p>
 <div style="text-align:center"><img src="./images/angular-spectral-method/diffraction-hexagon.jpg" alt="Hexagon Diffraction"/></div>
@@ -336,16 +335,17 @@ $$
 <p>This class is initialized with the arguments <code>spectrum</code>, <code>extent_x</code>, <code>extent_y</code>, <code>Nx</code>, <code>Ny</code>.</p>
 <p><code>spectrum</code> must be an array with spectral intensity if light sampled on 380-780 nm interval, while the last four arguments are the same ones defined for <code>MonochromaticField</code></p>
 <p>The method <code>compute_colors_at</code> now has two new arguments:
-<code>spectrum_divisions</code> is the number of divisionS of the spectrum that will be used for computing the integrals \eqref{eq:12}. A higher value will return to more accurate colors.<br/> 
-<code>grid_divisions</code>  is the number of divisions of the grid that will be used for the computations. Raise this number if your computer doesn't have enough RAM to hold the entire grid array.<br/> </p>
+<code>spectrum_size</code>  is the number of samples of the spectrum.<br/> 
+<code>spectrum_divisions</code> is the number of divisions of the spectrum that will be used for computing the integrals \eqref{eq:12}. A higher value will return to more accurate colors.<br/> 
+An important note: spectrum_size/spectrum_divisions should be an integer.</p>
 <p>The complete implementation of this class can be found in <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/diffractsim/polychromatic_simulator.py">polychromatic_simulator.py</a></p>
 <p>Now we are going to give an example of how to use this class. We are going to use the outline hexagon aperture from the previous example, but this time using a <strong>white light</strong> spectrum. This can be achieved using the <a href="https://en.wikipedia.org/wiki/Illuminant_D65">Illuminant D65</a> whose sample list can be found in <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/diffractsim/data/illuminant_d65.txt">illuminant_d65.txt</a>.</p>
 <figure class='code'>
-<figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/hexagon_monochromatic.py'>hexagon_polychromatic.py</a></figcaption>
+<figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/examples/hexagon_polychromatic.py'>hexagon_polychromatic.py</a></figcaption>
 </figure>
 
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">diffractsim</span> <span class="kn">import</span> <span class="n">PolychromaticField</span><span class="p">,</span> <span class="n">cf</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">cm</span>
-
+<span class="n">diffractsim</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="s2">&quot;CPU&quot;</span><span class="p">)</span> <span class="c1">#Change the string to &quot;CUDA&quot; to use GPU acceleration</span>
 
 <span class="n">F</span> <span class="o">=</span> <span class="n">PolychromaticField</span><span class="p">(</span>
     <span class="n">spectrum</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">cf</span><span class="o">.</span><span class="n">illuminant_d65</span><span class="p">,</span> <span class="n">extent_x</span><span class="o">=</span><span class="mf">5.6</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">extent_y</span><span class="o">=</span><span class="mf">5.6</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">Nx</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span><span class="mi">500</span>
@@ -355,10 +355,9 @@ $$
     <span class="s2">&quot;./apertures/hexagon.jpg&quot;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">mm</span><span class="p">),</span> <span class="n">Nx</span><span class="o">=</span><span class="mi">1400</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span><span class="mi">1400</span>
 <span class="p">)</span>
 
-<span class="n">rgb</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">compute_colors_at</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">80</span><span class="o">*</span><span class="n">cm</span><span class="p">,</span> <span class="n">spectrum_divisions</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">grid_divisions</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">rgb</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">compute_colors_at</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">80</span><span class="o">*</span><span class="n">cm</span><span class="p">)</span>
 <span class="n">F</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
 </code></pre></div>
-
 
 <p>This script returns the following plot:</p>
 <div style="text-align:center"><img src="./images/angular-spectral-method/diffraction-hexagon-white-light.jpg" alt="Hexagon Diffraction with White Light"/></div>

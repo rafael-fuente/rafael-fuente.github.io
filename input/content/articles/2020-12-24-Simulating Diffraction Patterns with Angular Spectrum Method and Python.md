@@ -186,9 +186,10 @@ The method return an array of RGB colors with the same dimension of the aperture
 As an example of the methods explained, we present here the source code to simulate the diffraction pattern of the above outline hexagon:
 
 <figure class='code'>
-<figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/hexagon_monochromatic.py'>hexagon_monochromatic.py</a></figcaption>
+<figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/examples/hexagon_monochromatic.py'>hexagon_monochromatic.py</a></figcaption>
 </figure>
 	from diffractsim import MonochromaticField, mm, nm, cm
+	diffractsim.set_backend("CPU") #Change the string to "CUDA" to use GPU acceleration
 
 	F = MonochromaticField(
 	    wavelength=632.8 * nm, extent_x=5.6 * mm, extent_y=5.6 * mm, Nx=500, Ny=500
@@ -253,19 +254,20 @@ This class is initialized with the arguments ```spectrum```, ```extent_x```, ```
 ```spectrum``` must be an array with spectral intensity if light sampled on 380-780 nm interval, while the last four arguments are the same ones defined for ```MonochromaticField```
 
 The method ```compute_colors_at``` now has two new arguments:
-```spectrum_divisions``` is the number of divisionS of the spectrum that will be used for computing the integrals \eqref{eq:12}. A higher value will return to more accurate colors.<br/> 
-```grid_divisions```  is the number of divisions of the grid that will be used for the computations. Raise this number if your computer doesn't have enough RAM to hold the entire grid array.<br/> 
+```spectrum_size```  is the number of samples of the spectrum.<br/> 
+```spectrum_divisions``` is the number of divisions of the spectrum that will be used for computing the integrals \eqref{eq:12}. A higher value will return to more accurate colors.<br/> 
+An important note: spectrum_size/spectrum_divisions should be an integer.
 
 The complete implementation of this class can be found in [polychromatic_simulator.py](https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/diffractsim/polychromatic_simulator.py)
 
 Now we are going to give an example of how to use this class. We are going to use the outline hexagon aperture from the previous example, but this time using a **white light** spectrum. This can be achieved using the [Illuminant D65](https://en.wikipedia.org/wiki/Illuminant_D65) whose sample list can be found in [illuminant_d65.txt](https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/diffractsim/data/illuminant_d65.txt).
 
 <figure class='code'>
-<figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/hexagon_monochromatic.py'>hexagon_polychromatic.py</a></figcaption>
+<figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/examples/hexagon_polychromatic.py'>hexagon_polychromatic.py</a></figcaption>
 </figure>
 
 	from diffractsim import PolychromaticField, cf, mm, cm
-
+	diffractsim.set_backend("CPU") #Change the string to "CUDA" to use GPU acceleration
 
 	F = PolychromaticField(
 	    spectrum=2 * cf.illuminant_d65, extent_x=5.6 * mm, extent_y=5.6 * mm, Nx=500, Ny=500
@@ -275,7 +277,7 @@ Now we are going to give an example of how to use this class. We are going to us
 	    "./apertures/hexagon.jpg", pad=(10 * mm, 10 * mm), Nx=1400, Ny=1400
 	)
 
-	rgb = F.compute_colors_at(z=80*cm, spectrum_divisions=40, grid_divisions=10)
+	rgb = F.compute_colors_at(z=80*cm)
 	F.plot(rgb, xlim=[-7, 7], ylim=[-7, 7])
 
 This script returns the following plot:
