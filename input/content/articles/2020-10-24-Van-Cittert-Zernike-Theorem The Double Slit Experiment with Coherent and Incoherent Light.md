@@ -97,8 +97,8 @@ When the intensity is averaged over a few microseconds no fluctuations can be se
   </details>
 </div>
 <br /> 
-+ The blinking on the femtosecond time scale is because when the light is reflected on the double slit wall is due to a standing wave formed by interference from the incident and reflected waves, with an oscillation frequency equal to the frequency of the wave.
-
+<li>The blinking on the femtosecond time scale is because when the light is reflected on the double slit wall is due to a standing wave formed by interference from the incident and reflected waves, with an oscillation frequency equal to the frequency of the wave.</li>
+<br /> 
 <div class="object-and-details">
 <div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-microseconds.jpg" alt="simulation of the double slit experiment with incoherent light at microseconds" loading="lazy"/></div>
   <details>

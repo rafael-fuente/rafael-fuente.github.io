@@ -27,8 +27,8 @@ $$
 \Psi{(\mathbf{r},t)} = \Psi_{0} e^{i (k z - w t)},\quad \text{   with   } \quad
 \begin{gathered}
 \begin{cases}
- k = \frac{p_{0}}{\hbar} \\\\
- w = \frac{p_{0}^{2}}{2 m \hbar} \\\\
+ k = \frac{p_{0}}{\hbar} \\
+ w = \frac{p_{0}^{2}}{2 m \hbar} \\
 \end{cases}
 \end{gathered}
 $$</p>
@@ -65,14 +65,14 @@ And the Fresnel integral becomes:
 \begin{gathered}
 \Psi{(\mathbf{r},t)} = R \int\nolimits_{-\infty}^{\infty}\int\nolimits_{-\infty}^{\infty} f{(x', y')}  e^{\frac{i k}{2 z} ({x'}^{2} + {y'}^{2})} e^{ -\frac{i k x}{z}x' -\frac{i k y}{z}y'} \,  dx'dy',
   \hspace{3mm} with \hspace{3mm}
-  R =  \frac{k \Psi_{0} e^{ i(k z - t w)}}{2 \pi i z} e^{ i k\frac{x^{2} + y^{2}}{2 z}} \\\\
+  R =  \frac{k \Psi_{0} e^{ i(k z - t w)}}{2 \pi i z} e^{ i k\frac{x^{2} + y^{2}}{2 z}} \\
 f(x', y') = \begin{cases}
- 1 & \text{ if } (x' , y') \in S' \\\\
- 0 & \text{ if } (x' , y') \notin S'\\\\ 
+ 1 & \text{ if } (x' , y') \in S' \\
+ 0 & \text{ if } (x' , y') \notin S'\\
 \end{cases}
 \end{gathered}
 \end{equation}
-
+</p>
 
 Finally, we observe that this integral can be expressed as a Fourier transform:
 
