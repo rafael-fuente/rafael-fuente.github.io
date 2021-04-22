@@ -1,4 +1,5 @@
 # rafael-fuente.github.io
-Source code of my blog: http://rafael-fuente.github.io/
 
-Generated using Pelican: http://docs.getpelican.com
+Host of my Simulating Physics blog: http://rafael-fuente.github.io/
+
+Created with the help of Pelican: http://docs.getpelican.com

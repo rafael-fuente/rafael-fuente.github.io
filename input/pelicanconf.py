@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*- #
 
 AUTHOR = 'Rafael de la Fuente'
-SITENAME = 'Computational Physics'
+SITENAME = 'Simulating Physics'
 SITEURL = ''
 
 PATH = 'content'

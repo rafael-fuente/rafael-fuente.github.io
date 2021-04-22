@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="author" content="Rafael de la Fuente">
         <meta name="viewport" content="width=device-width">
-        <title>Solving the Diffraction Integral with the Fast Fourier Transform (FFT) and Python | Computational Physics</title>
+        <title>Solving the Diffraction Integral with the Fast Fourier Transform (FFT) and Python | Simulating Physics</title>
         <meta name="description" content="In this project we show how to compute the Diffraction Integral with the Fast Fourier Transform (FFT) and Python." />
         <meta property="og:type" content="article" />
         <meta property="og:title" content="Solving the Diffraction Integral with the Fast Fourier Transform (FFT) and Python"/>
@@ -16,9 +16,9 @@
         <meta name="twitter:image" content="https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-double-slit-diffraction-screen.png">
         <meta name="twitter:card" content="summary_large_image">
 
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-        <link rel="alternate" type="application/atom+xml" title="Computational Physics blog atom feed" href="/feeds/all.atom.xml" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Simulating Physics blog atom feed" href="/feeds/all.atom.xml" />
         <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -58,15 +58,15 @@
         <header class="navbar navbar-inverse bs-docs-nav">
             <div class="container-fluid">
                 <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span> 
-          </button>
-                  <a class="navbar-brand" href="/" title="Home" class="title">Computational Physics</a>
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Simulating Physics</a>
                 </div>
                 <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
-            <ul class="nav navbar-nav navbar-right">
+		    <ul class="nav navbar-nav navbar-right">
                             <li><a href="/pages/about.html" title="About">About</a></li>
                     </ul>
                 </nav>
@@ -95,12 +95,13 @@
 <p>In this project we will show how to numerically compute the <strong>Fresnel Diffraction Integral</strong> with the <a href="https://en.wikipedia.org/wiki/Fast_Fourier_transform">Fast Fourier Transform</a> (<strong>FFT</strong>). We'll implement the method with <strong>Python</strong> and we will apply it to the study of the diffraction patterns produced by the particle beams in the <strong>double slit experiment</strong>, showing the dependence of the phenomenon with respect to the separation of the slits.</p>
 <h2>Theoretical model</h2>
 <hr>
-<p>Consider a particle traveling with a well-defined momentum: 
+<p>Consider a particle traveling with a well-defined momentum: </p>
 <p class="math">
 $$
- \mathbf {p} = p_ {0} \mathbf {u_ {z}} \quad  \text{  in the region  }\quad  z &lt; 0 
-$$</p></p>
-<p>Its wave function is:
+ \mathbf {p} = p_ {0} \mathbf {u_ {z}} \quad  \text{  in the region  }\quad  z < 0 
+$$</p>
+
+<p>Its wave function is:</p>
 <p class="math">
 $$
 \Psi{(\mathbf{r},t)} = \Psi_{0} e^{i (k z - w t)},\quad \text{   with   } \quad
@@ -110,28 +111,32 @@ $$
  w = \frac{p_{0}^{2}}{2 m \hbar} \\
 \end{cases}
 \end{gathered}
-$$</p></p>
-<p>A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the <a href="https://en.wikipedia.org/wiki/Huygens%E2%80%93Fresnel_principle">Huygen-Fresnel principle</a> which can be derived applying the <strong>Rayleigh-Sommerfeld method</strong> <a href="#references">[1]</a> to the <strong>Schrödinger Equation</strong>, the wave function in the plane $ z = L $ it's given by the <strong>Fresnel integral</strong>:
+$$</p>
+
+<p>A plate is now placed at $ z = 0 $ with an opening $ S '$. According to the <a href="https://en.wikipedia.org/wiki/Huygens%E2%80%93Fresnel_principle">Huygen-Fresnel principle</a> which can be derived applying the <strong>Rayleigh-Sommerfeld method</strong> <a href="#references">[1]</a> to the <strong>Schrödinger Equation</strong>, the wave function in the plane $ z = L $ it's given by the <strong>Fresnel integral</strong>:</p>
 <p class="math">
 $$
   \Psi{(\mathbf{r},t)} = C \int\nolimits_{S'}^{} \frac{e^{i k \left|{r - r'}\right|}}{\left|{r - r'}\right|} cos{\theta}\,  d^{2}r',
 \quad \text{   with   } \quad  \hspace{2mm}
   C =  \frac{k \Psi_{0} e^{- i t w}}{2 \pi i}
-$$</p></p>
+$$</p>
+
 <p>This approximation is valid if $ L &gt;&gt; \lambda $</p>
 <p>Next we are going to simplify the integral using the <a href="https://en.wikipedia.org/wiki/Fresnel_diffraction#The_Fresnel_approximation">Fresnel approximation</a>.
-This consists of assuming $ \theta \approx 0 $ and using the approximation in the exponential:
+This consists of assuming $ \theta \approx 0 $ and using the approximation in the exponential:</p>
 <p class="math">
 $$
 |{r - r'}| \approx z +\frac{(x - x')^{2} + (y - y')^{2}}{2 z}
-$$</p></p>
+$$</p>
+
 <p>Which it is valid if $((x - x')^{2} + (y - y')^{2})^{2} &lt;&lt; 8 \lambda  L^{3}$</p>
-<p>In the case of the denominator, we do:
+<p>In the case of the denominator, we do:</p>
 <p class="math">
 $$
 |{r - r'}| \approx L
-$$</p></p>
-<p>And the Fresnel integral becomes:
+$$</p>
+
+<p>And the Fresnel integral becomes:</p>
 <p class="math">
 \begin{equation}
 \begin{gathered}
@@ -139,11 +144,13 @@ $$</p></p>
   \hspace{3mm} with \hspace{3mm}
   R =  \frac{k \Psi_{0} e^{ i(k z - t w)}}{2 \pi i z} e^{ i k\frac{x^{2} + y^{2}}{2 z}} \\
 f(x', y') = \begin{cases}
- 1 &amp; \text{ if } (x' , y') \in S' \\
- 0 &amp; \text{ if } (x' , y') \notin S'\\ 
+ 1 & \text{ if } (x' , y') \in S' \\
+ 0 & \text{ if } (x' , y') \notin S'\\
 \end{cases}
 \end{gathered}
-\end{equation}</p>
+\end{equation}
+</p>
+
 <p>Finally, we observe that this integral can be expressed as a Fourier transform:</p>
 <p class="math">
 $$
@@ -168,19 +175,21 @@ $$</p>
 \end{gathered}
 $$</p>
 
-<p>With the points of the screen located at $z = L$:
+<p>With the points of the screen located at $z = L$:</p>
 <p class="math">
 $$
 \begin{gathered}
-x_{\mu_{x}}  = \frac{(\mu_{x} - N_{x}/2) L \lambda}{2 L_{x}} \\
+x_{\mu_{x}}  = \frac{(\mu_{x} - N_{x}/2) L \lambda}{2 L_{x}} \\\\
 y_{\mu_{y}}  =\frac{(\mu_{y} - N_{y}/2) L \lambda}{2 L_{y}}
 \end{gathered}
-$$</p></p>
-<p>And the intensity (probability density) on the screen:
+$$</p>
+
+<p>And the intensity (probability density) on the screen:</p>
 <p class="math">
 $$
   I \propto|G(\mu_{x}, \mu_{y})|^{2} 
-$$</p></p>
+$$</p>
+
 <h2>Implementation with Python</h2>
 <hr>
 <p>To perform the required computations, the following scripts were written in the Python programming language, making use of its scientific packages numpy, scipy and matplotlib. </p>
@@ -188,7 +197,6 @@ $$</p></p>
 <figure class='code'>
 <figcaption><span>Source Code</span> <a href='/downloads/code/fft_diffraction_integral/fft_double_slit.py'>download</a></figcaption>
 </figure>
-
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="k">class</span> <span class="nc">Sheet</span><span class="p">():</span>
@@ -210,7 +218,6 @@ $$</p></p>
         <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="kp">select</span><span class="p">(</span> <span class="p">[((</span><span class="bp">self</span><span class="o">.</span><span class="n">xx</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">x0</span> <span class="o">-</span> <span class="n">lx</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xx</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="n">lx</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">))</span> <span class="ow">and</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">yy</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">y0</span> <span class="o">-</span> <span class="n">ly</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yy</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">y0</span> <span class="o">+</span> <span class="n">ly</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">)),</span>  <span class="kc">True</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 </code></pre></div>
 
-
 <p>As an example we study the diffraction pattern caused by two rectangular slits separated by a distance <code>D</code> with width and height denoted by <code>lx</code>, <code>ly</code> respectively.
 The higher the values of <code>Nx</code>, <code>Ny</code>, <code>Lx</code>, <code>Ly</code>, more accurate the diffraction pattern will be.</p>
 <div class="highlight"><pre><span></span><code><span class="n">Lx</span> <span class="o">=</span> <span class="mi">1</span><span class="p">.</span><span class="mi">4</span>
@@ -228,7 +235,6 @@ The higher the values of <code>Nx</code>, <code>Ny</code>, <code>Lx</code>, <cod
 <span class="n">sheet</span><span class="p">.</span><span class="n">rectangular_slit</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="o">+</span><span class="n">D</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">lx</span> <span class="o">=</span> <span class="mi">22</span> <span class="o">*</span> <span class="n">mm</span> <span class="p">,</span> <span class="n">ly</span> <span class="o">=</span> <span class="mi">88</span> <span class="o">*</span> <span class="n">mm</span><span class="p">)</span>
 </code></pre></div>
 
-
 <div style="text-align:center"><img src="./images/fft-diffraction-integral/fft-double-slit-sheet.png" alt="fft double slit diffraction sheet python"/></div>
 
 <p>Next we calculate the Diffraction integral using the Fast Fourier Transform (FFT) algorithm, efficiently implemented with the <strong>Scipy</strong> function <a href="https://docs.scipy.org/doc/scipy/reference/tutorial/fftpack.html#two-and-n-dimensional-discrete-fourier-transforms">fft2</a></p>
@@ -245,7 +251,6 @@ The higher the values of <code>Nx</code>, <code>Ny</code>, <code>Lx</code>, <cod
 <span class="n">fft_c</span> <span class="o">=</span> <span class="n">fft2</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">f</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1j</span> <span class="o">*</span> <span class="n">k</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">z</span><span class="p">)</span> <span class="o">*</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">xx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sheet</span><span class="o">.</span><span class="n">yy</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">fftshift</span><span class="p">(</span><span class="n">fft_c</span><span class="p">)</span>
 </code></pre></div>
-
 
 <h2>Results: Plotting the diffraction patterns</h2>
 <hr>
@@ -281,7 +286,6 @@ The higher the values of <code>Nx</code>, <code>Ny</code>, <code>Lx</code>, <cod
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-
 <p>First, We have represented the diffraction pattern of a particle with $\hspace{1mm} λ = 18.5 \text{ Å} \hspace{1mm}$ due to a slit
 width $\hspace{1mm} 22 × 10^{-3} \text{ mm} \hspace{1mm}$ and height $\hspace{1mm} 88 × 10^{-3}  \text{ mm}$, with the screen placed at $5 \text{ m}$:</p>
 <div style="text-align:center"><img src="./images/fft-diffraction-integral/fft-single-slit-diffraction.png" alt="fft single slit diffraction python"/></div>
@@ -298,7 +302,8 @@ the envelope of the double slit interference:</p>
 parameter decreases inversely proportional to the distance between the slits.</p>
 <h2>Bibliography</h2>
 <hr>
-<p><div class="references" id="references"></div></p>
+<div class="references" id="references"></div>
+
 <p>[1] Introduction to Fourier Optics J. Goodman sec. 3.5</p>
         </div>
 
