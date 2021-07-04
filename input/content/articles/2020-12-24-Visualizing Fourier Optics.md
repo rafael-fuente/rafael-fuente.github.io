@@ -1,5 +1,5 @@
-Title: Simulating Diffraction Patterns with the Angular Spectrum Method and Python
-Description: In this project we'll show how to compute the Diffraction Patterns with the Angular Spectrum Method and Python.
+Title: Visualizing Fourier Optics: Simulating Light Diffraction with Lenses
+Description: In this project we'll illustrate the basics of Fourier optics.
 Date: 2020-12-30 22:20
 Author: Rafael de la Fuente
 Tags: Optics, Diffraction, FFT
@@ -8,23 +8,44 @@ mathjax3: True
 
 <!-- 16:9 aspect ratio -->
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Ft8CMEooBAE" alt="Simulations of White Light Diffraction Patterns" allowfullscreen></iframe>
+<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/G4J4PV6tqH0" alt="Simulations of Light Diffraction with Lenses" allowfullscreen></iframe>
 </div>
 
 
 <br /> 
 
-In this project we will show how to numerically compute **Diffraction Patterns** with the **Angular Spectrum Method**. We'll implement the method with **Python** and discuss how to simulate them both with monochromatic and polychromatic light like it's shown in the video above.
+In this project, we'll illustrate the principles of Fourier Optics intuitively by showing how lenses affect the diffraction of light through seven simulations. 
+We'll compare the diffraction patterns with lenses and without it, experiment with different apertures and locations of the lenses and discuss some of their applications. 
 
+The simulations were done with the [angular spectrum method, which was explained in this post](https://rafael-fuente.github.io/simulating-diffraction-patterns-with-the-angular-spectrum-method-and-python.html). In order to make the simulations reproducible with other parameters I also uploaded source code in the GitHub repository.
 
-## The Angular Spectrum
+## Experiment 1: Approaching the Fourier Transform
 ---
+
+<div style="text-align:center"><img src="./images/visualizing-fourier-optics/diffraction-diagram-circular-aperture.png" alt="Diffraction Diagram Circular Aperture"/></div>
+<br /> 
+
+<li>First, we are going to simulate the diffraction pattern by a hexagonal aperture with a convex lens, as the distance from the screen increases. 
+We'll compare the results with a simulation without lens.</li>
+<br /> 
+
+<div class="object-and-details">
+<div style="text-align:left"><img src="./images/visualizing-fourier-optics/circular_aperture_lens.png" alt="Diffraction Circular Aperture" loading="lazy"/></div>
+  <details>
+    <!-- added role=button to summary to resolve iOS funkiness -->
+    <summary role="button" aria-label="static image"></summary>
+    <div class="object-and-details1">
+      <img src="./images/visualizing-fourier-optics/circular_aperture_lens.gif" alt="Diffraction Diagram Circular Aperture" loading="lazy">
+    </div>
+  </details>
+</div>
+<br /> 
 
 In a [previous post](https://rafael-fuente.github.io/solving-the-diffraction-integral-with-the-fast-fourier-transform-fft-and-python.html) we have discussed how to solve the Fresnel Integral with a single Fast Fourier Transform (FFT). However although this method is quite simple, it has some drawbacks:<br /> 
 It is limited by the requeriment of a diffrent grid scale than the aperture figure, and by the approximation of the Fresnel and Fraunhofer regimes.<br /> 
 As we will see next, the **The Angular Spectrum Method** is free of these problems. It uses the same scale that the aperture figure, and it solves the wave equation exactly.
 
-<div style="text-align:center"><img src="./images/angular-spectral-method/angular-spectral-method-single-slit-diffraction.png" alt="Angular Spectral Method Single Slit Diffraction"/></div>
+<div style="text-align:center"><img src="./images/visualizing-fourier-optics/diffraction-diagram-circular-aperture.png" alt="Diffraction Diagram Circular Aperture"/></div>
 <br /> 
 
 Suppose that a monochromatic wave is incident on a transverse $(x', y')$ plane traveling with a component of propagation in the negative $z$ direction. Let the complex field across that $z = 0$ plane (Diffraction Sheet) be represented by:
@@ -224,6 +245,19 @@ Z &=\int_{\lambda} I(\lambda, x, y) \hat{z}(\lambda) d \lambda
 \label{eq:12}
 \end{equation}
 </p>
+
+
+<div class="object-and-details">
+<div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-microseconds.jpg" alt="simulation of the double slit experiment with incoherent light at microseconds" loading="lazy"/></div>
+  <details>
+    <!-- added role=button to summary to resolve iOS funkiness -->
+    <summary role="button" aria-label="static image"></summary>
+    <div class="object-and-details1">
+      <img src="./images/incoherent-double-slit-simulations/simulation-incoherent-microseconds.gif" alt="simulation of the double slit experiment with incoherent light at microseconds" loading="lazy">
+    </div>
+  </details>
+</div>
+
 
 <div style="text-align:center"><img src="./images/angular-spectral-method/color-matching-functions.png" alt="Color Matching Functions"/></div>
 
