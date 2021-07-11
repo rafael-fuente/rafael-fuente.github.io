@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="google-site-verification" content="gaMQTzduWzUbXAutBMDx1oMZCsDWc4mQemWCnUKHUOs" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Rafael de la Fuente">
+        <meta name="viewport" content="width=device-width">
+        <title>Simulating Light Diffraction with Lenses - Visualizing Fourier Optics | Simulating Physics</title>
+        <meta name="description" content="In this project, we'll illustrate how to simulate diffraction with lenses diffraction as well as illustrating some of the fundamentals of Fourier optics." />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="Simulating Light Diffraction with Lenses - Visualizing Fourier Optics"/>
+        <meta property="og:description" content="In this project, we'll illustrate how to simulate diffraction with lenses diffraction as well as illustrating some of the fundamentals of Fourier optics." />
+        <meta property="og:image" content="https://rafael-fuente.github.io/images/visualizing-fourier-optics/Visualizing-Fourier-Optics.png">
+        <meta name="twitter:title" content="Simulating Light Diffraction with Lenses - Visualizing Fourier Optics">
+        <meta name="twitter:image" content="https://rafael-fuente.github.io/images/visualizing-fourier-optics/Visualizing-Fourier-Optics.png">
+        <meta name="twitter:card" content="summary_large_image">
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Simulating Physics blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script>
+        MathJax = {
+          startup: {
+            //
+            //  Mapping of old extension names to new ones
+            //
+            requireMap: {
+              AMSmath: 'ams',
+              AMSsymbols: 'ams',
+              AMScd: 'amscd',
+              HTML: 'html',
+              noErrors: 'noerrors',
+              noUndefined: 'noundefined'
+            },
+            ready: function () {
+              //
+              //  Replace the require command map with a new one that checks for
+              //    renamed extensions and converts them to the new names.
+              //
+              var CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+              var requireMap = MathJax.config.startup.requireMap;
+              var RequireLoad = MathJax._.input.tex.require.RequireConfiguration.RequireLoad;
+              var RequireMethods = {
+                Require: function (parser, name) {
+                  var required = parser.GetArgument(name);
+                  if (required.match(/[^_a-zA-Z0-9]/) || required === '') {
+                    throw new TexError('BadPackageName', 'Argument for %1 is not a valid package name', name);
+                  }
+                  if (requireMap.hasOwnProperty(required)) {
+                    required = requireMap[required];
+                  }
+                  RequireLoad(parser, required);
+                }
+              };
+              new CommandMap('require', {require: 'Require'}, RequireMethods);
+              //
+              //  Do the usual startup
+              //
+              return MathJax.startup.defaultReady();
+            }
+          },
+          tex :{
+
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+            tags: 'ams',
+
+
+            autoload: {
+              color: [],          // don't autoload the color extension
+              colorv2: ['color'], // do autoload the colorv2 extension
+            }
+          }
+        };
+        </script>
+        <script id="MathJax-script" async
+         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="./theme/css/icons.css"/>
+<link rel="stylesheet" type="text/css" href="./theme/css/pygments.css" />
+<link rel="stylesheet" type="text/css" href="./theme/css/main.css" />
+<link rel="stylesheet" type="text/css" href="./theme/css/ipynb.css" />
+<link rel="stylesheet" type="text/css" href="./theme/css/gif.css" />
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-inverse bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Simulating Physics</a>
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/about.html" title="About">About</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Simulating Light Diffraction with Lenses - Visualizing Fourier Optics</h1>
+            <time datetime="article.date.isoformat()" pubdate>Sun 07 November 2021</time>
+        </header>
+        <div class="meta">
+            <div>
+                    <a href="/tag/optics.html" class="tag">Optics</a>
+                    <a href="/tag/diffraction.html" class="tag">Diffraction</a>
+                    <a href="/tag/fft.html" class="tag">FFT</a>
+            </div>
+        </div>
+
+        <div class="article_content">
+            <!-- 16:9 aspect ratio -->
+<div class="embed-responsive embed-responsive-16by9">
+<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/G4J4PV6tqH0" alt="Simulations of Light Diffraction with Lenses: Visualizing Fourier Optics" allowfullscreen></iframe>
+</div>
+
+<p><br /> 
+Most interesting and practical optical instruments use lenses to manipulate the formation of images, so understanding how lenses affect the propagation of light is critical to understand Fourier optics.<br /> 
+In the above video, we'll illustrate some of the principles of Fourier optics visually and intuitively by showing how lenses affect the diffraction of light through seven simulations. <br /> </p>
+<p>In these simulations we'll compare the diffraction patterns with lenses and without it, experiment with different apertures and locations of the lenses while discussing some of their applications. <br /> </p>
+<p>The simulations were done with the <a href="https://rafael-fuente.github.io/simulating-diffraction-patterns-with-the-angular-spectrum-method-and-python.html">angular spectrum method, which was explained in this post</a>. It's recommended to read this post before entering on this one. </p>
+<p>In this post, we'll assume that the reader already knows the fundamentals of geometric optics and diffraction, and we'll discuss deeper the math involved and the <a href="https://www.youtube.com/watch?v=G4J4PV6tqH0&amp;t=123s">optical imaging system simulation (2:03)</a>, which also illustrates the diffraction limited systems, that are quite important in microscopy.</p>
+<p>Finally, we'll explain how to simulate diffraction patterns using lenses with Python.</p>
+<h2>Modeling a thin lens as a phase transformation</h2>
+<hr>
+<div style="text-align:center"><img src="./images/visualizing-fourier-optics/thin-lens-modeled-as-a-phase-transformation.png" alt="Thin lens modeled as a phase transformation"/></div>
+<p><em>Figure 1: Diagram illustrating a thin lens acting as a phase transformation over the input field</em>
+<br /> </p>
+<p>In this section, we'll show how to mathematically modeling a thin lens.<br /> 
+Suppose that a monochromatic wave is incident on a thin lens, On $z = 0$, let the complex field of the wave be represented as:</p>
+<p class="math">
+\begin{equation}
+u(x, y, 0; t) = U(x, y, 0) e^{-i \omega t}
+\end{equation}
+</p>
+<p>The lens is said to be a thin lens if a ray that enters at coordinates $(x, y)$ on one face of the lens approximately go out from the other face with a negligible transversal deviation. Then the total phase delay suffered by the wave at coordinates $(x, y)$ in passing through the lens can be written as: </p>
+<p class="math">
+\begin{equation}
+\phi(x, y)= \frac{2\pi}{\lambda} n \Delta(x, y)+  \frac{2\pi}{\lambda}\left[\Delta_{0}-\Delta(x, y)\right]
+\end{equation}
+</p>
+
+<p>where:</p>
+<p class="math">
+$$ \Delta_{0} = \text{maximum thickness of the lens}$$
+
+$$ \Delta (x, y) = \text{thickness at coordinates } (x, y)$$
+
+$$ \lambda = \text{wavelength}$$
+
+$$ n = \text{refractive index of the lens}$$
+
+</p>
+
+<p>The term $\frac{2\pi}{\lambda} n \Delta(x, y)$ represents the phase delay introduced by the lens, while $\frac{2\pi}{\lambda}\left[\Delta_{0}-\Delta(x, y)\right]$ is the phase delay introduced by the remaining region of free space between the two planes. Applying this phase delay on a plane immediately in front of the lens leads to: </p>
+<p class="math">
+\begin{equation}
+U_{l}^{\prime}(x, y) = T(x, y)\cdot U(x, y)
+\label{eq:3}
+\end{equation}
+</p>
+<p>where:</p>
+<p class="math">
+\begin{equation}
+T(x, y) = e^{i \phi(x, y)}
+\end{equation}
+</p>
+
+<p>$\phi(x, y)$ is a function of $\Delta (x, y)$ which depends on the geometry of the lens. For a spherical lens with a focal distance equal to $f$ it can be shown that:</p>
+<p class="math">
+\begin{equation}
+T(x, y)= e^{-i \frac{k}{2 f}\left(x^{2}+y^{2}\right)}
+\label{eq:5}
+\end{equation}
+</p>
+
+<p>The paraxial approximation was used in the above expression. See <a href="#references">[1]</a> for a complete proof of this formula. </p>
+<li>Note about the sign convention: when $f$ is specified as positive, the lens is convergent, while when specified as negative is divergent.</li>
+<p><br /> 
+Equation \eqref{eq:5} and \eqref{eq:3} is all what we need to model a spherical thin lens. After applying the phase delay to the input field $U(x, y)$ we can propagate the output field $U_{l}^{\prime}(x, y)$ using the angular spectrum method.</p>
+<h2>Simulation of an Optical Imaging System</h2>
+<hr>
+<div style="text-align:center"><img src="./images/visualizing-fourier-optics/diagram-optical-imaging-system.png" alt="Thin lens modeled as a phase transformation"/></div>
+<p><em>Figure 2: Diagram illustrating the simulation setup of the optical imaging system. This simulation is shown at <a href="https://www.youtube.com/watch?v=G4J4PV6tqH0&amp;t=123s">2:03</a>.</em>
+<br /> </p>
+<p>Probably this is one of the most interesting systems to study when using lenses. This simulation shows the Fourier transforming properties of lenses, their image formation, and the image diffraction limit.</p>
+<p>Let first take a look at the system from a geometrical perspective. The distance from the object (here, the QWT aperture) and the lens is $- 2 f$. Then, using the <a href="https://en.wikipedia.org/wiki/Thin_lens#Image_formation">thin lens equation</a>, we find that a real, inverted image is formed at a distance $2 f$ from the lens.</p>
+<p class="math">
+\begin{equation}
+\frac{1}{2 f} + \frac{1}{2 f} = \frac{1}{f}
+\end{equation}
+</p>
+
+<p>Geometrical optics also says that when the screen is placed on the focal point of the lens, it should display a single point, where the thin lens is converging all the incident parallel rays.</p>
+<p>Let's check now what happens when we account for diffraction:</p>
+<div class="object-and-details">
+<div style="text-align:center"><img src="./images/visualizing-fourier-optics/simulation-optical-imaging-system.png" alt="Simulation of an Optical Imaging System" loading="lazy"/></div>
+  <details>
+    <!-- added role=button to summary to resolve iOS funkiness -->
+    <summary role="button" aria-label="static image"></summary>
+    <div class="object-and-details1">
+      <img src="./images/visualizing-fourier-optics/simulation-optical-imaging-system.gif" alt="Simulation of an Optical Imaging System" loading="lazy">
+    </div>
+  </details>
+</div>
+<p><em>Figure 3: Simulation of the setup shown in figure 2. We change the screen distance from 0 to 100 cm, showing each position diffraction pattern projected on the screen. Click on the play button to display the animation.</em>
+<br /> </p>
+<div style="text-align:center"><img src="./images/visualizing-fourier-optics/diffraction-lens-longitudinal-profile.png" alt="Diffraction simulation with a lens longitudinal profile"/></div>
+<p><em>Figure 4: Longitudinal profile</em>
+<br /> </p>
+<p>When accounting for diffraction, we can see that the pattern on the focal point (screen distance = 75 cm) isn't a single point, as geometrical optics predicts. What the screen is actually showing is the <strong>Fourier transform</strong> of the aperture.</p>
+<p>It just happens that for a typical macroscopic setting, the Fourier pattern shown is too small that it cannot be seen to the naked eye, and it looks like a single point. But when we zoom in to that point, or we decrease the aperture size to increase to the size of the diffracted field, that point starts to exhibit a structure, and that structure is the Fourier transform of the aperture.</p>
+<p>For a lens placed a distance $d$ from the aperture when using the Fresnel approximation, it can be shown <a href="#references">[2]</a> that the following expression gives the diffracted field on the focal point:</p>
+<p class="math">
+\begin{equation}
+U^{\prime}(x, y)= \frac{U_0 e^ \left[i \frac{\pi}{f \lambda}\left(1-\frac{d}{f}\right)\left(x^{2}+y^{2}\right)\right]}{i \lambda f} 
+ \iint_{-\infty}^{\infty} t_{A}(x^{\prime}, y^{\prime}) e^ \left[-i \frac{2 \pi}{\lambda f}(x^{\prime} x + y^{\prime} y)\right] d x^{\prime} d y^{\prime}
+\end{equation}
+</p>
+
+<p>where $t_{A}(x^{\prime}, y^{\prime})$ is the <strong>amplitude transmittance function</strong> of the aperture.</p>
+<p>There is a small detail to highlight: the above expression shows that the diffracted field isn't exactly the Fourier Transform of the aperture because it's multiplied by a phase transformation (except when $d = f$ that vanishes). But when plotting the intensity, which is $I ∝ |U^{\prime}(x, y)|^2$ the phase transformation doesn't make any difference, so we can safely say that the intensity of the diffraction pattern is exactly the squared modulus of the Fourier transform of the aperture.</p>
+<div style="text-align:center"><img src="./images/visualizing-fourier-optics/diffraction-pattern-focal-plane-image-plane.png" alt="Diffraction simulation with a lens longitudinal profile"/></div>
+<p><em>Figure 5: Diffraction patterns when the screen is placed in the focal plane of the lens (left) and the image plane (right)</em>
+<br /> </p>
+<p>When the screen is placed at a distance of $2f = 50 \text{ cm}$ from the lens, the diffraction pattern yields an inverted image of the aperture, so at first glance, the geometrical optics result seems correct when accounting diffraction. In the next section, we´ll see that this fact isn't kept true when the size of the aperture is reduced.</p>
+<h2>The Abbe Diffraction Limit</h2>
+<hr>
+<div class="object-and-details">
+<div style="text-align:center"><img src="./images/visualizing-fourier-optics/diffraction-limited-system-simulation.png" alt="Simulation of a diffraction limited system" loading="lazy"/></div>
+  <details>
+    <!-- added role=button to summary to resolve iOS funkiness -->
+    <summary role="button" aria-label="static image"></summary>
+    <div class="object-and-details1">
+      <img src="./images/visualizing-fourier-optics/diffraction-limited-system-simulation.gif" alt="Simulation of a diffraction limited system" loading="lazy">
+    </div>
+  </details>
+</div>
+<p><em>Figure 6: Keeping the setup shown in figure 2 with the screen is placed in the image plane (100 cm from the aperture), we reduce the size aperture from 8mm to 0.2 mm. As the aperture keeps reducing, a wave distortion appears on the image. Click on the play button to display the animation.
+ </em></p>
+<p>In the figure 6, we can see the effect of diffraction on image formation. Let's explain this phenomenon.<br /> 
+Consider first the nature of the image predicted by geometrical optics. If the imaging system is perfect, then the image is inverted and magnified (or demagnified) by a factor $M = -\frac{z_{2}}{z_{1}}$, where $z_{2}$ is the distance from the image to the lens and $z_{1}$ from the lens to the aperture. Thus according to geometrical optics, the image $U_{i}(x, y)$ and the aperture $U_{o}(x, y)$ would be related by:</p>
+<p class="math">
+\begin{equation}
+U_{i}(x, y)=\frac{1}{|M|} U_{o}\left(\frac{x}{M}, \frac{y}{M}\right)
+\end{equation}
+</p>
+
+<p>When we account for the effect of diffraction, the relation can be expressed using a convolution <a href="#references">[3]</a> as follows:</p>
+<p class="math">
+\begin{equation}
+U_{i}(x, y)= h(x, y) \otimes \frac{1}{|M|} U_{o}\left(\frac{x}{M}, \frac{y}{M}\right) =\iint_{-\infty}^{\infty} h(x-x^{'}, y-y^{'})\left[\frac{1}{|M|} U_{o}\left(\frac{x^{'}}{M}, \frac{y^{'}}{M}\right)\right] d x^{'} d y^{'}
+\label{eq:9}
+\end{equation}
+</p>
+
+<p>The function $h(x, y)$ is called <strong>point-spread function</strong> and can be expressed as the Fourier transform of the lens pupil:</p>
+<p class="math">
+\begin{equation}
+h(x, y)=  \mathcal{F} \left[ P\left(\lambda z_{2} x^{'}, \lambda z_{2} y^{'}\right)   \right]    = \iint_{-\infty}^{\infty} P\left(\lambda z_{2} x^{'}, \lambda z_{2} y^{'}\right) e^{-i 2 \pi(x x^{'}+y y^{'})} d x^{'} d y^{'}
+\label{eq:10}
+\end{equation}
+</p>
+
+<p>The lens pupil function $P(x,y)$ represents the finite extension associated with the lens. For a circular lens with radius $R_0$ (used in the simulation shown in Figure 6), it is defined as follows:</p>
+<p class="math">
+\begin{equation}
+P(x, y)=\left\{\begin{array}{ll}
+1 & \text{if } r = \sqrt{ x^{2} + y^{2}} < R_0\\
+0 & \text { otherwise }
+\end{array}\right.
+\end{equation}
+</p>
+
+<p>What all of these formulas mean can be better illustrated in the Fourier space. Using the <a href="https://en.wikipedia.org/wiki/Convolution_theorem">convolution theorem</a> we can express \eqref{eq:9} as a product of the Fourier transform of $h(x, y)$ and $\frac{1}{|M|} U_{o}\left(\frac{x}{M}, \frac{y}{M}\right)$:</p>
+<p class="math">
+\begin{equation}
+U_{i}(x, y) = \mathcal{F^{-1}}  \left[H(f_x, f_y) A_{o}(f_x, f_y)\right]  
+\label{eq:12}
+\end{equation}
+</p>
+
+<p>where:</p>
+<p class="math">
+$$H(f_x, f_y) = \mathcal{F}  \left[h(x, y)\right] = P\left(-\lambda z_{2} f_x, -\lambda z_{2} f_y\right)$$
+
+$$A_{o}(f_x, f_y) = \mathcal{F}  \left[U_{o}(f_x, f_y)\right]$$
+</p>
+
+<p>$H(f_x, f_y)$ is called <strong>Optical Transfer Function (OTF)</strong> and we see it's only dependent on the pupil lens function.<br /> 
+The \eqref{eq:12} supplies very revealing information because it shows that the lens pupil is acting as a <strong>low pass filter</strong>, removing any spatial frequency of the image higher than:</p>
+<p class="math">
+\begin{equation}
+f_c = \frac{r}{λ z_i }
+\end{equation}
+</p>
+
+<p>This fact translates any detail of the image smaller than $\frac{λ x_i}{r}$ is distorted, explaining why the wave distortion appears.<br /> 
+While we used coherent light, we can modify this expression to account for spatially incoherent light by multiplying by $\frac{1}{2}$, and it's called <strong>Abbe diffraction limit</strong>:</p>
+<p class="math">
+\begin{equation}
+d = \frac{λ x_i}{2 r}
+\end{equation}
+</p>
+
+<p>This result can be generalized with a system with more than one lens by using the following expression:</p>
+<p class="math">
+\begin{equation}
+d = \frac{λ}{2 sin(θ)}
+\end{equation}
+</p>
+
+<p>where $θ$ is the half-angle to which the optical system is focusing the light. Note that because we are using the paraxial approximation  we can set $tan θ \approx sin 0$. However, $sin 0$ is preferred because it illustrates that the maximum resolution achievable is never going to be smaller than the wavelength $λ$.</p>
+<h2>Implementation with Python</h2>
+<hr>
+<p>The simulations of the video can be found on the <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/Simulations%20with%20lenses.md">GitHub repository</a>. In this section, we are going to show the implementation of the two simulations discussed.</p>
+<p>The simulation shown in the figure 3 can be reproduced with the following script. The example uses the module <code>diffractsim</code> discussed in the <a href="https://rafael-fuente.github.io/simulating-diffraction-patterns-with-the-angular-spectrum-method-and-python.html">angular spectrum method post</a>. It's necessary to place the <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/examples/apertures/QWT.png">image acting as the QWT aperture</a> on the path <code>"./apertures/QWT.jpg"</code> respective to the folder where the script is executed.</p>
+<figure class='code'>
+<figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/examples/optical_imaging_system.py'>optical_imaging_system.py</a></figcaption>
+</figure>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">diffractsim</span>
+<span class="n">diffractsim</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="s2">&quot;CPU&quot;</span><span class="p">)</span> <span class="c1">#Change the string to &quot;CUDA&quot; to use GPU acceleration</span>
+
+<span class="kn">from</span> <span class="nn">diffractsim</span> <span class="kn">import</span> <span class="n">MonochromaticField</span><span class="p">,</span> <span class="n">nm</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">cm</span>
+
+<span class="n">F</span> <span class="o">=</span> <span class="n">MonochromaticField</span><span class="p">(</span>
+    <span class="n">wavelength</span><span class="o">=</span><span class="mi">488</span> <span class="o">*</span> <span class="n">nm</span><span class="p">,</span> <span class="n">extent_x</span><span class="o">=</span><span class="mf">14.</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">extent_y</span><span class="o">=</span><span class="mf">14.</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">Nx</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span><span class="n">intensity</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="p">)</span>
+
+<span class="n">F</span><span class="o">.</span><span class="n">add_aperture_from_image</span><span class="p">(</span>
+    <span class="s2">&quot;./apertures/QWT.png&quot;</span><span class="p">,</span>  <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">mm</span><span class="p">),</span> <span class="n">Nx</span><span class="o">=</span><span class="mi">2300</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span><span class="mi">2300</span>
+<span class="p">)</span>
+
+<span class="n">F</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="mi">50</span><span class="o">*</span><span class="n">cm</span><span class="p">)</span> <span class="c1">#distance from the aperture to the lens</span>
+
+<span class="n">F</span><span class="o">.</span><span class="n">add_lens</span><span class="p">(</span><span class="n">f</span> <span class="o">=</span> <span class="mi">25</span><span class="o">*</span><span class="n">cm</span><span class="p">)</span>
+<span class="n">F</span><span class="o">.</span><span class="n">add_circular_slit</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="o">*</span><span class="n">mm</span><span class="p">)</span> <span class="c1"># we model the entrance pupil of the lens as a circular aperture</span>
+
+<span class="n">F</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="mi">50</span><span class="o">*</span><span class="n">cm</span><span class="p">)</span> <span class="c1">#distance from the lens to the screen</span>
+
+
+<span class="n">rgb</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">get_colors</span><span class="p">()</span>
+<span class="n">F</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">5.0</span><span class="p">,</span><span class="mf">5.0</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">5.0</span><span class="p">,</span><span class="mf">5.0</span><span class="p">])</span>
+</code></pre></div>
+
+<p>The above script can also reproduce the simulation shown in figure 6, however, the angular spectrum method approach becomes quietly computationally expensive as the aperture size becomes smaller. </p>
+<p>This difficulty can be overcome by performing the convolution \eqref{eq:9} through succesive Fourier transforms, applying the convolution theorem as revealed in \eqref{eq:10}. This approach avoid computing the field at lens position, that due the big extent of the diffracted field on this point, cannot be modeled accurately without using very large values of <code>pad</code>.</p>
+<p>The following script is presented with this new approach to reproducing the results of figure 6.</p>
+<figure class='code'>
+<figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/examples/optical_imaging_system_using_convolution.py'>optical_imaging_system_using_convolution.py</a></figcaption>
+</figure>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">diffractsim</span>
+<span class="n">diffractsim</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="s2">&quot;CPU&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">propagate_to_image_plane</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">zi</span><span class="p">,</span> <span class="n">z0</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">scipy.fftpack</span> <span class="kn">import</span> <span class="n">fft2</span><span class="p">,</span> <span class="n">ifft2</span><span class="p">,</span> <span class="kp">fftshift</span><span class="p">,</span> <span class="n">ifftshift</span>
+    <span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">interp2d</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    zi: distance from the image plane to the lens</span>
+<span class="sd">    z0: distance from the lens the current position</span>
+<span class="sd">    zi and z0 should satisfy the equation 1/zi + 1/z0 = 1/f </span>
+<span class="sd">    where f is the focal distance of the lens</span>
+<span class="sd">    radius: radius of the lens pupil</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">F</span><span class="o">.</span><span class="n">z</span> <span class="o">+=</span> <span class="n">zi</span> <span class="o">+</span> <span class="n">z0</span>
+
+    <span class="c1">#magnification factor</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">zi</span><span class="o">/</span><span class="n">z0</span>
+    <span class="n">fun</span> <span class="o">=</span> <span class="n">interp2d</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="kp">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">F</span><span class="o">.</span><span class="n">extent_x</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">extent_x</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">E</span><span class="o">.</span><span class="kp">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+                <span class="n">np</span><span class="o">.</span><span class="kp">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">F</span><span class="o">.</span><span class="n">extent_y</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">extent_y</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">E</span><span class="o">.</span><span class="kp">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                <span class="n">F</span><span class="o">.</span><span class="n">E</span><span class="p">,</span>
+                <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;cubic&quot;</span><span class="p">,)</span>
+
+    <span class="n">F</span><span class="o">.</span><span class="n">E</span> <span class="o">=</span> <span class="n">fun</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="kp">linspace</span><span class="p">(</span>
+              <span class="o">-</span><span class="n">F</span><span class="o">.</span><span class="n">extent_x</span> <span class="o">/</span> <span class="mi">2</span> <span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">extent_x</span> <span class="o">/</span> <span class="mi">2</span> <span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">E</span><span class="o">.</span><span class="kp">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="n">M</span><span class="p">,</span> 
+              <span class="n">np</span><span class="o">.</span><span class="kp">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">F</span><span class="o">.</span><span class="n">extent_y</span> <span class="o">/</span> <span class="mi">2</span> <span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">extent_y</span> <span class="o">/</span> <span class="mi">2</span> <span class="p">,</span><span class="n">F</span><span class="o">.</span><span class="n">E</span><span class="o">.</span><span class="kp">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="n">M</span> <span class="p">)</span><span class="o">/</span><span class="n">M</span>
+    <span class="n">F</span><span class="o">.</span><span class="n">E</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">E</span><span class="p">)</span>
+
+    <span class="n">fft_c</span> <span class="o">=</span> <span class="n">fft2</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">E</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="kp">fftshift</span><span class="p">(</span><span class="n">fft_c</span><span class="p">)</span>
+
+    <span class="n">fx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">linspace</span><span class="p">(</span>
+        <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">F</span><span class="o">.</span><span class="n">Nx</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">extent_x</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">F</span><span class="o">.</span><span class="n">Nx</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">extent_x</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="n">F</span><span class="o">.</span><span class="n">Nx</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">fy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">linspace</span><span class="p">(</span>
+        <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">F</span><span class="o">.</span><span class="n">Ny</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">extent_y</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">F</span><span class="o">.</span><span class="n">Ny</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">extent_y</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="n">F</span><span class="o">.</span><span class="n">Ny</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">fx</span><span class="p">,</span> <span class="n">fy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">meshgrid</span><span class="p">(</span><span class="n">fx</span><span class="p">,</span> <span class="n">fy</span><span class="p">)</span>
+    <span class="n">fp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">sqrt</span><span class="p">(</span><span class="n">fx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">fy</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+
+    <span class="c1">#Definte the OTF function, representing the Fourier transform of the circular pupil function.</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">select</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">fp</span> <span class="o">*</span> <span class="n">zi</span><span class="o">*</span> <span class="n">F</span><span class="o">.</span><span class="n">λ</span> <span class="o">&lt;</span> <span class="n">radius</span> <span class="p">,</span> <span class="kc">True</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">F</span><span class="o">.</span><span class="n">E</span> <span class="o">=</span> <span class="n">ifft2</span><span class="p">(</span><span class="n">ifftshift</span><span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="n">H</span><span class="p">))</span>
+
+    <span class="c1"># compute Field Intensity</span>
+    <span class="n">F</span><span class="o">.</span><span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">real</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">E</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">conjugate</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">E</span><span class="p">))</span>
+
+
+<span class="kn">from</span> <span class="nn">diffractsim</span> <span class="kn">import</span> <span class="n">MonochromaticField</span><span class="p">,</span> <span class="n">nm</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">cm</span>
+
+<span class="n">F</span> <span class="o">=</span> <span class="n">MonochromaticField</span><span class="p">(</span>
+    <span class="n">wavelength</span><span class="o">=</span><span class="mi">488</span> <span class="o">*</span> <span class="n">nm</span><span class="p">,</span> <span class="n">extent_x</span><span class="o">=</span><span class="mf">1.</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">extent_y</span><span class="o">=</span><span class="mf">1.</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">Nx</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span><span class="n">intensity</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="p">)</span>
+
+<span class="n">F</span><span class="o">.</span><span class="n">add_aperture_from_image</span><span class="p">(</span>
+    <span class="s2">&quot;./apertures/QWT.png&quot;</span><span class="p">,</span>  <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">mm</span><span class="p">),</span> <span class="n">Nx</span><span class="o">=</span><span class="mi">2300</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span><span class="mi">2300</span>
+<span class="p">)</span>
+
+<span class="n">propagate_to_image_plane</span><span class="p">(</span><span class="n">F</span><span class="p">,</span><span class="n">radius</span> <span class="o">=</span> <span class="mi">6</span><span class="o">*</span><span class="n">mm</span><span class="p">,</span> <span class="n">zi</span> <span class="o">=</span> <span class="mi">50</span><span class="o">*</span><span class="n">cm</span><span class="p">,</span> <span class="n">z0</span> <span class="o">=</span> <span class="mi">50</span><span class="o">*</span><span class="n">cm</span><span class="p">)</span>
+
+
+<span class="n">rgb</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">get_colors</span><span class="p">()</span>
+<span class="n">F</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.4</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.4</span><span class="p">])</span>
+</code></pre></div>
+
+<p>We have defined a function named <code>propagate_to_image_plane</code> that accomplish the computation of \eqref{eq:9} and \eqref{eq:10}. When running the first script, it would yield an inverted image of the QWT aperture, while the second in which a smaller <code>extent_x</code> and <code>extent_y</code> is used, a wave distortion appears. We encourage the reader to change these values and experiment with different magnifications.</p>
+<div style="text-align:center"><img src="./images/visualizing-fourier-optics/diffraction-limited-image.png" alt="Diffraction limited image"/></div>
+<p><center> <em>Figure 7: Output of <code>optical_imaging_system_using_convolution.py</code></em></center></p>
+<h2>References</h2>
+<hr>
+<div class="references" id="references"></div>
+
+<p>[1] Introduction to Fourier Optics J. Goodman sec. 5.1<br /> 
+[2] Introduction to Fourier Optics J. Goodman sec. 5.2<br /> 
+[3] Introduction to Fourier Optics J. Goodman sec. 5.3<br /> </p>
+        </div>
+
+    </article>
+
+
+
+    <div class="license" >
+
+      <p>
+        © 2019-2021 Rafael de la Fuente
+      </p>
+    </div>
+
+</div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+          <a href="mailto:rafael.fuente.herrezuelo@gmail.com"><img src="./theme/svg-icons/email-icon.svg"></img></a>
+
+
+          <a href="http://github.com/rafael-fuente"><img src="./theme/svg-icons/github-icon.svg"></img></a>
+
+
+          <a href="https://www.youtube.com/channel/UCgmKhcvQ7Xg0Wjq1OVXTDlQ"><img src="./theme/svg-icons/youtube-icon.svg"></img></a>
+
+        </footer>
+      </div>
+    </div>    
+
+        </div>
+    </body>
+</html>

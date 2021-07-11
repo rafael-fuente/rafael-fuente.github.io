@@ -1,0 +1,39 @@
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/visualizing-fourier-optics/Visualizing-Fourier-Optics.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/simulation-optical-imaging-system.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/simulation-optical-imaging-system.gif</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/thin-lens-modeled-as-a-phase-transformation.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/visualizing-fourier-optics/diffraction-pattern-focal-plane-image-plane.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/visualizing-fourier-optics/diffraction-limited-system-simulation.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/visualizing-fourier-optics/diffraction-limited-system-simulation.gif</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/visualizing-fourier-optics/diffraction-limited-image.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/visualizing-fourier-optics/diffraction-lens-longitudinal-profile.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/visualizing-fourier-optics/diagram-optical-imaging-system.png</image:loc>
+    </image:image>

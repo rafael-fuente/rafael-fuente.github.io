@@ -5,30 +5,96 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://rafael-fuente.github.io/</loc>
-<lastmod>2021-04-30T13:20:17-00:00</lastmod>
+<lastmod>2021-07-11T06:21:50-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.1</priority>
 </url>
 
 <url>
 <loc>https://rafael-fuente.github.io/pages/about.html</loc>
-<lastmod>2021-04-30T13:20:17-00:00</lastmod>
+<lastmod>2021-07-11T06:21:50-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.01</priority>
 </url>
 
 <url>
-<loc>https://rafael-fuente.github.io/simulating-diffraction-patterns-with-the-angular-spectrum-method-and-python.html</loc>
-<lastmod>2020-12-30T22:20:00+01:00</lastmod>
+<loc>https://rafael-fuente.github.io/simulating-light-diffraction-with-lenses-visualizing-fourier-optics.html</loc>
+<lastmod>2021-11-07T06:00:00+01:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/visualizing-fourier-optics/Visualizing-Fourier-Optics.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/simulation-optical-imaging-system.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/simulation-optical-imaging-system.gif</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/thin-lens-modeled-as-a-phase-transformation.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/visualizing-fourier-optics/diffraction-pattern-focal-plane-image-plane.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/visualizing-fourier-optics/diffraction-limited-system-simulation.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/visualizing-fourier-optics/diffraction-limited-system-simulation.gif</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/visualizing-fourier-optics/diffraction-limited-image.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/visualizing-fourier-optics/diffraction-lens-longitudinal-profile.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/visualizing-fourier-optics/diagram-optical-imaging-system.png</image:loc>
+    </image:image>
 </url>
 
 <url>
-<loc>https://rafael-fuente.github.io/visualizing-fourier-optics-simulating-light-diffraction-with-lenses.html</loc>
-<lastmod>2020-12-30T22:20:00+01:00</lastmod>
+<loc>https://rafael-fuente.github.io/simulating-diffraction-patterns-with-the-angular-spectrum-method-and-python.html</loc>
+<lastmod>2021-11-07T05:00:00+01:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/angular-spectral-method-single-slit-diffraction.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/diffraction-hexagon.jpg</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/color-matching-functions.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/diffraction-hexagon-white-light.jpg</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/diffraction-rectangular-grating-white-light-near-field.jpg</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/diffraction-rectangular-grating-white-light.jpg</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/angular-spectral-method/Angular-Spectrum-Method.png</image:loc>
+    </image:image>
 </url>
 
 <url>
@@ -36,6 +102,38 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <lastmod>2020-10-24T23:20:00+02:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-femtoseconds.jpg</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-microseconds.jpg</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-picoseconds.jpg</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-femtoseconds.gif</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-microseconds.gif</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/simulation-incoherent-picoseconds.gif</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/Van-Cittert-Zernike-Theorem-coherence.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/incoherent-double-slit-simulations/visualization-of-the-Van-Cittert-Zernike-theorem.jpg</image:loc>
+      <image:title>Visualization of the Van-Cittert Zernike theorem</image:title>
+    </image:image>
 </url>
 
 <url>
@@ -43,6 +141,17 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <lastmod>2020-10-18T18:50:00+02:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-single-slit-diffraction.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-double-slit-diffraction.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/fft-diffraction-integral/fft-double-slit-small-fringes.png</image:loc>
+    </image:image>
 </url>
 
 </urlset>

@@ -30,5 +30,6 @@ img_sitemaps = {}
 img_sitemaps["https://rafael-fuente.github.io/visual-explanation-of-the-van-cittert-zernike-theorem-the-double-slit-experiment-with-incoherent-and-coherent-light.html"] = load_sitemap_string(Path("images/incoherent-double-slit-simulations/sitemap.txt"))
 img_sitemaps["https://rafael-fuente.github.io/solving-the-diffraction-integral-with-the-fast-fourier-transform-fft-and-python.html"] = load_sitemap_string(Path("images/fft-diffraction-integral/sitemap.txt"))
 img_sitemaps["https://rafael-fuente.github.io/simulating-diffraction-patterns-with-the-angular-spectrum-method-and-python.html"] = load_sitemap_string(Path("images/angular-spectral-method/sitemap.txt"))
+img_sitemaps["https://rafael-fuente.github.io/simulating-light-diffraction-with-lenses-visualizing-fourier-optics.html"] = load_sitemap_string(Path("images/visualizing-fourier-optics/sitemap.txt"))
 
 add_image_sitemap_from_links(img_sitemaps)

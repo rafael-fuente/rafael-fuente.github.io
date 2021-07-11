@@ -202,12 +202,12 @@ article .meta a.comments_btn:hover {
   color: #DDD;
 }
 .post h3:before {
-  content: "## ";
+  content: "";
   font-weight: bold;
   color: #DDD;
 }
 .post h4:before {
-  content: "### ";
+  content: "";
   font-weight: bold;
   color: #DDD;
 }

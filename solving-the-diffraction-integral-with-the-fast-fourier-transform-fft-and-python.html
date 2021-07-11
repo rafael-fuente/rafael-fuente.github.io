@@ -220,19 +220,19 @@ $$</p>
 
 <p>As an example we study the diffraction pattern caused by two rectangular slits separated by a distance <code>D</code> with width and height denoted by <code>lx</code>, <code>ly</code> respectively.
 The higher the values of <code>Nx</code>, <code>Ny</code>, <code>Lx</code>, <code>Ly</code>, more accurate the diffraction pattern will be.</p>
-<div class="highlight"><pre><span></span><code><span class="n">Lx</span> <span class="o">=</span> <span class="mi">1</span><span class="p">.</span><span class="mi">4</span>
-<span class="n">Ly</span> <span class="o">=</span> <span class="mi">0</span><span class="p">.</span><span class="mi">4</span>
-<span class="n">Nx</span><span class="o">=</span> <span class="mi">2500</span>
-<span class="n">Ny</span><span class="o">=</span> <span class="mi">1500</span>
+<div class="highlight"><pre><span></span><code>Lx = 1.4
+Ly = 0.4
+Nx= 2500
+Ny= 1500
 
-<span class="n">sheet</span> <span class="o">=</span> <span class="n">Sheet</span><span class="p">(</span><span class="n">extentX</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">Lx</span><span class="p">,</span> <span class="n">Lx</span><span class="p">]</span> <span class="p">,</span> <span class="n">extentY</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">Ly</span><span class="p">,</span> <span class="n">Ly</span><span class="p">],</span> <span class="n">Nx</span><span class="o">=</span> <span class="n">Nx</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span> <span class="n">Ny</span><span class="p">)</span>
+sheet = Sheet(extentX = [-Lx, Lx] , extentY = [-Ly, Ly], Nx= Nx, Ny= Ny)
 
-<span class="o">#</span><span class="n">slit</span> <span class="n">separation</span> 
-<span class="n">mm</span> <span class="o">=</span> <span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">3</span>
-<span class="n">D</span> <span class="o">=</span> <span class="mi">128</span> <span class="o">*</span> <span class="n">mm</span>
+#slit separation 
+mm = 1e-3
+D = 128 * mm
 
-<span class="n">sheet</span><span class="p">.</span><span class="n">rectangular_slit</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="o">-</span><span class="n">D</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">lx</span> <span class="o">=</span> <span class="mi">22</span> <span class="o">*</span> <span class="n">mm</span> <span class="p">,</span> <span class="n">ly</span> <span class="o">=</span> <span class="mi">88</span> <span class="o">*</span> <span class="n">mm</span><span class="p">)</span>
-<span class="n">sheet</span><span class="p">.</span><span class="n">rectangular_slit</span><span class="p">(</span><span class="n">x0</span> <span class="o">=</span> <span class="o">+</span><span class="n">D</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">lx</span> <span class="o">=</span> <span class="mi">22</span> <span class="o">*</span> <span class="n">mm</span> <span class="p">,</span> <span class="n">ly</span> <span class="o">=</span> <span class="mi">88</span> <span class="o">*</span> <span class="n">mm</span><span class="p">)</span>
+sheet.rectangular_slit(x0 = -D/2, y0 = 0, lx = 22 * mm , ly = 88 * mm)
+sheet.rectangular_slit(x0 = +D/2, y0 = 0, lx = 22 * mm , ly = 88 * mm)
 </code></pre></div>
 
 <div style="text-align:center"><img src="./images/fft-diffraction-integral/fft-double-slit-sheet.png" alt="fft double slit diffraction sheet python"/></div>
@@ -242,20 +242,20 @@ The higher the values of <code>Nx</code>, <code>Ny</code>, <code>Lx</code>, <cod
 <span class="n">z</span> <span class="o">=</span> <span class="mi">5000</span>
 
 <span class="c1"># wavelength (mm)</span>
-<span class="err">λ</span> <span class="o">=</span> <span class="mf">18.5</span><span class="o">*</span><span class="mf">1e-7</span>
-<span class="n">k</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="err">λ</span>
+<span class="n">λ</span> <span class="o">=</span> <span class="mf">18.5</span><span class="o">*</span><span class="mf">1e-7</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">λ</span>
 
 <span class="kn">from</span> <span class="nn">scipy.fftpack</span> <span class="kn">import</span> <span class="n">fft2</span>
 <span class="kn">from</span> <span class="nn">scipy.fftpack</span> <span class="kn">import</span> <span class="n">fftshift</span>
 
-<span class="n">fft_c</span> <span class="o">=</span> <span class="n">fft2</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">f</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1j</span> <span class="o">*</span> <span class="n">k</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">z</span><span class="p">)</span> <span class="o">*</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">xx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sheet</span><span class="o">.</span><span class="n">yy</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
+<span class="n">fft_c</span> <span class="o">=</span> <span class="n">fft2</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">f</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">k</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">z</span><span class="p">)</span> <span class="o">*</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">xx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">sheet</span><span class="o">.</span><span class="n">yy</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">fftshift</span><span class="p">(</span><span class="n">fft_c</span><span class="p">)</span>
 </code></pre></div>
 
 <h2>Results: Plotting the diffraction patterns</h2>
 <hr>
 <p>Finally, we represent the results stored in the numpy array <code>c</code> with matplotlib.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>  
@@ -264,11 +264,11 @@ The higher the values of <code>Nx</code>, <code>Ny</code>, <code>Lx</code>, <cod
 <span class="n">abs_c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 
 <span class="c1">#screen size mm</span>
-<span class="n">Lx_screen</span> <span class="o">=</span> <span class="n">Nx</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="err">λ</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">Lx</span><span class="p">)</span>
-<span class="n">Ly_screen</span> <span class="o">=</span> <span class="n">Ny</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="err">λ</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">Ly</span><span class="p">)</span>
+<span class="n">Lx_screen</span> <span class="o">=</span> <span class="n">Nx</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="n">λ</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">Lx</span><span class="p">)</span>
+<span class="n">Ly_screen</span> <span class="o">=</span> <span class="n">Ny</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="n">λ</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">Ly</span><span class="p">)</span>
 
-<span class="n">x_max</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">Lx</span> <span class="o">*</span> <span class="p">(</span><span class="n">Nx</span><span class="o">//</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="err">λ</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
-<span class="n">y_max</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">Ly</span> <span class="o">*</span> <span class="p">(</span><span class="n">Ny</span><span class="o">//</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="err">λ</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="n">x_max</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">Lx</span> <span class="o">*</span> <span class="p">(</span><span class="n">Nx</span><span class="o">//</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="n">λ</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="n">y_max</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">Ly</span> <span class="o">*</span> <span class="p">(</span><span class="n">Ny</span><span class="o">//</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="n">λ</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
 
 <span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">abs_c</span><span class="p">,</span> <span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">Lx_screen</span><span class="p">,</span> <span class="n">Lx_screen</span><span class="p">,</span> <span class="o">-</span><span class="n">Ly_screen</span><span class="p">,</span><span class="n">Ly_screen</span><span class="p">],</span> <span class="n">cmap</span> <span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">interpolation</span> <span class="o">=</span> <span class="s2">&quot;bilinear&quot;</span><span class="p">,</span> <span class="n">aspect</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">)</span>
 
@@ -276,11 +276,11 @@ The higher the values of <code>Nx</code>, <code>Ny</code>, <code>Lx</code>, <cod
 
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y (mm)&quot;</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x (mm)&quot;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Probability Density $|\psi|^{2}$&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Probability Density $|\psi|^</span><span class="si">{2}</span><span class="s2">$&quot;</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">ax1</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">ax1</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
