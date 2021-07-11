@@ -251,7 +251,7 @@ d = \frac{λ}{2 sin(θ)}
 \end{equation}
 </p>
 
-where $θ$ is the half-angle to which the optical system is focusing the light. Note that because we are using the paraxial approximation  we can set $tan θ \approx sin 0$. However, $sin 0$ is preferred because it illustrates that the maximum resolution achievable is never going to be smaller than the wavelength $λ$.
+where $θ$ is the half-angle to which the optical system is focusing the light. Note that because we are using the paraxial approximation  we can set $tan θ \approx sin θ$. However, $sin θ$ is preferred because it illustrates that the maximum resolution achievable is never going to be smaller than the wavelength $λ$.
 
 ## Implementation with Python
 ---
