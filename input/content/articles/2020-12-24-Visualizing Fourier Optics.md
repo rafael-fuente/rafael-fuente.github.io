@@ -226,7 +226,7 @@ $$A_{o}(f_x, f_y) = \mathcal{F}  \left[U_{o}(f_x, f_y)\right]$$
 </p>
 
 $H(f_x, f_y)$ is called **Optical Transfer Function (OTF)** and we see it's only dependent on the pupil lens function.<br /> 
-The \eqref{eq:12} supplies very revealing information because it shows that the lens pupil is acting as a **low pass filter**, removing any spatial frequency of the image higher than:
+The expression \eqref{eq:12} supplies very revealing information because it shows that the lens pupil is acting as a **low pass filter**, removing any spatial frequency of the image higher than:
 
 <p class="math">
 \begin{equation}
