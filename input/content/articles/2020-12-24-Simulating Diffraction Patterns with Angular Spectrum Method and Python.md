@@ -300,5 +300,5 @@ For example, let's take a look at the rectangular grating aperture showed in the
 
 In the next post, we´ll see how to add lenses to our simulations and we'll visualize the principles of Fourier optics:
 
-- [Simulating Light Diffraction with Lenses: Visualizing Fourier Optics
+- [Simulating Light Diffraction with Lenses - Visualizing Fourier Optics
 ](https://rafael-fuente.github.io/simulating-light-diffraction-with-lenses-visualizing-fourier-optics.html)
