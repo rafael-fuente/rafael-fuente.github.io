@@ -234,7 +234,7 @@ f_c = \frac{r}{λ z_i }
 \end{equation}
 </p>
 
-This fact translates any detail of the image smaller than $\frac{λ x_i}{r}$ is distorted, explaining why the wave distortion appears.<br /> 
+This fact implies that any detail of the image smaller than $\frac{λ x_i}{r}$ is distorted, explaining why the wave distortion appears.<br /> 
 While we used coherent light, we can modify this expression to account for spatially incoherent light by multiplying by $\frac{1}{2}$, and it's called **Abbe diffraction limit**:
 
 <p class="math">
