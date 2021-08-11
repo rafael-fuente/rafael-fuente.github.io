@@ -140,12 +140,11 @@ First we have defined and created a class named ```Sheet``` that contains the va
 	        self.f = np.zeros((int(self.Ny), int(self.Nx)))
 
 	        
-
 	    def rectangular_slit(self,x0, y0, lx, ly):
 	        """
 	        Creates a slit centered at the point (x0, y0) with width lx and height ly
 	        """
-          self.f += np.select( [((self.xx > (x0 - lx/2) ) & (self.xx < (x0 + lx/2) )) & ((self.yy > (y0 - ly/2) ) & (self.yy < (y0 + ly/2) )),  True], [1, 0])
+	        self.f += np.select( [((self.xx > (x0 - lx/2) ) & (self.xx < (x0 + lx/2) )) & ((self.yy > (y0 - ly/2) ) & (self.yy < (y0 + ly/2) )),  True], [1, 0])
 
 As an example we study the diffraction pattern caused by two rectangular slits separated by a distance ```D``` with width and height denoted by ```lx```, ```ly``` respectively.
 The higher the values of ```Nx```, ```Ny```, ```Lx```, ```Ly```, more accurate the diffraction pattern will be.
