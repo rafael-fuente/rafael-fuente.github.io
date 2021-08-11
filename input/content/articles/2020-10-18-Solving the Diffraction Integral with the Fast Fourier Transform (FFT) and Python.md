@@ -130,13 +130,13 @@ First we have defined and created a class named ```Sheet``` that contains the va
 	import numpy as np
 
 	class Sheet():
-	    def __init__(self,rangX, rangY, Nx, Ny):
-	        self.x = np.linspace(rangX[0],rangX[1],Nx)
-	        self.y = np.linspace(rangY[0],rangY[1],Ny)
+	    def __init__(self,extentX, extentY, Nx, Ny):
+	        self.x = np.linspace(extentX[0],extentX[1],Nx)
+	        self.y = np.linspace(extentY[0],extentY[1],Ny)
 	        self.xx,self.yy = np.meshgrid(self.x, self.y)
 	        
-	        self.Nx = np.int(Nx)
-	        self.Ny = np.int(Ny)
+	        self.Nx = int(Nx)
+	        self.Ny = int(Ny)
 	        self.f = np.zeros((int(self.Ny), int(self.Nx)))
 
 	        
@@ -145,7 +145,7 @@ First we have defined and created a class named ```Sheet``` that contains the va
 	        """
 	        Creates a slit centered at the point (x0, y0) with width lx and height ly
 	        """
-	        self.f += np.select( [((self.xx > (x0 - lx/2) ) and (self.xx < (x0 + lx/2) )) and ((self.yy > (y0 - ly/2) ) and (self.yy < (y0 + ly/2) )),  True], [1, 0])
+          self.f += np.select( [((self.xx > (x0 - lx/2) ) & (self.xx < (x0 + lx/2) )) & ((self.yy > (y0 - ly/2) ) & (self.yy < (y0 + ly/2) )),  True], [1, 0])
 
 As an example we study the diffraction pattern caused by two rectangular slits separated by a distance ```D``` with width and height denoted by ```lx```, ```ly``` respectively.
 The higher the values of ```Nx```, ```Ny```, ```Lx```, ```Ly```, more accurate the diffraction pattern will be.
@@ -240,6 +240,9 @@ However, this last property will not be fulfilled if the distance between the sl
 As can also be seen, the distance between the interferential maximums has decreased. This is because this
 parameter decreases inversely proportional to the distance between the slits.
 
+In the next post, we´ll describe a more versatile method that allows us to solve the diffraction integral exactly, without recurring to the Fresnel approximation:
+
+- [Simulating Diffraction Patterns with the Angular Spectrum Method and Python](https://rafael-fuente.github.io/simulating-diffraction-patterns-with-the-angular-spectrum-method-and-python.html)
 
 ## Bibliography
 ---

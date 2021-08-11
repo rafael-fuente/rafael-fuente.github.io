@@ -6,8 +6,8 @@ class Sheet():
         self.y = np.linspace(extentY[0],extentY[1],Ny)
         self.xx,self.yy = np.meshgrid(self.x, self.y)
         
-        self.Nx = np.int(Nx)
-        self.Ny = np.int(Ny)
+        self.Nx = int(Nx)
+        self.Ny = int(Ny)
         self.f = np.zeros((int(self.Ny), int(self.Nx)))
 
         
