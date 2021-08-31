@@ -1,6 +1,6 @@
 Title: Simulating Light Diffraction with Lenses - Visualizing Fourier Optics
 Description: In this project, we'll illustrate how to simulate diffraction with lenses diffraction as well as illustrating some of the fundamentals of Fourier optics.
-Date: 2021-11-7 6:00
+Date: 2021-7-22 6:00
 Author: Rafael de la Fuente
 Tags: Optics, Diffraction, FFT
 Image: https://rafael-fuente.github.io/images/visualizing-fourier-optics/Visualizing-Fourier-Optics.png
