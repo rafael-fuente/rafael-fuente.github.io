@@ -189,7 +189,7 @@ U_{i}(x, y)= h(x, y) \otimes \frac{1}{|M|} U_{o}\left(\frac{x}{M}, \frac{y}{M}\r
 </p>
 
 
-The function $h(x, y)$ is called **point-spread function** and can be expressed as the Fourier transform of the lens pupil:
+The function $h(x, y)$ is called **amplitude point-spread function** and can be expressed as the Fourier transform of the lens pupil:
 
 <p class="math">
 \begin{equation}
@@ -225,7 +225,7 @@ $$H(f_x, f_y) = \mathcal{F}  \left[h(x, y)\right] = P\left(-\lambda z_{2} f_x, -
 $$A_{o}(f_x, f_y) = \mathcal{F}  \left[U_{o}(f_x, f_y)\right]$$
 </p>
 
-$H(f_x, f_y)$ is called **Optical Transfer Function (OTF)** and we see it's only dependent on the pupil lens function.<br /> 
+$H(f_x, f_y)$ is called **Amplitude Transfer Function (ATF)** and we see it's only dependent on the pupil lens function.<br /> 
 The expression \eqref{eq:12} supplies very revealing information because it shows that the lens pupil is acting as a **low pass filter**, removing any spatial frequency of the image higher than:
 
 <p class="math">
@@ -343,7 +343,8 @@ The following script is presented with this new approach to reproducing the resu
         fp = np.sqrt(fx**2 + fy**2)
 
         
-        #Definte the OTF function, representing the Fourier transform of the circular pupil function.
+        #Definte the ATF function, representing the Fourier transform of the amplitude point-spread function, and evaluated with a 
+        #circular pupil function P(-λ*f_x, -λ*f_y)
         H = np.select(
             [fp * zi* F.λ < radius , True], [1, 0]
         )
