@@ -170,10 +170,10 @@ All of the source code of the implementation can be found in its [GitHub reposit
 We have defined and created a class named ```MonochromaticField``` that will serve as the simulation interface. This class is initialized with the arguments ```wavelength```, ```extent_x```, ```extent_y```, ```Nx```, ```Ny```. 
 ```extent_x```, ```extent_y``` are the length and height of the rectangular grid and ```Nx```, ```Ny``` the dimension of the grid respectively.
 
-The class ```MonochromaticField``` contains a method called ```add_aperture_from_image(path, pad = None , Nx = None, Ny = None)```
+The class ```MonochromaticField``` contains a method called ```add_aperture_from_image(path, image_size = None)```
 This method load an image specified as a string with the argument ```path``` . The image is supposed to be a greymap and will serve as the amplitude transmittance function $t_{A}(x', y')$ defined in \eqref{eq:8}. White pixels will be loaded as value 1 and black pixels as 0.<br />
-The optional argument ```pad```  add zeros (black color) padded to each axis's edges.
-If ```Nx``` and ```Ny``` is specified, the method will interpolate the image to a new specified resolution.
+The image is centered on the plane and its physical size is specified in ```image_size``` argument as ```image_size = (float, float)```
+If image_size isn't specified, the image fills the entire aperture plane.
 
 The image below is an image of an outline hexagon aperture loaded with ```add_aperture_from_image``` method:
 
@@ -188,19 +188,23 @@ As an example of the methods explained, we present here the source code to simul
 <figure class='code'>
 <figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/examples/hexagon_monochromatic.py'>hexagon_monochromatic.py</a></figcaption>
 </figure>
-	from diffractsim import MonochromaticField, mm, nm, cm
+
+	import diffractsim
 	diffractsim.set_backend("CPU") #Change the string to "CUDA" to use GPU acceleration
 
+	from diffractsim import MonochromaticField, mm, nm, cm
+
 	F = MonochromaticField(
-	    wavelength=632.8 * nm, extent_x=5.6 * mm, extent_y=5.6 * mm, Nx=500, Ny=500
+	    wavelength=632.8 * nm, extent_x=18 * mm, extent_y=18 * mm, Nx=1500, Ny=1500
 	)
 
 	F.add_aperture_from_image(
-	    "./apertures/hexagon.jpg", pad=(10 * mm, 10 * mm), Nx=1400, Ny=1400
+	    "./apertures/hexagon.jpg", image_size=(5.6 * mm, 5.6 * mm)
 	)
 
 	rgb = F.compute_colors_at(80*cm)
 	F.plot(rgb, xlim=[-7, 7], ylim=[-7, 7])
+
 
 When this script is run with different wavelengths, it will return the following diffraction patterns:
 
@@ -266,19 +270,22 @@ Now we are going to give an example of how to use this class. We are going to us
 <figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/examples/hexagon_polychromatic.py'>hexagon_polychromatic.py</a></figcaption>
 </figure>
 
-	from diffractsim import PolychromaticField, cf, mm, cm
+	import diffractsim
 	diffractsim.set_backend("CPU") #Change the string to "CUDA" to use GPU acceleration
 
+	from diffractsim import PolychromaticField, cf, mm, cm
+
 	F = PolychromaticField(
-	    spectrum=2 * cf.illuminant_d65, extent_x=5.6 * mm, extent_y=5.6 * mm, Nx=500, Ny=500
+	    spectrum=2 * cf.illuminant_d65, extent_x=18 * mm, extent_y=18 * mm, Nx=1500, Ny=1500
 	)
 
 	F.add_aperture_from_image(
-	    "./apertures/hexagon.jpg", pad=(10 * mm, 10 * mm), Nx=1400, Ny=1400
+	    "./apertures/hexagon.jpg", image_size=(5.6 * mm, 5.6 * mm)
 	)
 
 	rgb = F.compute_colors_at(z=80*cm)
 	F.plot(rgb, xlim=[-7, 7], ylim=[-7, 7])
+
 
 This script returns the following plot:
 

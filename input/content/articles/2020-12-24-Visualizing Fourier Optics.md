@@ -269,17 +269,16 @@ The simulation shown in the figure 3 can be reproduced with the following script
     from diffractsim import MonochromaticField, nm, mm, cm
 
     F = MonochromaticField(
-        wavelength=488 * nm, extent_x=14. * mm, extent_y=14. * mm, Nx=2000, Ny=2000,intensity = 0.2
+        wavelength=488 * nm, extent_x=14. * mm, extent_y=14. * mm, Nx=2048, Ny=2048,intensity = 0.2
     )
 
     F.add_aperture_from_image(
-        "./apertures/QWT.png",  pad=(2 * mm, 2 * mm), Nx=2300, Ny=2300
+        "./apertures/QWT.png",  image_size =(14 * mm, 14 * mm)
     )
 
     F.propagate(50*cm) #distance from the aperture to the lens
 
-    F.add_lens(f = 25*cm)
-    F.add_circular_slit( 0, 0, 6*mm) # we model the entrance pupil of the lens as a circular aperture
+    F.add_lens(f = 25*cm, radius = 6*mm)
 
     F.propagate(50*cm) #distance from the lens to the screen
 
@@ -290,7 +289,7 @@ The simulation shown in the figure 3 can be reproduced with the following script
 
 The above script can also reproduce the simulation shown in figure 6, however, the angular spectrum method approach becomes quietly computationally expensive as the aperture size becomes smaller. 
 
-This difficulty can be overcome by performing the convolution \eqref{eq:9} through succesive Fourier transforms, applying the convolution theorem as revealed in \eqref{eq:10}. This approach avoid computing the field at lens position, that due the big extent of the diffracted field on this point, cannot be modeled accurately without using very large values of ```pad```.
+This difficulty can be overcome by performing the convolution \eqref{eq:9} through succesive Fourier transforms, applying the convolution theorem as revealed in \eqref{eq:10}. This approach avoid computing the field at lens position, that due the big extent of the diffracted field on this point, cannot be modeled accurately without using very large values of ```extent_x``` and ```extent_y```.
 
 The following script is presented with this new approach to reproducing the results of figure 6.
 
@@ -329,22 +328,13 @@ The following script is presented with this new approach to reproducing the resu
         fft_c = fft2(F.E)
         c = fftshift(fft_c)
 
-        fx = np.linspace(
-            -1/2 * F.Nx // 2 / (F.extent_x / 2),
-            1/2 * F.Nx // 2 / (F.extent_x / 2),
-            F.Nx,
-        )
-        fy = np.linspace(
-            -1/2 * F.Ny // 2 / (F.extent_y / 2),
-            1/2 * F.Ny // 2 / (F.extent_y / 2),
-            F.Ny,
-        )
+        fx = np.fft.fftshift(np.fft.fftfreq(F.Nx, d = F.x[1]-F.x[0]))
+        fy = np.fft.fftshift(np.fft.fftfreq(F.Ny, d = F.y[1]-F.y[0]))
         fx, fy = np.meshgrid(fx, fy)
         fp = np.sqrt(fx**2 + fy**2)
 
         
-        #Definte the ATF function, representing the Fourier transform of the amplitude point-spread function, and evaluated with a 
-        #circular pupil function P(-λ*f_x, -λ*f_y)
+        #Definte the OTF function, representing the Fourier transform of the circular pupil function.
         H = np.select(
             [fp * zi* F.λ < radius , True], [1, 0]
         )
@@ -357,18 +347,18 @@ The following script is presented with this new approach to reproducing the resu
     from diffractsim import MonochromaticField, nm, mm, cm
 
     F = MonochromaticField(
-        wavelength=488 * nm, extent_x=1. * mm, extent_y=1. * mm, Nx=2000, Ny=2000,intensity = 0.2
+        wavelength=488 * nm, extent_x=1.5 * mm, extent_y=1.5 * mm, Nx=2048, Ny=2048,intensity = 0.2
     )
 
     F.add_aperture_from_image(
-        "./apertures/QWT.png",  pad=(0.5 * mm, 0.5 * mm), Nx=2300, Ny=2300
+        "./apertures/QWT.png",  image_size = (1.0 * mm, 1.0 * mm)
     )
 
     propagate_to_image_plane(F,radius = 6*mm, zi = 50*cm, z0 = 50*cm)
 
 
     rgb = F.get_colors()
-    F.plot(rgb, xlim=[-0.4,0.4], ylim=[-0.4,0.4])
+    F.plot(rgb, figsize=(5, 5), xlim=[-0.4,0.4], ylim=[-0.4,0.4])
 
 We have defined a function named ```propagate_to_image_plane``` that accomplish the computation of \eqref{eq:9} and \eqref{eq:10}. When running the first script, it would yield an inverted image of the QWT aperture, while the second in which a smaller ```extent_x``` and ```extent_y``` is used, a wave distortion appears. We encourage the reader to change these values and experiment with different magnifications.
 
