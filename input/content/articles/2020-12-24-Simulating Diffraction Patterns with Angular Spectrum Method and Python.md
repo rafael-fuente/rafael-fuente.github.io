@@ -170,8 +170,8 @@ All of the source code of the implementation can be found in its [GitHub reposit
 We have defined and created a class named ```MonochromaticField``` that will serve as the simulation interface. This class is initialized with the arguments ```wavelength```, ```extent_x```, ```extent_y```, ```Nx```, ```Ny```. 
 ```extent_x```, ```extent_y``` are the length and height of the rectangular grid and ```Nx```, ```Ny``` the dimension of the grid respectively.
 
-The class ```MonochromaticField``` contains a method called ```add_aperture_from_image(path, image_size = None)```
-This method load an image specified as a string with the argument ```path``` . The image is supposed to be a greymap and will serve as the amplitude transmittance function $t_{A}(x', y')$ defined in \eqref{eq:8}. White pixels will be loaded as value 1 and black pixels as 0.<br />
+The class ```MonochromaticField``` contains a method called ```add_aperture_from_image(amplitude_mask_path, image_size = None)```
+This method load an image specified as a string with the argument ```amplitude_mask_path``` . The image is supposed to be a greymap and will serve as the amplitude transmittance function $t_{A}(x', y')$ defined in \eqref{eq:8}. White pixels will be loaded as value 1 and black pixels as 0.<br />
 The image is centered on the plane and its physical size is specified in ```image_size``` argument as ```image_size = (float, float)```
 If image_size isn't specified, the image fills the entire aperture plane.
 
@@ -203,7 +203,7 @@ As an example of the methods explained, we present here the source code to simul
 	)
 
 	rgb = F.compute_colors_at(80*cm)
-	F.plot(rgb, xlim=[-7, 7], ylim=[-7, 7])
+	F.plot_colors(rgb, xlim=[-7* mm, 7* mm], ylim=[-7* mm, 7* mm])
 
 
 When this script is run with different wavelengths, it will return the following diffraction patterns:
@@ -284,7 +284,7 @@ Now we are going to give an example of how to use this class. We are going to us
 	)
 
 	rgb = F.compute_colors_at(z=80*cm)
-	F.plot(rgb, xlim=[-7, 7], ylim=[-7, 7])
+	F.plot_colors(rgb, xlim=[-7* mm, 7* mm], ylim=[-7* mm, 7* mm])
 
 
 This script returns the following plot:

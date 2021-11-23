@@ -269,7 +269,7 @@ The simulation shown in the figure 3 can be reproduced with the following script
     from diffractsim import MonochromaticField, nm, mm, cm
 
     F = MonochromaticField(
-        wavelength=488 * nm, extent_x=14. * mm, extent_y=14. * mm, Nx=2048, Ny=2048,intensity = 0.2
+        wavelength=488 * nm, extent_x=18. * mm, extent_y=18. * mm, Nx=2048, Ny=2048,intensity = 0.2
     )
 
     F.add_aperture_from_image(
@@ -284,7 +284,7 @@ The simulation shown in the figure 3 can be reproduced with the following script
 
 
     rgb = F.get_colors()
-    F.plot(rgb, xlim=[-5.0,5.0], ylim=[-5.0,5.0])
+    F.plot_colors(rgb, xlim=[-5.0*mm,5.0*mm], ylim=[-5.0*mm,5.0*mm])
 
 
 The above script can also reproduce the simulation shown in figure 6, however, the angular spectrum method approach becomes quietly computationally expensive as the aperture size becomes smaller. 
@@ -315,14 +315,14 @@ The following script is presented with this new approach to reproducing the resu
         #magnification factor
         M = zi/z0
         fun = interp2d(
-                    np.linspace(-F.extent_x / 2, F.extent_x / 2, F.E.shape[1]),
-                    np.linspace(-F.extent_y / 2, F.extent_y / 2, F.E.shape[0]),
+                    F.extent_x*(np.arange(F.Nx)-F.Nx//2)/F.Nx,
+                    F.extent_y*(np.arange(F.Ny)-F.Ny//2)/F.Ny,
                     F.E,
                     kind="cubic",)
         
-        F.E = fun(np.linspace(
-                  -F.extent_x / 2 , F.extent_x / 2 , F.E.shape[1])/M, 
-                  np.linspace(-F.extent_y / 2 , F.extent_y / 2 ,F.E.shape[0])/M )/M
+        F.E = fun(F.extent_x*(np.arange(F.Nx)-F.Nx//2)/F.Nx/M, 
+                   F.extent_y*(np.arange(F.Ny)-F.Ny//2)/F.Ny/M )/M
+
         F.E = np.flip(F.E)
 
         fft_c = fft2(F.E)
@@ -334,7 +334,7 @@ The following script is presented with this new approach to reproducing the resu
         fp = np.sqrt(fx**2 + fy**2)
 
         
-        #Definte the OTF function, representing the Fourier transform of the circular pupil function.
+        #Definte the ATF function, representing the Fourier transform of the circular pupil function.
         H = np.select(
             [fp * zi* F.λ < radius , True], [1, 0]
         )
@@ -358,7 +358,7 @@ The following script is presented with this new approach to reproducing the resu
 
 
     rgb = F.get_colors()
-    F.plot(rgb, figsize=(5, 5), xlim=[-0.4,0.4], ylim=[-0.4,0.4])
+    F.plot_colors(rgb, figsize=(5, 5), xlim=[-0.4*mm,0.4*mm], ylim=[-0.4*mm,0.4*mm])
 
 We have defined a function named ```propagate_to_image_plane``` that accomplish the computation of \eqref{eq:9} and \eqref{eq:10}. When running the first script, it would yield an inverted image of the QWT aperture, while the second in which a smaller ```extent_x``` and ```extent_y``` is used, a wave distortion appears. We encourage the reader to change these values and experiment with different magnifications.
 

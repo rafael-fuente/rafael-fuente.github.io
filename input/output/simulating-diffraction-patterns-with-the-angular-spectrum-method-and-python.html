@@ -265,8 +265,8 @@ I\left(x,y,-L\right) \propto{\ U}^\ast\left(x,y,-L\right) \cdot U\left(x,y,-L\ri
 <p>All of the source code of the implementation can be found in its <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method">GitHub repository</a>. In this section we are going to show a brief description of it.</p>
 <p>We have defined and created a class named <code>MonochromaticField</code> that will serve as the simulation interface. This class is initialized with the arguments <code>wavelength</code>, <code>extent_x</code>, <code>extent_y</code>, <code>Nx</code>, <code>Ny</code>. 
 <code>extent_x</code>, <code>extent_y</code> are the length and height of the rectangular grid and <code>Nx</code>, <code>Ny</code> the dimension of the grid respectively.</p>
-<p>The class <code>MonochromaticField</code> contains a method called <code>add_aperture_from_image(path, image_size = None)</code>
-This method load an image specified as a string with the argument <code>path</code> . The image is supposed to be a greymap and will serve as the amplitude transmittance function $t_{A}(x', y')$ defined in \eqref{eq:8}. White pixels will be loaded as value 1 and black pixels as 0.<br />
+<p>The class <code>MonochromaticField</code> contains a method called <code>add_aperture_from_image(amplitude_mask_path, image_size = None)</code>
+This method load an image specified as a string with the argument <code>amplitude_mask_path</code> . The image is supposed to be a greymap and will serve as the amplitude transmittance function $t_{A}(x', y')$ defined in \eqref{eq:8}. White pixels will be loaded as value 1 and black pixels as 0.<br />
 The image is centered on the plane and its physical size is specified in <code>image_size</code> argument as <code>image_size = (float, float)</code>
 If image_size isn't specified, the image fills the entire aperture plane.</p>
 <p>The image below is an image of an outline hexagon aperture loaded with <code>add_aperture_from_image</code> method:</p>
@@ -294,7 +294,7 @@ The method return an array of RGB colors with the same dimension of the aperture
 <span class="p">)</span>
 
 <span class="n">rgb</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">compute_colors_at</span><span class="p">(</span><span class="mi">80</span><span class="o">*</span><span class="n">cm</span><span class="p">)</span>
-<span class="n">F</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="n">F</span><span class="o">.</span><span class="n">plot_colors</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mi">7</span><span class="o">*</span> <span class="n">mm</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mi">7</span><span class="o">*</span> <span class="n">mm</span><span class="p">])</span>
 </code></pre></div>
 
 <p>When this script is run with different wavelengths, it will return the following diffraction patterns:</p>
@@ -361,7 +361,7 @@ An important note: spectrum_size/spectrum_divisions should be an integer.</p>
 <span class="p">)</span>
 
 <span class="n">rgb</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">compute_colors_at</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">80</span><span class="o">*</span><span class="n">cm</span><span class="p">)</span>
-<span class="n">F</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="n">F</span><span class="o">.</span><span class="n">plot_colors</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mi">7</span><span class="o">*</span> <span class="n">mm</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mi">7</span><span class="o">*</span> <span class="n">mm</span><span class="p">])</span>
 </code></pre></div>
 
 <p>This script returns the following plot:</p>
