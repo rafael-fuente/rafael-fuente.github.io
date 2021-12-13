@@ -1,14 +1,18 @@
 import numpy as np
 
 class Sheet():
-    def __init__(self,extentX, extentY, Nx, Ny):
-        self.x = np.linspace(extentX[0],extentX[1],Nx)
-        self.y = np.linspace(extentY[0],extentY[1],Ny)
-        self.xx,self.yy = np.meshgrid(self.x, self.y)
+    def __init__(self,extent_x, extent_y, Nx, Ny):
+
+        self.dx = extent_x/Nx
+        self.dy = extent_y/Ny
+
+        self.x = self.dx*(np.arange(Nx)-Nx//2)
+        self.y = self.dy*(np.arange(Ny)-Ny//2)
+        self.xx, self.yy = np.meshgrid(self.x, self.y)
         
         self.Nx = int(Nx)
         self.Ny = int(Ny)
-        self.f = np.zeros((int(self.Ny), int(self.Nx)))
+        self.E = np.zeros((self.Ny, self.Nx))
 
         
 
@@ -16,7 +20,7 @@ class Sheet():
         """
         Creates a slit centered at the point (x0, y0) with width lx and height ly
         """
-        self.f += np.select( [((self.xx > (x0 - lx/2) ) & (self.xx < (x0 + lx/2) )) & ((self.yy > (y0 - ly/2) ) & (self.yy < (y0 + ly/2) )),  True], [1, 0])
+        self.E += np.select( [((self.xx > (x0 - lx/2) ) & (self.xx < (x0 + lx/2) )) & ((self.yy > (y0 - ly/2) ) & (self.yy < (y0 + ly/2) )),  True], [1, 0])
 
 
 #simulation input:
@@ -26,7 +30,7 @@ Ly = 0.4
 Nx= 2500
 Ny= 1500
 
-sheet = Sheet(extentX = [-Lx, Lx] , extentY = [-Ly, Ly], Nx= Nx, Ny= Ny)
+sheet = Sheet(extent_x = 2*Lx , extent_y = 2*Ly, Nx= Nx, Ny= Ny)
 
 #slit separation 
 mm = 1e-3
@@ -45,7 +49,7 @@ k = 2*np.pi/λ
 from scipy.fftpack import fft2
 from scipy.fftpack import fftshift
 
-fft_c = fft2(sheet.f * np.exp(1j * k/(2*z) *(sheet.xx**2 + sheet.yy**2)))
+fft_c = fft2(sheet.E * np.exp(1j * k/(2*z) *(sheet.xx**2 + sheet.yy**2)))
 c = fftshift(fft_c)
 
 
@@ -60,15 +64,15 @@ ax2 = fig.add_subplot(2,1,2,sharex=ax1, yticklabels=[])
 abs_c = np.absolute(c)
 
 #screen size mm
-Lx_screen = Nx*z*λ/(4*Lx)
-Ly_screen = Ny*z*λ/(4*Ly)
+dx_screen = z*λ/(2*Lx)
+dy_screen = z*λ/(2*Ly)
+x_screen = dx_screen * (np.arange(Nx)-Nx//2)
+y_screen = dy_screen * (np.arange(Ny)-Ny//2)
 
-x_max = (np.pi/Lx * (Nx//2 - 1))*z*λ/(2*np.pi)
-y_max = (np.pi/Ly * (Ny//2 - 1))*z*λ/(2*np.pi)
 
-ax1.imshow(abs_c, extent = [-Lx_screen, Lx_screen, -Ly_screen,Ly_screen], cmap ='gray', interpolation = "bilinear", aspect = 'auto')
+ax1.imshow(abs_c, extent = [x_screen[0], x_screen[-1]+dx_screen, y_screen[0], y_screen[-1]+dy_screen], cmap ='gray', interpolation = "bilinear", aspect = 'auto')
 
-ax2.plot(np.linspace(-Lx_screen,Lx_screen, len(abs_c[0])), abs_c[len(abs_c)//2]**2, linewidth = 1)
+ax2.plot(x_screen, abs_c[Ny//2]**2, linewidth = 1)
 
 ax1.set_ylabel("y (mm)")
 ax2.set_xlabel("x (mm)")
