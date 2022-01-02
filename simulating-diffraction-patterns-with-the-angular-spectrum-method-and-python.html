@@ -265,11 +265,11 @@ I\left(x,y,-L\right) \propto{\ U}^\ast\left(x,y,-L\right) \cdot U\left(x,y,-L\ri
 <p>All of the source code of the implementation can be found in its <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method">GitHub repository</a>. In this section we are going to show a brief description of it.</p>
 <p>We have defined and created a class named <code>MonochromaticField</code> that will serve as the simulation interface. This class is initialized with the arguments <code>wavelength</code>, <code>extent_x</code>, <code>extent_y</code>, <code>Nx</code>, <code>Ny</code>. 
 <code>extent_x</code>, <code>extent_y</code> are the length and height of the rectangular grid and <code>Nx</code>, <code>Ny</code> the dimension of the grid respectively.</p>
-<p>The class <code>MonochromaticField</code> contains a method called <code>add_aperture_from_image(amplitude_mask_path, image_size = None)</code>
+<p>The class <code>MonochromaticField</code> contains a method called <code>add(ApertureFromImage(amplitude_mask_path, image_size, simulation))</code>
 This method load an image specified as a string with the argument <code>amplitude_mask_path</code> . The image is supposed to be a greymap and will serve as the amplitude transmittance function $t_{A}(x', y')$ defined in \eqref{eq:8}. White pixels will be loaded as value 1 and black pixels as 0.<br />
 The image is centered on the plane and its physical size is specified in <code>image_size</code> argument as <code>image_size = (float, float)</code>
 If image_size isn't specified, the image fills the entire aperture plane.</p>
-<p>The image below is an image of an outline hexagon aperture loaded with <code>add_aperture_from_image</code> method:</p>
+<p>The image below is an image of an outline hexagon aperture loaded with <code>ApertureFromImage</code> class:</p>
 <div style="text-align:center"><img src="./images/angular-spectral-method/outline-hexagon-diffraction-aperture.png" alt="Outline Hexagon Diffraction Aperture"/></div>
 
 <p>Finally, we can compute the diffraction pattern at a specified distance <code>z</code> with <code>compute_colors_at(z)</code>.<br />
@@ -283,24 +283,24 @@ The method return an array of RGB colors with the same dimension of the aperture
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">diffractsim</span>
 <span class="n">diffractsim</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="s2">&quot;CPU&quot;</span><span class="p">)</span> <span class="c1">#Change the string to &quot;CUDA&quot; to use GPU acceleration</span>
 
-<span class="kn">from</span> <span class="nn">diffractsim</span> <span class="kn">import</span> <span class="n">MonochromaticField</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">nm</span><span class="p">,</span> <span class="n">cm</span>
+<span class="kn">from</span> <span class="nn">diffractsim</span> <span class="kn">import</span> <span class="n">MonochromaticField</span><span class="p">,</span> <span class="n">ApertureFromImage</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">nm</span><span class="p">,</span> <span class="n">cm</span>
 
 <span class="n">F</span> <span class="o">=</span> <span class="n">MonochromaticField</span><span class="p">(</span>
-    <span class="n">wavelength</span><span class="o">=</span><span class="mf">632.8</span> <span class="o">*</span> <span class="n">nm</span><span class="p">,</span> <span class="n">extent_x</span><span class="o">=</span><span class="mi">18</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">extent_y</span><span class="o">=</span><span class="mi">18</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">Nx</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span><span class="mi">1500</span>
+    <span class="n">wavelength</span><span class="o">=</span><span class="mf">632.8</span> <span class="o">*</span> <span class="n">nm</span><span class="p">,</span> <span class="n">extent_x</span><span class="o">=</span><span class="mi">18</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">extent_y</span><span class="o">=</span><span class="mi">18</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">Nx</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span><span class="mi">1024</span>
 <span class="p">)</span>
 
-<span class="n">F</span><span class="o">.</span><span class="n">add_aperture_from_image</span><span class="p">(</span>
-    <span class="s2">&quot;./apertures/hexagon.jpg&quot;</span><span class="p">,</span> <span class="n">image_size</span><span class="o">=</span><span class="p">(</span><span class="mf">5.6</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mf">5.6</span> <span class="o">*</span> <span class="n">mm</span><span class="p">)</span>
-<span class="p">)</span>
+<span class="n">F</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ApertureFromImage</span><span class="p">(</span><span class="s2">&quot;./apertures/hexagon.jpg&quot;</span><span class="p">,</span> <span class="n">image_size</span><span class="o">=</span><span class="p">(</span><span class="mf">5.6</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mf">5.6</span> <span class="o">*</span> <span class="n">mm</span><span class="p">),</span> <span class="n">simulation</span> <span class="o">=</span> <span class="n">F</span><span class="p">))</span>
 
-<span class="n">rgb</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">compute_colors_at</span><span class="p">(</span><span class="mi">80</span><span class="o">*</span><span class="n">cm</span><span class="p">)</span>
+
+<span class="n">F</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="mi">80</span><span class="o">*</span><span class="n">cm</span><span class="p">)</span>
+<span class="n">rgb</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">get_colors</span><span class="p">()</span>
 <span class="n">F</span><span class="o">.</span><span class="n">plot_colors</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mi">7</span><span class="o">*</span> <span class="n">mm</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mi">7</span><span class="o">*</span> <span class="n">mm</span><span class="p">])</span>
 </code></pre></div>
 
 <p>When this script is run with different wavelengths, it will return the following diffraction patterns:</p>
 <div style="text-align:center"><img src="./images/angular-spectral-method/diffraction-hexagon.jpg" alt="Hexagon Diffraction"/></div>
 
-<p>As we can see in the plots, the higher the light's wavelength, the longer the diffraction pattern is.</p>
+<p>As we can see in the plots, the higher the light's wavelength, the longer the diffraction pattern is. Note as well that the green diffraction pattern is the brightest. That is because the human eye presents peak sensitivity at about 555 nanometers.</p>
 <h2>Polychromatic Light</h2>
 <hr>
 <p>For getting the total field that irradiates on the screen for a broad spectrum, we must compute $U(x, y, -L)$ for each wavelength and integrate it over the entire spectrum. But what we are going to show here is how to compute the colors produced by the diffraction pattern in a way that can be displayed by a computer monitor. This can be achieved using <a href="https://en.wikipedia.org/wiki/CIE_1931_color_space#Color_matching_functions">CIE's color matching functions</a>.<br/> 
@@ -308,17 +308,32 @@ These are three integrals $\hat{x}(\lambda), \hat{y}(\lambda) \text { and } \hat
 <p class="math">
 \begin{equation}
 \begin{aligned}
-X &=\int_{\lambda} I(\lambda, x, y) \hat{x}(\lambda) d \lambda \\
-Y &=\int_{\lambda} I(\lambda, x, y) \hat{y}(\lambda) d \lambda \\
-Z &=\int_{\lambda} I(\lambda, x, y) \hat{z}(\lambda) d \lambda
+X &=\int_{\lambda} L(\lambda, x, y) \hat{x}(\lambda) d \lambda \\
+Y &=\int_{\lambda} L(\lambda, x, y) \hat{y}(\lambda) d \lambda \\
+Z &=\int_{\lambda} L(\lambda, x, y) \hat{z}(\lambda) d \lambda
 \end{aligned}
 \label{eq:12}
 \end{equation}
 </p>
 
+<p>$L(\lambda, x, y)$ is defined as the <a href="https://en.wikipedia.org/wiki/Radiance">spectral radiance</a> reflected on the screen at the point $(x,y)$. We will consider that the screen is a diffuse surface, and its reflectance is given by the <a href="https://en.wikipedia.org/wiki/Lambert%27s_cosine_law">Lambert law</a>. As a consequence, the relation of the incident intensity and the reflected radiance can be expressed as:</p>
+<p class="math">
+\begin{equation}
+L(\lambda, x, y) = \frac{R}{\pi} \cdot I(\lambda, x,y)
+\label{eq:13}
+\end{equation}
+</p>
+
+<p>where:</p>
+<p class="math">
+$$I(\lambda, x,y) = \text{ Spectral irradiance on the screen at the point (x,y)}$$
+
+$$R = \text{ Reflectance of the diffuse surface}$$
+</p>
+
 <div style="text-align:center"><img src="./images/angular-spectral-method/color-matching-functions.png" alt="Color Matching Functions"/></div>
 
-<p>The tabulated values of these functions can be found in <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/diffractsim/data/cie-cmf.txt">cie-cmf.txt</a>.
+<p>The tabulated values of the CIE's color matching functions can be found in <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/diffractsim/data/cie-cmf.txt">cie-cmf.txt</a>.
 The $X, Y \text { and } Z$ values can be transformed to some RGB space to be displayed. For example, assuming standard sRGB primaries and white point we have the following relation for the RGB values:</p>
 <p class="math">
 $$
@@ -340,7 +355,7 @@ $$
 <p>The method <code>compute_colors_at</code> now has two new arguments:
 <code>spectrum_size</code>  is the number of samples of the spectrum.<br/> 
 <code>spectrum_divisions</code> is the number of divisions of the spectrum that will be used for computing the integrals \eqref{eq:12}. A higher value will return to more accurate colors.<br/> 
-An important note: spectrum_size/spectrum_divisions should be an integer.</p>
+An important note: <code>spectrum_size</code>/<code>spectrum_divisions</code> should be an integer.</p>
 <p>The complete implementation of this class can be found in <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/diffractsim/polychromatic_simulator.py">polychromatic_simulator.py</a></p>
 <p>Now we are going to give an example of how to use this class. We are going to use the outline hexagon aperture from the previous example, but this time using a <strong>white light</strong> spectrum. This can be achieved using the <a href="https://en.wikipedia.org/wiki/Illuminant_D65">Illuminant D65</a> whose sample list can be found in <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/diffractsim/data/illuminant_d65.txt">illuminant_d65.txt</a>.</p>
 <figure class='code'>
@@ -350,17 +365,17 @@ An important note: spectrum_size/spectrum_divisions should be an integer.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">diffractsim</span>
 <span class="n">diffractsim</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="s2">&quot;CPU&quot;</span><span class="p">)</span> <span class="c1">#Change the string to &quot;CUDA&quot; to use GPU acceleration</span>
 
-<span class="kn">from</span> <span class="nn">diffractsim</span> <span class="kn">import</span> <span class="n">PolychromaticField</span><span class="p">,</span> <span class="n">cf</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">cm</span>
+<span class="kn">from</span> <span class="nn">diffractsim</span> <span class="kn">import</span> <span class="n">PolychromaticField</span><span class="p">,</span> <span class="n">ApertureFromImage</span><span class="p">,</span> <span class="n">cf</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">cm</span>
 
 <span class="n">F</span> <span class="o">=</span> <span class="n">PolychromaticField</span><span class="p">(</span>
-    <span class="n">spectrum</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">cf</span><span class="o">.</span><span class="n">illuminant_d65</span><span class="p">,</span> <span class="n">extent_x</span><span class="o">=</span><span class="mi">18</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">extent_y</span><span class="o">=</span><span class="mi">18</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">Nx</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span><span class="mi">1500</span>
+    <span class="n">spectrum</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">cf</span><span class="o">.</span><span class="n">illuminant_d65</span><span class="p">,</span> <span class="n">extent_x</span><span class="o">=</span><span class="mi">18</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">extent_y</span><span class="o">=</span><span class="mi">18</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">Nx</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span><span class="mi">1024</span>
 <span class="p">)</span>
 
-<span class="n">F</span><span class="o">.</span><span class="n">add_aperture_from_image</span><span class="p">(</span>
-    <span class="s2">&quot;./apertures/hexagon.jpg&quot;</span><span class="p">,</span> <span class="n">image_size</span><span class="o">=</span><span class="p">(</span><span class="mf">5.6</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mf">5.6</span> <span class="o">*</span> <span class="n">mm</span><span class="p">)</span>
-<span class="p">)</span>
+<span class="n">F</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ApertureFromImage</span><span class="p">(</span><span class="s2">&quot;./apertures/hexagon.jpg&quot;</span><span class="p">,</span> <span class="n">image_size</span><span class="o">=</span><span class="p">(</span><span class="mf">5.6</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mf">5.6</span> <span class="o">*</span> <span class="n">mm</span><span class="p">),</span> <span class="n">simulation</span> <span class="o">=</span> <span class="n">F</span><span class="p">))</span>
 
-<span class="n">rgb</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">compute_colors_at</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">80</span><span class="o">*</span><span class="n">cm</span><span class="p">)</span>
+<span class="n">F</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">80</span><span class="o">*</span><span class="n">cm</span><span class="p">)</span>
+
+<span class="n">rgb</span> <span class="o">=</span><span class="n">F</span><span class="o">.</span><span class="n">get_colors</span><span class="p">()</span>
 <span class="n">F</span><span class="o">.</span><span class="n">plot_colors</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mi">7</span><span class="o">*</span> <span class="n">mm</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mi">7</span><span class="o">*</span> <span class="n">mm</span><span class="p">])</span>
 </code></pre></div>
 

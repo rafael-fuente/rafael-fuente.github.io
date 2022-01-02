@@ -263,26 +263,31 @@ The simulation shown in the figure 3 can be reproduced with the following script
 <figure class='code'>
 <figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/examples/optical_imaging_system.py'>optical_imaging_system.py</a></figcaption>
 </figure>
+
     import diffractsim
     diffractsim.set_backend("CPU") #Change the string to "CUDA" to use GPU acceleration
 
-    from diffractsim import MonochromaticField, nm, mm, cm
+    from diffractsim import MonochromaticField, ApertureFromImage, Lens, nm, mm, cm
 
     F = MonochromaticField(
         wavelength=488 * nm, extent_x=18. * mm, extent_y=18. * mm, Nx=2048, Ny=2048,intensity = 0.2
     )
 
-    F.add_aperture_from_image(
-        "./apertures/QWT.png",  image_size =(14 * mm, 14 * mm)
-    )
-
-    F.propagate(50*cm) #distance from the aperture to the lens
-
-    F.add_lens(f = 25*cm, radius = 6*mm)
-
-    F.propagate(50*cm) #distance from the lens to the screen
+    F.add(ApertureFromImage("./apertures/QWT.png",  image_size =(14 * mm, 14 * mm), simulation = F))
 
 
+    #image at z = 0*cm
+    rgb = F.get_colors()
+    F.plot_colors(rgb, xlim=[-5.0*mm,5.0*mm], ylim=[-5.0*mm,5.0*mm])
+
+
+    F.propagate(400*cm)
+
+    F.add(Lens(f = 200*cm, radius = 20*mm))
+
+    F.propagate(400*cm)
+
+    #image at z = 100*cm
     rgb = F.get_colors()
     F.plot_colors(rgb, xlim=[-5.0*mm,5.0*mm], ylim=[-5.0*mm,5.0*mm])
 
@@ -296,6 +301,7 @@ The following script is presented with this new approach to reproducing the resu
 <figure class='code'>
 <figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/examples/optical_imaging_system_using_convolution.py'>optical_imaging_system_using_convolution.py</a></figcaption>
 </figure>
+
     import diffractsim
     diffractsim.set_backend("CPU")
 
@@ -344,15 +350,13 @@ The following script is presented with this new approach to reproducing the resu
         F.I = np.real(F.E * np.conjugate(F.E))  
 
 
-    from diffractsim import MonochromaticField, nm, mm, cm
+    from diffractsim import MonochromaticField,ApertureFromImage, nm, mm, cm
 
     F = MonochromaticField(
         wavelength=488 * nm, extent_x=1.5 * mm, extent_y=1.5 * mm, Nx=2048, Ny=2048,intensity = 0.2
     )
 
-    F.add_aperture_from_image(
-        "./apertures/QWT.png",  image_size = (1.0 * mm, 1.0 * mm)
-    )
+    F.add(ApertureFromImage("./apertures/QWT.png",  image_size = (1.0 * mm, 1.0 * mm), simulation = F))
 
     propagate_to_image_plane(F,radius = 6*mm, zi = 50*cm, z0 = 50*cm)
 

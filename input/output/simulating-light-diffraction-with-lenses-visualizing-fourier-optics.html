@@ -339,26 +339,31 @@ d = \frac{λ}{2 sin(θ)}
 <figure class='code'>
 <figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/examples/optical_imaging_system.py'>optical_imaging_system.py</a></figcaption>
 </figure>
+
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">diffractsim</span>
 <span class="n">diffractsim</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="s2">&quot;CPU&quot;</span><span class="p">)</span> <span class="c1">#Change the string to &quot;CUDA&quot; to use GPU acceleration</span>
 
-<span class="kn">from</span> <span class="nn">diffractsim</span> <span class="kn">import</span> <span class="n">MonochromaticField</span><span class="p">,</span> <span class="n">nm</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">cm</span>
+<span class="kn">from</span> <span class="nn">diffractsim</span> <span class="kn">import</span> <span class="n">MonochromaticField</span><span class="p">,</span> <span class="n">ApertureFromImage</span><span class="p">,</span> <span class="n">Lens</span><span class="p">,</span> <span class="n">nm</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">cm</span>
 
 <span class="n">F</span> <span class="o">=</span> <span class="n">MonochromaticField</span><span class="p">(</span>
     <span class="n">wavelength</span><span class="o">=</span><span class="mi">488</span> <span class="o">*</span> <span class="n">nm</span><span class="p">,</span> <span class="n">extent_x</span><span class="o">=</span><span class="mf">18.</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">extent_y</span><span class="o">=</span><span class="mf">18.</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">Nx</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span><span class="n">intensity</span> <span class="o">=</span> <span class="mf">0.2</span>
 <span class="p">)</span>
 
-<span class="n">F</span><span class="o">.</span><span class="n">add_aperture_from_image</span><span class="p">(</span>
-    <span class="s2">&quot;./apertures/QWT.png&quot;</span><span class="p">,</span>  <span class="n">image_size</span> <span class="o">=</span><span class="p">(</span><span class="mi">14</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mi">14</span> <span class="o">*</span> <span class="n">mm</span><span class="p">)</span>
-<span class="p">)</span>
-
-<span class="n">F</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="mi">50</span><span class="o">*</span><span class="n">cm</span><span class="p">)</span> <span class="c1">#distance from the aperture to the lens</span>
-
-<span class="n">F</span><span class="o">.</span><span class="n">add_lens</span><span class="p">(</span><span class="n">f</span> <span class="o">=</span> <span class="mi">25</span><span class="o">*</span><span class="n">cm</span><span class="p">,</span> <span class="n">radius</span> <span class="o">=</span> <span class="mi">6</span><span class="o">*</span><span class="n">mm</span><span class="p">)</span>
-
-<span class="n">F</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="mi">50</span><span class="o">*</span><span class="n">cm</span><span class="p">)</span> <span class="c1">#distance from the lens to the screen</span>
+<span class="n">F</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ApertureFromImage</span><span class="p">(</span><span class="s2">&quot;./apertures/QWT.png&quot;</span><span class="p">,</span>  <span class="n">image_size</span> <span class="o">=</span><span class="p">(</span><span class="mi">14</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mi">14</span> <span class="o">*</span> <span class="n">mm</span><span class="p">),</span> <span class="n">simulation</span> <span class="o">=</span> <span class="n">F</span><span class="p">))</span>
 
 
+<span class="c1">#image at z = 0*cm</span>
+<span class="n">rgb</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">get_colors</span><span class="p">()</span>
+<span class="n">F</span><span class="o">.</span><span class="n">plot_colors</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">5.0</span><span class="o">*</span><span class="n">mm</span><span class="p">,</span><span class="mf">5.0</span><span class="o">*</span><span class="n">mm</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">5.0</span><span class="o">*</span><span class="n">mm</span><span class="p">,</span><span class="mf">5.0</span><span class="o">*</span><span class="n">mm</span><span class="p">])</span>
+
+
+<span class="n">F</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="mi">400</span><span class="o">*</span><span class="n">cm</span><span class="p">)</span>
+
+<span class="n">F</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Lens</span><span class="p">(</span><span class="n">f</span> <span class="o">=</span> <span class="mi">200</span><span class="o">*</span><span class="n">cm</span><span class="p">,</span> <span class="n">radius</span> <span class="o">=</span> <span class="mi">20</span><span class="o">*</span><span class="n">mm</span><span class="p">))</span>
+
+<span class="n">F</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="mi">400</span><span class="o">*</span><span class="n">cm</span><span class="p">)</span>
+
+<span class="c1">#image at z = 100*cm</span>
 <span class="n">rgb</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">get_colors</span><span class="p">()</span>
 <span class="n">F</span><span class="o">.</span><span class="n">plot_colors</span><span class="p">(</span><span class="n">rgb</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">5.0</span><span class="o">*</span><span class="n">mm</span><span class="p">,</span><span class="mf">5.0</span><span class="o">*</span><span class="n">mm</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">5.0</span><span class="o">*</span><span class="n">mm</span><span class="p">,</span><span class="mf">5.0</span><span class="o">*</span><span class="n">mm</span><span class="p">])</span>
 </code></pre></div>
@@ -369,6 +374,7 @@ d = \frac{λ}{2 sin(θ)}
 <figure class='code'>
 <figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/examples/optical_imaging_system_using_convolution.py'>optical_imaging_system_using_convolution.py</a></figcaption>
 </figure>
+
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">diffractsim</span>
 <span class="n">diffractsim</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="s2">&quot;CPU&quot;</span><span class="p">)</span>
 
@@ -417,15 +423,13 @@ d = \frac{λ}{2 sin(θ)}
     <span class="n">F</span><span class="o">.</span><span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">real</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">E</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">conjugate</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">E</span><span class="p">))</span>
 
 
-<span class="kn">from</span> <span class="nn">diffractsim</span> <span class="kn">import</span> <span class="n">MonochromaticField</span><span class="p">,</span> <span class="n">nm</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">cm</span>
+<span class="kn">from</span> <span class="nn">diffractsim</span> <span class="kn">import</span> <span class="n">MonochromaticField</span><span class="p">,</span><span class="n">ApertureFromImage</span><span class="p">,</span> <span class="n">nm</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">cm</span>
 
 <span class="n">F</span> <span class="o">=</span> <span class="n">MonochromaticField</span><span class="p">(</span>
     <span class="n">wavelength</span><span class="o">=</span><span class="mi">488</span> <span class="o">*</span> <span class="n">nm</span><span class="p">,</span> <span class="n">extent_x</span><span class="o">=</span><span class="mf">1.5</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">extent_y</span><span class="o">=</span><span class="mf">1.5</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="n">Nx</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">Ny</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span><span class="n">intensity</span> <span class="o">=</span> <span class="mf">0.2</span>
 <span class="p">)</span>
 
-<span class="n">F</span><span class="o">.</span><span class="n">add_aperture_from_image</span><span class="p">(</span>
-    <span class="s2">&quot;./apertures/QWT.png&quot;</span><span class="p">,</span>  <span class="n">image_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">mm</span><span class="p">)</span>
-<span class="p">)</span>
+<span class="n">F</span><span class="o">.</span><span class="kp">add</span><span class="p">(</span><span class="n">ApertureFromImage</span><span class="p">(</span><span class="s2">&quot;./apertures/QWT.png&quot;</span><span class="p">,</span>  <span class="n">image_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">mm</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">mm</span><span class="p">),</span> <span class="n">simulation</span> <span class="o">=</span> <span class="n">F</span><span class="p">))</span>
 
 <span class="n">propagate_to_image_plane</span><span class="p">(</span><span class="n">F</span><span class="p">,</span><span class="n">radius</span> <span class="o">=</span> <span class="mi">6</span><span class="o">*</span><span class="n">mm</span><span class="p">,</span> <span class="n">zi</span> <span class="o">=</span> <span class="mi">50</span><span class="o">*</span><span class="n">cm</span><span class="p">,</span> <span class="n">z0</span> <span class="o">=</span> <span class="mi">50</span><span class="o">*</span><span class="n">cm</span><span class="p">)</span>
 

@@ -170,12 +170,12 @@ All of the source code of the implementation can be found in its [GitHub reposit
 We have defined and created a class named ```MonochromaticField``` that will serve as the simulation interface. This class is initialized with the arguments ```wavelength```, ```extent_x```, ```extent_y```, ```Nx```, ```Ny```. 
 ```extent_x```, ```extent_y``` are the length and height of the rectangular grid and ```Nx```, ```Ny``` the dimension of the grid respectively.
 
-The class ```MonochromaticField``` contains a method called ```add_aperture_from_image(amplitude_mask_path, image_size = None)```
+The class ```MonochromaticField``` contains a method called ```add(ApertureFromImage(amplitude_mask_path, image_size, simulation))```
 This method load an image specified as a string with the argument ```amplitude_mask_path``` . The image is supposed to be a greymap and will serve as the amplitude transmittance function $t_{A}(x', y')$ defined in \eqref{eq:8}. White pixels will be loaded as value 1 and black pixels as 0.<br />
 The image is centered on the plane and its physical size is specified in ```image_size``` argument as ```image_size = (float, float)```
 If image_size isn't specified, the image fills the entire aperture plane.
 
-The image below is an image of an outline hexagon aperture loaded with ```add_aperture_from_image``` method:
+The image below is an image of an outline hexagon aperture loaded with ```ApertureFromImage``` class:
 
 <div style="text-align:center"><img src="./images/angular-spectral-method/outline-hexagon-diffraction-aperture.png" alt="Outline Hexagon Diffraction Aperture"/></div>
 
@@ -192,17 +192,17 @@ As an example of the methods explained, we present here the source code to simul
 	import diffractsim
 	diffractsim.set_backend("CPU") #Change the string to "CUDA" to use GPU acceleration
 
-	from diffractsim import MonochromaticField, mm, nm, cm
+	from diffractsim import MonochromaticField, ApertureFromImage, mm, nm, cm
 
 	F = MonochromaticField(
-	    wavelength=632.8 * nm, extent_x=18 * mm, extent_y=18 * mm, Nx=1500, Ny=1500
+	    wavelength=632.8 * nm, extent_x=18 * mm, extent_y=18 * mm, Nx=1024, Ny=1024
 	)
 
-	F.add_aperture_from_image(
-	    "./apertures/hexagon.jpg", image_size=(5.6 * mm, 5.6 * mm)
-	)
+	F.add(ApertureFromImage("./apertures/hexagon.jpg", image_size=(5.6 * mm, 5.6 * mm), simulation = F))
 
-	rgb = F.compute_colors_at(80*cm)
+
+	F.propagate(80*cm)
+	rgb = F.get_colors()
 	F.plot_colors(rgb, xlim=[-7* mm, 7* mm], ylim=[-7* mm, 7* mm])
 
 
@@ -210,7 +210,7 @@ When this script is run with different wavelengths, it will return the following
 
 <div style="text-align:center"><img src="./images/angular-spectral-method/diffraction-hexagon.jpg" alt="Hexagon Diffraction"/></div>
 
-As we can see in the plots, the higher the light's wavelength, the longer the diffraction pattern is.
+As we can see in the plots, the higher the light's wavelength, the longer the diffraction pattern is. Note as well that the green diffraction pattern is the brightest. That is because the human eye presents peak sensitivity at about 555 nanometers.
 
 ## Polychromatic Light
 ---
@@ -221,17 +221,35 @@ These are three integrals $\hat{x}(\lambda), \hat{y}(\lambda) \text { and } \hat
 <p class="math">
 \begin{equation}
 \begin{aligned}
-X &=\int_{\lambda} I(\lambda, x, y) \hat{x}(\lambda) d \lambda \\
-Y &=\int_{\lambda} I(\lambda, x, y) \hat{y}(\lambda) d \lambda \\
-Z &=\int_{\lambda} I(\lambda, x, y) \hat{z}(\lambda) d \lambda
+X &=\int_{\lambda} L(\lambda, x, y) \hat{x}(\lambda) d \lambda \\
+Y &=\int_{\lambda} L(\lambda, x, y) \hat{y}(\lambda) d \lambda \\
+Z &=\int_{\lambda} L(\lambda, x, y) \hat{z}(\lambda) d \lambda
 \end{aligned}
 \label{eq:12}
 \end{equation}
 </p>
 
+$L(\lambda, x, y)$ is defined as the [spectral radiance](https://en.wikipedia.org/wiki/Radiance) reflected on the screen at the point $(x,y)$. We will consider that the screen is a diffuse surface, and its reflectance is given by the [Lambert law](https://en.wikipedia.org/wiki/Lambert%27s_cosine_law). As a consequence, the relation of the incident intensity and the reflected radiance can be expressed as:
+
+<p class="math">
+\begin{equation}
+L(\lambda, x, y) = \frac{R}{\pi} \cdot I(\lambda, x,y)
+\label{eq:13}
+\end{equation}
+</p>
+
+where:
+
+<p class="math">
+$$I(\lambda, x,y) = \text{ Spectral irradiance on the screen at the point (x,y)}$$
+
+$$R = \text{ Reflectance of the diffuse surface}$$
+</p>
+
+
 <div style="text-align:center"><img src="./images/angular-spectral-method/color-matching-functions.png" alt="Color Matching Functions"/></div>
 
-The tabulated values of these functions can be found in [cie-cmf.txt](https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/diffractsim/data/cie-cmf.txt).
+The tabulated values of the CIE's color matching functions can be found in [cie-cmf.txt](https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/diffractsim/data/cie-cmf.txt).
 The $X, Y \text { and } Z$ values can be transformed to some RGB space to be displayed. For example, assuming standard sRGB primaries and white point we have the following relation for the RGB values:
 
 <p class="math">
@@ -260,7 +278,7 @@ This class is initialized with the arguments ```spectrum```, ```extent_x```, ```
 The method ```compute_colors_at``` now has two new arguments:
 ```spectrum_size```  is the number of samples of the spectrum.<br/> 
 ```spectrum_divisions``` is the number of divisions of the spectrum that will be used for computing the integrals \eqref{eq:12}. A higher value will return to more accurate colors.<br/> 
-An important note: spectrum_size/spectrum_divisions should be an integer.
+An important note: ```spectrum_size```/```spectrum_divisions``` should be an integer.
 
 The complete implementation of this class can be found in [polychromatic_simulator.py](https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/diffractsim/polychromatic_simulator.py)
 
@@ -273,19 +291,18 @@ Now we are going to give an example of how to use this class. We are going to us
 	import diffractsim
 	diffractsim.set_backend("CPU") #Change the string to "CUDA" to use GPU acceleration
 
-	from diffractsim import PolychromaticField, cf, mm, cm
+	from diffractsim import PolychromaticField, ApertureFromImage, cf, mm, cm
 
 	F = PolychromaticField(
-	    spectrum=2 * cf.illuminant_d65, extent_x=18 * mm, extent_y=18 * mm, Nx=1500, Ny=1500
+	    spectrum=2 * cf.illuminant_d65, extent_x=18 * mm, extent_y=18 * mm, Nx=1024, Ny=1024
 	)
 
-	F.add_aperture_from_image(
-	    "./apertures/hexagon.jpg", image_size=(5.6 * mm, 5.6 * mm)
-	)
+	F.add(ApertureFromImage("./apertures/hexagon.jpg", image_size=(5.6 * mm, 5.6 * mm), simulation = F))
 
-	rgb = F.compute_colors_at(z=80*cm)
+	F.propagate(z=80*cm)
+
+	rgb =F.get_colors()
 	F.plot_colors(rgb, xlim=[-7* mm, 7* mm], ylim=[-7* mm, 7* mm])
-
 
 This script returns the following plot:
 
