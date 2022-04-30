@@ -250,7 +250,7 @@ And similarly, as we did with the coherent case, we can express this relation in
 
 <p class="math">
 \begin{equation}
-U_{i}(x, y) = \mathcal{F^{-1}}  \left[H(f_x, f_y) G_{o}(f_x, f_y)\right] 
+U_{i}(x, y) = \mathcal{F^{-1}}  \left[\mathcal{H}(f_x, f_y) G_{o}(f_x, f_y)\right] 
 \end{equation}
 </p>
 
