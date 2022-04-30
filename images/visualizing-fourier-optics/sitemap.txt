@@ -27,6 +27,14 @@
     </image:image>
 
     <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/visualizing-fourier-optics/incoherent-diffraction-limited-system-simulation.png</image:loc>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/visualizing-fourier-optics/incoherent-diffraction-limited-system-simulation.gif</image:loc>
+    </image:image>
+
+    <image:image>
       <image:loc>https://rafael-fuente.github.io/images/visualizing-fourier-optics/diffraction-limited-image.png</image:loc>
     </image:image>
 

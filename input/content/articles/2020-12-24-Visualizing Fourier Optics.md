@@ -124,7 +124,7 @@ Let's check now what happens when we account for diffraction:
 <br /> 
 
 <div style="text-align:center"><img src="./images/visualizing-fourier-optics/diffraction-lens-longitudinal-profile.png" alt="Diffraction simulation with a lens longitudinal profile"/></div>
-<em>Figure 4: Longitudinal profile</em>
+<em>Figure 4: Longitudinal profile (ZX plane slice at y = 0)</em>
 <br /> 
 
 When accounting for diffraction, we can see that the pattern on the focal point (screen distance = 75 cm) isn't a single point, as geometrical optics predicts. What the screen is actually showing is the **Fourier transform** of the aperture.
@@ -198,7 +198,7 @@ h(x, y)=  \mathcal{F} \left[ P\left(\lambda z_{2} x^{'}, \lambda z_{2} y^{'}\rig
 \end{equation}
 </p>
 
-The lens pupil function $P(x,y)$ represents the finite extension associated with the lens. For a circular lens with radius $R_0$ (used in the simulation shown in Figure 6), it is defined as follows:
+The lens pupil function $P(x,y)$ represents the finite extension associated with the lens. For a circular lens with radius $R_0$ (used in the simulation shown in figure 6), it is defined as follows:
 
 <p class="math">
 \begin{equation}
@@ -222,37 +222,86 @@ where:
 <p class="math">
 $$H(f_x, f_y) = \mathcal{F}  \left[h(x, y)\right] = P\left(-\lambda z_{2} f_x, -\lambda z_{2} f_y\right)$$
 
-$$A_{o}(f_x, f_y) = \mathcal{F}  \left[U_{o}(f_x, f_y)\right]$$
+$$A_{o}(f_x, f_y) = \mathcal{F}  \left[\frac{1}{|M|} U_{o}\left(\frac{x}{M}, \frac{y}{M}\right)\right]$$
 </p>
 
 $H(f_x, f_y)$ is called **Amplitude Transfer Function (ATF)** and we see it's only dependent on the pupil lens function.<br /> 
 The expression \eqref{eq:12} supplies very revealing information because it shows that the lens pupil is acting as a **low pass filter**, removing any spatial frequency of the image higher than:
 
-<p class="math">
-\begin{equation}
-f_c = \frac{r}{λ z_i }
-\end{equation}
-</p>
-
-This fact implies that any detail of the image smaller than $\frac{λ x_i}{r}$ is distorted, explaining why the wave distortion appears.<br /> 
-While we used coherent light, we can modify this expression to account for spatially incoherent light by multiplying by $\frac{1}{2}$, and it's called **Abbe diffraction limit**:
 
 <p class="math">
 \begin{equation}
-d = \frac{λ x_i}{2 r}
+f_{coherent} = \frac{r}{λ z_2 }
 \end{equation}
 </p>
 
-This result can be generalized with a system with more than one lens by using the following expression:
+This fact implies that any detail of the image smaller than $d_{coherent} = \frac{λ z_2}{r}$ is distorted, explaining why the wave distortion shown in Figure 6 appears.<br /> 
+
+So far, we have used coherent light, but when dealing with [spatially incoherent light](https://rafael-fuente.github.io/visual-explanation-of-the-van-cittert-zernike-theorem-the-double-slit-experiment-with-incoherent-and-coherent-light.html), we can also express the relation between the images as a convolution, but this time, we use the field intensity instead of the field amplitude, related by:
+
 
 <p class="math">
 \begin{equation}
-d = \frac{λ}{2 sin(θ)}
+I_{i}(x, y)\propto |h(x, y)|^{2} \otimes I_{0}\left(\frac{x}{M}, \frac{y}{M}\right)
 \end{equation}
 </p>
 
-where $θ$ is the half-angle to which the optical system is focusing the light. Note that because we are using the paraxial approximation  we can set $tan θ \approx sin θ$. However, $sin θ$ is preferred because it illustrates that the maximum resolution achievable is never going to be smaller than the wavelength $λ$.
+And similarly, as we did with the coherent case, we can express this relation in the Fourier space:
 
+<p class="math">
+\begin{equation}
+U_{i}(x, y) = \mathcal{F^{-1}}  \left[H(f_x, f_y) G_{o}(f_x, f_y)\right] 
+\end{equation}
+</p>
+
+where:
+<p class="math">
+$$\mathcal{H}(f_x, f_y) = \mathcal{F}  \left[|h(x, y)|^{2}\right]$$
+
+$$G_{o}(f_x, f_y) = \mathcal{F}  \left[I_{0}\left(\frac{x}{M}, \frac{y}{M}\right)\right]$$
+</p>
+
+$\mathcal{H}(f_x, f_y)$ is called **Optical Transfer Function (OTF)** and like the Amplitude Transfer Function (ATF), it's only dependent on the pupil lens function. Furthermore, it can be shown the OTF is the autocorrelation function of the ATF [[4]](#references). <br /> 
+This implies again the pupil again acts as a low pass filter, but in contrast to coherent imaging, which is linear with the field, incoherent imaging is linear with irradiance, and the cutoff frequency is multiplied by 2:
+
+<p class="math">
+\begin{equation}
+f_{incoherent} = 2 f_{coherent} = \frac{2 r}{λ z_2 }
+\end{equation}
+</p>
+
+
+By inverting the above equation, we get the expression for the diffraction-limited spatial resolution $d_{incoherent}$, denominated **Abbe diffraction limit** [[5]](#references):
+
+
+<p class="math">
+\begin{equation}
+d_{incoherent} = \frac{λ}{2 sin(θ)} = \frac{λ}{2 {NA}}
+\label{eq:Abbe}
+\end{equation}
+</p>
+
+We have defined $θ$ is the half-angle to which the optical system is focusing the light. Note that because we are using the paraxial approximation  we can set $tan θ = \frac{z_2}{r} \approx sin θ$. However, $sin θ$ is preferred because it illustrates that the maximum resolution achievable is never going to be smaller than the wavelength $λ$. <br /> 
+
+The term ${NA} =\sin \theta$ is called numerical aperture and it's commonly used in microscopy. When the medium in which the lens has a index of refraction $n$, we can further generalize \eqref{eq:Abbe} by dividing it by $n$. In this case, the numerical aperture is defined as ${NA} =n \sin \theta$: 
+
+A lens with a larger numerical aperture will be able to visualize finer details than a lens with a smaller numerical aperture, thus making useful using a medium with a high index of refraction.
+
+Note that the Abbe diffraction limit is not absolute. Resolution beyond this diffraction limit can be achieved in some special cases, by using, for example, evanescent fields or strong non-linear effects. See for example [[6]](#references).
+
+
+<div class="object-and-details">
+<div style="text-align:center"><img src="./images/visualizing-fourier-optics/incoherent-diffraction-limited-system-simulation.png" alt="Simulation of a diffraction limited system" loading="lazy"/></div>
+  <details>
+    <!-- added role=button to summary to resolve iOS funkiness -->
+    <summary role="button" aria-label="static image"></summary>
+    <div class="object-and-details1">
+      <img src="./images/visualizing-fourier-optics/incoherent-diffraction-limited-system-simulation.gif" alt="Simulation of a diffraction limited system" loading="lazy">
+    </div>
+  </details>
+</div>
+<em>Figure 7: Simulated diffraction-limited spatially incoherent image. Unlike the coherent case shown in figure 6, the wave interferences are less visible and the image diffraction limit distorsion is mostly due a blurring effect.
+ </em>
 ## Implementation with Python
 ---
 
@@ -265,38 +314,39 @@ The simulation shown in the figure 3 can be reproduced with the following script
 </figure>
 
     import diffractsim
-    diffractsim.set_backend("CPU") #Change the string to "CUDA" to use GPU acceleration
+    diffractsim.set_backend("CUDA") #Change the string to "CUDA" to use GPU acceleration
 
-    from diffractsim import MonochromaticField, ApertureFromImage, Lens, nm, mm, cm
+    from diffractsim import MonochromaticField, ApertureFromImage, Lens, nm, mm, cm, um
 
+
+    zi = 50*cm # distance from the image plane to the lens
+    z0 = 50*cm # distance from the lens to the current position
+    M = zi/z0 # magnification factor
+    radius = 6*mm
+
+
+    # set up simulation
     F = MonochromaticField(
-        wavelength=488 * nm, extent_x=18. * mm, extent_y=18. * mm, Nx=2048, Ny=2048,intensity = 0.2
+        wavelength=488 * nm, extent_x=1.5 * mm, extent_y=1.5 * mm, Nx=2048, Ny=2048,intensity = 0.2
     )
 
-    F.add(ApertureFromImage("./apertures/QWT.png",  image_size =(14 * mm, 14 * mm), simulation = F))
+    F.add(ApertureFromImage("./apertures/QWT.png",  image_size = (1.0 * mm, 1.0 * mm), simulation = F))
 
-
-    #image at z = 0*cm
-    rgb = F.get_colors()
-    F.plot_colors(rgb, xlim=[-5.0*mm,5.0*mm], ylim=[-5.0*mm,5.0*mm])
-
-
-    F.propagate(400*cm)
-
-    F.add(Lens(f = 200*cm, radius = 20*mm))
-
-    F.propagate(400*cm)
+    F.scale_propagate(z0, scale_factor = 30)
+    #zi and z0 must satisfy the thin les equation 1/zi + 1/z0 = 1/f 
+    F.add(Lens(f = zi*z0/(zi+z0), radius = radius))
+    F.scale_propagate(zi, scale_factor = M/(30))
 
     #image at z = 100*cm
     rgb = F.get_colors()
-    F.plot_colors(rgb, xlim=[-5.0*mm,5.0*mm], ylim=[-5.0*mm,5.0*mm])
+    F.plot_colors(rgb, figsize=(5, 5), xlim=[-0.5*mm,0.5*mm], ylim=[-0.5*mm,0.5*mm])
 
 
-The above script can also reproduce the simulation shown in figure 6, however, the angular spectrum method approach becomes quietly computationally expensive as the aperture size becomes smaller. 
+The above script can also reproduce the simulation shown in figure 6, however, in order to correctly simulate the optical system we need two propagations.
 
-This difficulty can be overcome by performing the convolution \eqref{eq:9} through succesive Fourier transforms, applying the convolution theorem as revealed in \eqref{eq:10}. This approach avoid computing the field at lens position, that due the big extent of the diffracted field on this point, cannot be modeled accurately without using very large values of ```extent_x``` and ```extent_y```.
+This computation can be simplified by performing the convolution \eqref{eq:9} through succesive Fourier transforms, applying the convolution theorem as revealed in \eqref{eq:10}. This approach avoid computing the field at lens position, that due the big extent of the diffracted field at the lens, requires reescaling the diffraction plane, at least, by a factor of 30.
 
-The following script is presented with this new approach to reproducing the results of figure 6.
+The following script is presented with this fast approach to reproducing the results of figure 6.
 
 <figure class='code'>
 <figcaption><a href='https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/examples/optical_imaging_system_using_convolution.py'>optical_imaging_system_using_convolution.py</a></figcaption>
@@ -304,53 +354,17 @@ The following script is presented with this new approach to reproducing the resu
 
     import diffractsim
     diffractsim.set_backend("CPU")
+    from diffractsim import MonochromaticField,ApertureFromImage, nm, mm, cm,um, CircularAperture
 
-    def propagate_to_image_plane(F, radius, zi, z0):
-        from scipy.fftpack import fft2, ifft2, fftshift, ifftshift
-        from scipy.interpolate import interp2d
-        import numpy as np
-        """
-        zi: distance from the image plane to the lens
-        z0: distance from the lens the current position
-        zi and z0 should satisfy the equation 1/zi + 1/z0 = 1/f 
-        where f is the focal distance of the lens
-        radius: radius of the lens pupil
-        """
-        F.z += zi + z0
-        
-        #magnification factor
-        M = zi/z0
-        fun = interp2d(
-                    F.extent_x*(np.arange(F.Nx)-F.Nx//2)/F.Nx,
-                    F.extent_y*(np.arange(F.Ny)-F.Ny//2)/F.Ny,
-                    F.E,
-                    kind="cubic",)
-        
-        F.E = fun(F.extent_x*(np.arange(F.Nx)-F.Nx//2)/F.Nx/M, 
-                   F.extent_y*(np.arange(F.Ny)-F.Ny//2)/F.Ny/M )/M
+    zi = 50*cm # distance from the image plane to the lens
+    z0 = 50*cm # distance from the lens to the current position
+    M = -zi/z0 # magnification factor
+    radius = 6*mm
+    NA = radius  / z0  #numerical aperture
 
-        F.E = np.flip(F.E)
+    #print diffraction limit
+    print('\n Maximum object resolvable distance by Rayleigh criteria: {} mm'.format("%.3f"  % (0.61*488*nm/NA /mm)))
 
-        fft_c = fft2(F.E)
-        c = fftshift(fft_c)
-
-        fx = np.fft.fftshift(np.fft.fftfreq(F.Nx, d = F.x[1]-F.x[0]))
-        fy = np.fft.fftshift(np.fft.fftfreq(F.Ny, d = F.y[1]-F.y[0]))
-        fx, fy = np.meshgrid(fx, fy)
-        fp = np.sqrt(fx**2 + fy**2)
-
-        
-        #Definte the ATF function, representing the Fourier transform of the circular pupil function.
-        H = np.select(
-            [fp * zi* F.λ < radius , True], [1, 0]
-        )
-        F.E = ifft2(ifftshift(c*H))
-
-        # compute Field Intensity
-        F.I = np.real(F.E * np.conjugate(F.E))  
-
-
-    from diffractsim import MonochromaticField,ApertureFromImage, nm, mm, cm
 
     F = MonochromaticField(
         wavelength=488 * nm, extent_x=1.5 * mm, extent_y=1.5 * mm, Nx=2048, Ny=2048,intensity = 0.2
@@ -358,17 +372,15 @@ The following script is presented with this new approach to reproducing the resu
 
     F.add(ApertureFromImage("./apertures/QWT.png",  image_size = (1.0 * mm, 1.0 * mm), simulation = F))
 
-    propagate_to_image_plane(F,radius = 6*mm, zi = 50*cm, z0 = 50*cm)
-
-
+    F.propagate_to_image_plane(pupil = CircularAperture(radius = 6*mm) , M = M, zi = zi, z0 = z0)
     rgb = F.get_colors()
-    F.plot_colors(rgb, figsize=(5, 5), xlim=[-0.4*mm,0.4*mm], ylim=[-0.4*mm,0.4*mm])
+    F.plot_colors(rgb, figsize=(5, 5), xlim=[-0.5*mm,0.5*mm], ylim=[-0.5*mm,0.5*mm])
 
 We have defined a function named ```propagate_to_image_plane``` that accomplish the computation of \eqref{eq:9} and \eqref{eq:10}. When running the first script, it would yield an inverted image of the QWT aperture, while the second in which a smaller ```extent_x``` and ```extent_y``` is used, a wave distortion appears. We encourage the reader to change these values and experiment with different magnifications.
 
 
 <div style="text-align:center"><img src="./images/visualizing-fourier-optics/diffraction-limited-image.png" alt="Diffraction limited image"/></div>
-<center> <em>Figure 7: Output of ```optical_imaging_system_using_convolution.py```</em></center>
+<center> <em>Figure 8: Output of ```optical_imaging_system_using_convolution.py```</em></center>
 
 ## References
 ---
@@ -378,3 +390,6 @@ We have defined a function named ```propagate_to_image_plane``` that accomplish 
 [1] Introduction to Fourier Optics J. Goodman sec. 5.1<br /> 
 [2] Introduction to Fourier Optics J. Goodman sec. 5.2<br /> 
 [3] Introduction to Fourier Optics J. Goodman sec. 5.3<br /> 
+[4] Introduction to Fourier Optics J. Goodman sec. 6.3<br /> 
+[5] Abbe, E. A Contribution to the Theory of the Microscope and the nature of Microscopic Vision. Archiv für Mikroskopische Anatomie 9, 413–418 (1873)<br /> 
+[6] Minin, Igor & Minin, Oleg. (2016). Diffractive Optics and Nanophotonics: Resolution Below the Diffraction Limit.<br /> 
