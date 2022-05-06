@@ -45,3 +45,8 @@
     <image:image>
       <image:loc>https://rafael-fuente.github.io/images/visualizing-fourier-optics/diagram-optical-imaging-system.png</image:loc>
     </image:image>
+
+
+    <image:image>
+      <image:loc>https://rafael-fuente.github.io/images/visualizing-fourier-optics/diffraction_limited_pupil_shape_comparison.png</image:loc>
+    </image:image>

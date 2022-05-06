@@ -202,7 +202,7 @@ Equation \eqref{eq:5} and \eqref{eq:3} is all what we need to model a spherical 
 <h2>Simulation of an Optical Imaging System</h2>
 <hr>
 <div style="text-align:center"><img src="./images/visualizing-fourier-optics/diagram-optical-imaging-system.png" alt="Thin lens modeled as a phase transformation"/></div>
-<p><em>Figure 2: Diagram illustrating the simulation setup of the optical imaging system. This simulation is shown at <a href="https://www.youtube.com/watch?v=G4J4PV6tqH0&amp;t=123s">2:03</a>.</em>
+<p><em>Figure 2: Diagram illustrating the simulation setup of a coherent optical imaging system. This simulation is shown at <a href="https://www.youtube.com/watch?v=G4J4PV6tqH0&amp;t=123s">2:03</a>.</em>
 <br /> </p>
 <p>Probably this is one of the most interesting systems to study when using lenses. This simulation shows the Fourier transforming properties of lenses, their image formation, and the image diffraction limit.</p>
 <p>Let first take a look at the system from a geometrical perspective. The distance from the object (here, the QWT aperture) and the lens is $- 2 f$. Then, using the <a href="https://en.wikipedia.org/wiki/Thin_lens#Image_formation">thin lens equation</a>, we find that a real, inverted image is formed at a distance $2 f$ from the lens.</p>
@@ -327,7 +327,7 @@ I_{i}(x, y)\propto |h(x, y)|^{2} \otimes I_{0}\left(\frac{x}{M}, \frac{y}{M}\rig
 <p>And similarly, as we did with the coherent case, we can express this relation in the Fourier space:</p>
 <p class="math">
 \begin{equation}
-U_{i}(x, y) = \mathcal{F^{-1}}  \left[\mathcal{H}(f_x, f_y) G_{o}(f_x, f_y)\right] 
+I_{i}(x, y) \propto \mathcal{F^{-1}}  \left[\mathcal{H}(f_x, f_y) G_{o}(f_x, f_y)\right] 
 \end{equation}
 </p>
 
@@ -357,7 +357,7 @@ d_{incoherent} = \frac{λ}{2 sin(θ)} = \frac{λ}{2 {NA}}
 <p>We have defined $θ$ is the half-angle to which the optical system is focusing the light. Note that because we are using the paraxial approximation  we can set $tan θ = \frac{z_2}{r} \approx sin θ$. However, $sin θ$ is preferred because it illustrates that the maximum resolution achievable is never going to be smaller than the wavelength $λ$. <br /> </p>
 <p>The term ${NA} =\sin \theta$ is called numerical aperture and it's commonly used in microscopy. When the medium in which the lens has a index of refraction $n$, we can further generalize \eqref{eq:Abbe} by dividing it by $n$. In this case, the numerical aperture is defined as ${NA} =n \sin \theta$: </p>
 <p>A lens with a larger numerical aperture will be able to visualize finer details than a lens with a smaller numerical aperture, thus making useful using a medium with a high index of refraction.</p>
-<p>Note that the Abbe diffraction limit is not absolute. Resolution beyond this diffraction limit can be achieved in some special cases, by using, for example, evanescent fields or strong non-linear effects. See for example <a href="#references">[6]</a>.</p>
+<p>Note that the Abbe diffraction limit is not absolute. Resolution beyond this diffraction limit can be achieved in some special cases, by using, for example, evanescent fields or strong non-linear effects <a href="#references">[6]</a>.</p>
 <div class="object-and-details">
 <div style="text-align:center"><img src="./images/visualizing-fourier-optics/incoherent-diffraction-limited-system-simulation.png" alt="Simulation of a diffraction limited system" loading="lazy"/></div>
   <details>
@@ -370,6 +370,9 @@ d_{incoherent} = \frac{λ}{2 sin(θ)} = \frac{λ}{2 {NA}}
 </div>
 <p><em>Figure 7: Simulated diffraction-limited spatially incoherent image. Unlike the coherent case shown in figure 6, the wave interferences are less visible and the image diffraction limit distorsion is mostly due a blurring effect.
  </em></p>
+<div style="text-align:center"><img src="./images/visualizing-fourier-optics/diffraction_limited_pupil_shape_comparison.png" alt="Diffraction limited image for different pupil shapes"/></div>
+<p><em>Figure 8: Simulated diffraction-limited spatially incoherent image for different pupil shapes.<br /> 
+ The simulations shown in Figures 6 and 7 use circular-shaped pupils, but when pupils with hard edges are used, <a href="https://en.wikipedia.org/wiki/Diffraction_spike">diffraction spikes</a> are visible in the image. This phenomenon can be seen in normal vision, due to the diffraction through eyelashes and the edges of the eyelids when one is squinting staring a light. In the case of photography, the diffraction spikes are due the iris diaphragms of camera lenses.</em></p>
 <h2>Implementation with Python</h2>
 <hr>
 <p>The simulations of the video can be found on the <a href="https://github.com/rafael-fuente/Diffraction-Simulations--Angular-Spectrum-Method/blob/main/Simulations%20with%20lenses.md">GitHub repository</a>. In this section, we are going to show the implementation of the two simulations discussed.</p>
@@ -388,6 +391,10 @@ d_{incoherent} = \frac{λ}{2 sin(θ)} = \frac{λ}{2 {NA}}
 <span class="n">z0</span> <span class="o">=</span> <span class="mi">50</span><span class="o">*</span><span class="n">cm</span> <span class="c1"># distance from the lens to the current position</span>
 <span class="n">M</span> <span class="o">=</span> <span class="n">zi</span><span class="o">/</span><span class="n">z0</span> <span class="c1"># magnification factor</span>
 <span class="n">radius</span> <span class="o">=</span> <span class="mi">6</span><span class="o">*</span><span class="n">mm</span>
+<span class="n">NA</span> <span class="o">=</span> <span class="n">radius</span>  <span class="o">/</span> <span class="n">z0</span>  <span class="c1">#numerical aperture</span>
+
+<span class="c1">#print diffraction limit</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> Maximum object resolvable distance by Rayleigh criteria: </span><span class="si">{}</span><span class="s1"> mm&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%.3f</span><span class="s2">&quot;</span>  <span class="o">%</span> <span class="p">(</span><span class="mf">0.61</span><span class="o">*</span><span class="mi">488</span><span class="o">*</span><span class="n">nm</span><span class="o">/</span><span class="n">NA</span> <span class="o">/</span><span class="n">mm</span><span class="p">)))</span>
 
 
 <span class="c1"># set up simulation</span>
@@ -441,7 +448,7 @@ d_{incoherent} = \frac{λ}{2 sin(θ)} = \frac{λ}{2 {NA}}
 
 <p>We have defined a function named <code>propagate_to_image_plane</code> that accomplish the computation of \eqref{eq:9} and \eqref{eq:10}. When running the first script, it would yield an inverted image of the QWT aperture, while the second in which a smaller <code>extent_x</code> and <code>extent_y</code> is used, a wave distortion appears. We encourage the reader to change these values and experiment with different magnifications.</p>
 <div style="text-align:center"><img src="./images/visualizing-fourier-optics/diffraction-limited-image.png" alt="Diffraction limited image"/></div>
-<p><center> <em>Figure 8: Output of <code>optical_imaging_system_using_convolution.py</code></em></center></p>
+<p><center> <em>Figure 9: Output of <code>optical_imaging_system_using_convolution.py</code></em></center></p>
 <h2>References</h2>
 <hr>
 <div class="references" id="references"></div>

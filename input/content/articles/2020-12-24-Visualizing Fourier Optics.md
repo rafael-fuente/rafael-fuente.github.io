@@ -93,7 +93,7 @@ Equation \eqref{eq:5} and \eqref{eq:3} is all what we need to model a spherical 
 ---
 
 <div style="text-align:center"><img src="./images/visualizing-fourier-optics/diagram-optical-imaging-system.png" alt="Thin lens modeled as a phase transformation"/></div>
-<em>Figure 2: Diagram illustrating the simulation setup of the optical imaging system. This simulation is shown at [2:03](https://www.youtube.com/watch?v=G4J4PV6tqH0&t=123s).</em>
+<em>Figure 2: Diagram illustrating the simulation setup of a coherent optical imaging system. This simulation is shown at [2:03](https://www.youtube.com/watch?v=G4J4PV6tqH0&t=123s).</em>
 <br /> 
 
 Probably this is one of the most interesting systems to study when using lenses. This simulation shows the Fourier transforming properties of lenses, their image formation, and the image diffraction limit.
@@ -250,7 +250,7 @@ And similarly, as we did with the coherent case, we can express this relation in
 
 <p class="math">
 \begin{equation}
-U_{i}(x, y) = \mathcal{F^{-1}}  \left[\mathcal{H}(f_x, f_y) G_{o}(f_x, f_y)\right] 
+I_{i}(x, y) \propto \mathcal{F^{-1}}  \left[\mathcal{H}(f_x, f_y) G_{o}(f_x, f_y)\right] 
 \end{equation}
 </p>
 
@@ -287,7 +287,7 @@ The term ${NA} =\sin \theta$ is called numerical aperture and it's commonly used
 
 A lens with a larger numerical aperture will be able to visualize finer details than a lens with a smaller numerical aperture, thus making useful using a medium with a high index of refraction.
 
-Note that the Abbe diffraction limit is not absolute. Resolution beyond this diffraction limit can be achieved in some special cases, by using, for example, evanescent fields or strong non-linear effects. See for example [[6]](#references).
+Note that the Abbe diffraction limit is not absolute. Resolution beyond this diffraction limit can be achieved in some special cases, by using, for example, evanescent fields or strong non-linear effects [[6]](#references).
 
 
 <div class="object-and-details">
@@ -302,6 +302,14 @@ Note that the Abbe diffraction limit is not absolute. Resolution beyond this dif
 </div>
 <em>Figure 7: Simulated diffraction-limited spatially incoherent image. Unlike the coherent case shown in figure 6, the wave interferences are less visible and the image diffraction limit distorsion is mostly due a blurring effect.
  </em>
+
+
+
+<div style="text-align:center"><img src="./images/visualizing-fourier-optics/diffraction_limited_pupil_shape_comparison.png" alt="Diffraction limited image for different pupil shapes"/></div>
+<em>Figure 8: Simulated diffraction-limited spatially incoherent image for different pupil shapes.<br /> 
+ The simulations shown in Figures 6 and 7 use circular-shaped pupils, but when pupils with hard edges are used, [diffraction spikes](https://en.wikipedia.org/wiki/Diffraction_spike) are visible in the image. This phenomenon can be seen in normal vision, due to the diffraction through eyelashes and the edges of the eyelids when one is squinting staring a light. In the case of photography, the diffraction spikes are due the iris diaphragms of camera lenses.</em>
+
+
 ## Implementation with Python
 ---
 
@@ -323,6 +331,10 @@ The simulation shown in the figure 3 can be reproduced with the following script
     z0 = 50*cm # distance from the lens to the current position
     M = zi/z0 # magnification factor
     radius = 6*mm
+    NA = radius  / z0  #numerical aperture
+
+    #print diffraction limit
+    print('\n Maximum object resolvable distance by Rayleigh criteria: {} mm'.format("%.3f"  % (0.61*488*nm/NA /mm)))
 
 
     # set up simulation
@@ -380,7 +392,7 @@ We have defined a function named ```propagate_to_image_plane``` that accomplish 
 
 
 <div style="text-align:center"><img src="./images/visualizing-fourier-optics/diffraction-limited-image.png" alt="Diffraction limited image"/></div>
-<center> <em>Figure 8: Output of ```optical_imaging_system_using_convolution.py```</em></center>
+<center> <em>Figure 9: Output of ```optical_imaging_system_using_convolution.py```</em></center>
 
 ## References
 ---

@@ -84,7 +84,7 @@ You can see that a very narrow bandwidth $ \Delta \lambda  = 1 \text{ nm}$ is en
 
 When the intensity is averaged over a few microseconds no fluctuations can be seen. This is the reason that although the wave-like behaviour of light, we don't usually see the interferences.
 
-## More explanations:
+## Further explanations:
 ---
 <div class="object-and-details">
 <div style="text-align:left"><img src="./images/incoherent-double-slit-simulations/simulation-incoherent-femtoseconds.jpg" alt="simulation of the double slit experiment with incoherent light at femtoseconds" loading="lazy"/></div>
