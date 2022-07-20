@@ -137,7 +137,7 @@ We also define the normalized coherence, that we'll use in the next section as:
 
 <p class="math">
 \begin{equation}
-\gamma=\frac{\Gamma(\tau)}{\sqrt{\Gamma(0) \Gamma(0)}}
+\gamma(\tau)=\frac{\Gamma(\tau)}{\sqrt{\Gamma(0) \Gamma(0)}}
 \end{equation}
 </p>
 
