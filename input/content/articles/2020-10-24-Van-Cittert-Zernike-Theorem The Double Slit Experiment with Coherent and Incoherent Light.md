@@ -20,7 +20,7 @@ The surface of a spatially incoherent light source can be represented by a colle
 
 I thought that a visualization of the topic could be helpful, but I found almost zero of them in the literature. The main idea of this video is to illustrate and show the subtle details of the concept of coherence by means of three simulations of the light propagating through the double slit at different time scales: (femtoseconds, picoseconds, and microseconds) to show their differences.
 
-The experiment demostrated in this video is a key result in statistical optics. It can also be mathematically treated with the **Van Cittert–Zernike theorem** and the concept of **mutual intensity**, that we'll discuss in the last two sections.
+The experiment demostrated in this video is a key result in statistical optics. It can also be mathematically treated with the **Van Cittert–Zernike theorem** and the concept of **mutual coherence**, that we'll discuss in the last two sections.
 
 
 ## How I made the simulations:
@@ -127,11 +127,11 @@ We define the mutual coherence function $\Gamma(r_1, r_2, \tau)$ between these t
 \end{equation}
 </p>
 
-The mutual intensity is a measure of the spatial coherence of the light at the two object points, where $\tau$ is a time delay associated with the propagation. When we are observing spatially incoherent sources we should expect the mutual coherence function to be relatively small between the two observation points that are near the source, because the sources will interfere destructively as well as constructively. <br /> 
+The mutual coherence is a measure of the spatial coherence of the light at the two object points, where $\tau$ is a time delay associated with the propagation. When we are observing spatially incoherent sources we should expect the mutual coherence function to be relatively small between the two observation points that are near the source, because the sources will interfere destructively as well as constructively. <br /> 
 
 Far away from the sources, as happens when we measure the mutual coherence from a distant star, the mutual coherence function is relatively large because the sum of the observed fields is almost the same at any two points. Perfectly spatially incoherent light refers to the situation where the complex field phasors from the radiating point sources are stochastically independent, where there is no correlation between the field phasors at different points or times, leading to a mutual coherence near zero. <br />  
 
-Furthermore, the mutual intensity it's also interesting, because beyond measuring the spatial coherence can also be used to compute the intensity along a propagation plane[[2]](#references). 
+Furthermore, the mutual coherence it's also interesting, because beyond measuring the spatial coherence can also be used to compute the intensity along a propagation plane[[2]](#references). 
 
 We also define the normalized coherence, that we'll use in the next section as:
 
