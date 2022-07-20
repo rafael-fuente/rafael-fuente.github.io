@@ -154,7 +154,7 @@ Which holds the useful propierty:
 ## The Van-Cittert Zernike Theorem
 ---
 
-The [Van-Cittert Zernike theorem](https://en.wikipedia.org/wiki/Van_Cittert%E2%80%93Zernike_theorem) [[6]](#references), deriven originally by [[4]](#references) [[5]](#references), provides a simple way to compute the degree of coherence $\gamma(\mathbf{r_1}, \mathbf{r_2}, 0)$ for the double slit experiment, where we set $\tau = 0$ due dealing with quasi-monochromatic light, and $\mathbf{r_1}$, $\mathbf{r_2}$ are the position of the two slits. According to the theorem, the degree of coherence can be computed by taking the Fourier transform of the intensity distribution of the light source as follows:
+The [Van-Cittert Zernike theorem](https://en.wikipedia.org/wiki/Van_Cittert%E2%80%93Zernike_theorem) [[6]](#references), derived originally by [[4]](#references) [[5]](#references), provides a simple way to compute the degree of coherence $\gamma(\mathbf{r_1}, \mathbf{r_2}, 0)$ for the double slit experiment, where we set $\tau = 0$ due dealing with quasi-monochromatic light, and $\mathbf{r_1}$, $\mathbf{r_2}$ are the position of the two slits. According to the theorem, the degree of coherence can be computed by taking the Fourier transform of the intensity distribution of the light source as follows:
 
 <p class="math">
 \begin{equation}
