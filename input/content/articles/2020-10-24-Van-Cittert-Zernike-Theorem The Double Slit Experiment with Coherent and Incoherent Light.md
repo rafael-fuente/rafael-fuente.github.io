@@ -16,7 +16,7 @@ mathjax3: True
 
 What happens when the double slit experiment is performed with spatially incoherent light (for example, with a light bulb)? And how does it differ when it is performed with coherent light  (for example, with a laser)?
 
-The surface of a spatially incoherent light source can be represented by a collection of randomly emitting electric dipoles, for example, the atoms experimenting radiative transitions in the filament of a light bulb. The light source may actually be near monochromatic like a [low pressure sodium discharge lamp](http://hyperphysics.phy-astr.gsu.edu/hbase/quantum/sodium.html) (dominated by the bright doublet known as the Sodium D-lines at 588.99 and 589.59 nanometers), but ultimately the field exiting the incoherent light source involves a small spectrum of wavelengths and randomly changing phase in time. Unlike the interference features produced by a laser light source, that can be seen, for example as a [speckle pattern](https://en.wikipedia.org/wiki/Speckle_(interference)), the interferences produced by incoherent source, are not stationary but change rapidly, so they are "averaged out" by a sensor, like an human eye responding to the time-averaged squared magnitude of the field.  
+The surface of a spatially incoherent light source can be represented by a collection of randomly emitting electric dipoles, for example, the atoms experimenting radiative transitions in the filament of a light bulb. The light source may actually be near monochromatic like a [low pressure sodium discharge lamp](http://hyperphysics.phy-astr.gsu.edu/hbase/quantum/sodium.html) (dominated by the bright doublet known as the Sodium D-lines at 588.99 and 589.59 nanometers), but ultimately the field exiting the incoherent light source involves a small spectrum of wavelengths and randomly changing phase in time. Unlike the interference features produced by a laser light source, that can be seen, for example as a [speckle pattern](https://en.wikipedia.org/wiki/Speckle_(interference)), the interferences produced by incoherent source, are not stationary but change rapidly, so they are "averaged out" by a sensor, like an human eye responding to the time-averaged squared magnitude of the field. How much the interference artifacts disappear will depend on the characteristics of light source and the sensor placement.
 
 I thought that a visualization of the topic could be helpful, but I found almost zero of them in the literature. The main idea of this video is to illustrate and show the subtle details of the concept of coherence by means of three simulations of the light propagating through the double slit at different time scales: (femtoseconds, picoseconds, and microseconds) to show their differences.
 
@@ -28,7 +28,7 @@ The experiment demostrated in this video is a key result in statistical optics. 
 
 The simulations were done using the [finite-difference time-domain method](https://en.wikipedia.org/wiki/Finite-difference_time-domain_method) (**FDTD**) applied to **Maxwell equations**.
 
-The incoherent light is simulated by computing the field created by oscillating dipole sources with random phases and wavelengths and randomly placed inside the light source dimensions (a rectangle). The dipoles represent the electronic transitions of the excited atoms of the light source.
+The incoherent light is simulated by computing the field created by oscillating dipole sources with random phases and wavelengths and randomly placed inside the light source dimensions (a rectangle). The dipoles represent the radiative transitions of the excited atoms of the light source.
 
 The microseconds and picoseconds simulations are obtained when the field is averaged over that period of time.
 
@@ -116,24 +116,26 @@ When the intensity is averaged over a few microseconds no fluctuations can be se
 ## Mathematical description of the spatial coherence
 ---
 
-For incoherent light, the time variations in field amplitude are statistical in nature, and only statistical concepts can provide a satisfactory description of the field. The theory of coherence is a vast topic that will not discuss here. The reader interested in a complete treatment can consult [[1]](#references) [[3]](#references). Instead, here, we'll be limited to defining the basic concepts.
+For incoherent light, the time variations in field amplitude are statistical in nature, and only statistical concepts can provide a satisfactory description of the field. The theory of coherence is a vast topic that will not discuss here. The reader interested in a complete treatment can consult [[1]](#references) [[4]](#references) or [[5]](#references). Instead, here, we'll be limited to defining the basic concepts.
 
-Consider the electric field $E(r, t)$ evaluated in two different points $r_1$ and $r_2$.
-We define the mutual coherence function $\Gamma(r_1, r_2, \tau)$ between these two points as the time-averaged cross-correlation between the electric fields:
+Consider the electric field $E(\mathbf{r}, t)$ evaluated in two different points $\mathbf{r_1}$ and $\mathbf{r_2}$.
+We define the mutual coherence function $\Gamma(\mathbf{r_1}, \mathbf{r_2}, \tau)$ between these two points as the time-averaged cross-correlation between the electric fields:
 
 <p class="math">
 \begin{equation}
-\Gamma(r_1, r_2, \tau)= \left\langle E(r_1, t) E^{*}(r_2, t+\tau)\right\rangle = \lim _{T \rightarrow \infty} \frac{1}{2 T} \int_{-T}^{T} E(r_1,t) E^{*}(r_2,t-\tau) d t
+\Gamma(\mathbf{r_1}, \mathbf{r_2}, \tau)= \left\langle E(\mathbf{r_1}, t) E^{*}(\mathbf{r_2}, t+\tau)\right\rangle = \lim _{T \rightarrow \infty} \frac{1}{2 T} \int_{-T}^{T} E(\mathbf{r_1},t) E^{*}(\mathbf{r_2},t-\tau) d t
 \end{equation}
 </p>
 
-The mutual coherence is a measure of the spatial coherence of the light at the two object points, where $\tau$ is a time delay associated with the propagation. When we are observing spatially incoherent sources we should expect the mutual coherence function to be relatively small between the two observation points that are near the source, because the sources will interfere destructively as well as constructively. <br /> 
+The mutual coherence is a measure of the spatial coherence of the light at the two object points, where $\tau$ is a time delay associated with the propagation, that when dealing with quasi-monochromatic light, like in our simulation, we can simply set it to zero [[2]](#references). <br /> 
 
-Far away from the sources, as happens when we measure the mutual coherence from a distant star, the mutual coherence function is relatively large because the sum of the observed fields is almost the same at any two points. Perfectly spatially incoherent light refers to the situation where the complex field phasors from the radiating point sources are stochastically independent, where there is no correlation between the field phasors at different points or times, leading to a mutual coherence near zero. <br />  
+When we are observing spatially incoherent sources we should expect the mutual coherence function to be relatively small between the two observation points that are near the source, because the sources will interfere destructively as well as constructively. <br /> 
 
-Furthermore, the mutual coherence it's also interesting, because beyond measuring the spatial coherence can also be used to compute the intensity along a propagation plane[[2]](#references). 
+Far away from the sources, as happens when we measure the mutual coherence from a distant star, the mutual coherence function is relatively large because the sum of the observed fields is almost the same at any two points. Perfectly spatially incoherent light refers to the situation where the complex field phasors from the radiating point sources are stochastically independent, where there is no correlation between the field phasors at different points, leading to a mutual coherence near to zero. <br />  
 
-We also define the normalized coherence, that we'll use in the next section as:
+Furthermore, the mutual coherence it's also interesting, because beyond measuring the spatial coherence it also provides a way to compute the intensity along a propagation plane [[2]](#references). 
+
+We can also define the normalized degree of coherence, that we'll use in the next section as:
 
 <p class="math">
 \begin{equation}
@@ -152,11 +154,11 @@ Which holds the useful propierty:
 ## The Van-Cittert Zernike Theorem
 ---
 
-The [Van-Cittert Zernike theorem](https://en.wikipedia.org/wiki/Van_Cittert%E2%80%93Zernike_theorem), deriven originally by [[4]](#references) [[5]](#references), provides a simple way to compute the coherence $\gamma$ for the double slit experiment, by taking the Fourier transform of the intensity distribution of the light source as follows:
+The [Van-Cittert Zernike theorem](https://en.wikipedia.org/wiki/Van_Cittert%E2%80%93Zernike_theorem) [[6]](#references), deriven originally by [[4]](#references) [[5]](#references), provides a simple way to compute the coherence $\gamma$ for the double slit experiment, by taking the Fourier transform of the intensity distribution of the light source as follows:
 
 <p class="math">
 \begin{equation}
-  \gamma = \frac{\int\nolimits_{-\infty}^{\infty}  I(x') e^{i \frac{2 \pi D}{\lambda L} x'} dx'}{\int\nolimits_{-\infty}^{\infty} I(x')  dx'} \label{eq:3}
+  \left|\gamma\right|  = \left|\frac{\int\nolimits_{-\infty}^{\infty}  I(x') e^{i \frac{2 \pi D}{\lambda L} x'} dx'}{\int\nolimits_{-\infty}^{\infty} I(x')  dx'}\right|  \label{eq:3}
 \end{equation}
 </p>
 
@@ -164,7 +166,7 @@ Furthermore, by also using the [Fraunhofer approximation](https://en.wikipedia.o
 
 <p class="math">
 \begin{equation}
-I ∝ \operatorname {sinc}^2{\left( \frac{𝜋 a x}{z \lambda}\right)} \left( 1 + \gamma  \cos{\left(\frac{2𝜋D}{z\lambda}  x\right)}\right) \label{eq:2}
+I ∝ \operatorname {sinc}^2{\left( \frac{𝜋 a x}{z \lambda}\right)} \left( 1 + \left| \gamma \right|   \cos{\left(\frac{2𝜋D}{z\lambda}  x\right)}\right) \label{eq:2}
 \end{equation}
 </p>
 
@@ -200,11 +202,11 @@ And computing the integrals \eqref{eq:3} we finally get the degree of spatial co
 
 <p class="math">
 \begin{equation}
-\gamma = \operatorname {sinc}{\left(\frac{𝜋 D M}{L \lambda}\right)} \label{eq:4}
+\left| \gamma \right|= \left| \operatorname {sinc}{\left(\frac{𝜋 D M}{L \lambda}\right)} \right| \label{eq:4}
 \end{equation}
 </p>
 
-Although \eqref{eq:2} doesn't produce exact results for the scale of these simulations, you can use it for qualitative predictions. When $\gamma = 1$ the fringes are perfectly visible, and when $\gamma = 0$ they cannot be seen. The further you place the light source from the double slit, the closer the coherence degree will be of $1$ .
+Although \eqref{eq:2} doesn't produce exact results for the scale of these simulations, you can use it for qualitative predictions. When $\left| \gamma \right| = 1$ the fringes are perfectly visible, and when $\left| \gamma \right| = 0$ they cannot be seen. The further you place the light source from the double slit, the closer the coherence degree will be of $1$ .
 
 To illustrate the equation \eqref{eq:2} we have plotted it for different degrees of coherence:
 
@@ -213,7 +215,7 @@ To illustrate the equation \eqref{eq:2} we have plotted it for different degrees
 
 
 
-This experiment is important because it's usually the easiest to set up to measure the degree of coherence of a light source. For an experimental discussion see for example [[6]](#references). I hope these simulations have helped you to visualize how it really works.
+This experiment is important because it's usually the easiest to set up to measure the degree of coherence of a light source. For an experimental discussion see for example [[8]](#references). I hope these simulations have helped you to visualize how it really works.
 
 ## Bibliography
 ---
@@ -224,11 +226,15 @@ This experiment is important because it's usually the easiest to set up to measu
 
 [2] Goodman J W Statistical Optics sec. 5.4 'Propagation of the mutual coherence'<br /> 
 
-[3] M.J. Beran and G.B. Parrent, Jr. Theory of Partial Coherence. Prentice-Hall, Inc., Englewood Cliffs, NJ, 1964.<br /> 
+[3] Goodman J W Statistical Optics sec. 5.6 'The Van Cittert-Zernike theorem'<br /> 
 
-[4] P.H. van Cittert (1934). "Die Wahrscheinliche Schwingungsverteilung in Einer von Einer Lichtquelle Direkt Oder Mittels Einer Linse Beleuchteten Ebene". Physica. 1 (1–6): 201–210.<br /> 
+[4] M.J. Beran and G.B. Parrent, Jr. Theory of Partial Coherence. Prentice-Hall, Inc., Englewood Cliffs, NJ, 1964.<br /> 
 
-[5] F. Zernike (1938). "The concept of degree of coherence and its application to optical problems". Physica. 5 (8): 785–795<br /> 
+[5] A.S. Marathay. Elements of Optical Coherence Theory. John Wiley & Sons, New York,NY, 1982. <br /> 
 
-[6] Brett J. Pearson, Natalie Ferris, Ruthie Strauss, Hongyi Li, and David P. Jackson, "Measurements of slit-width effects in Young’s double-slit experiment for a partially-coherent source," OSA Continuum 1, 755-763 (2018)<br /> 
+[6] P.H. van Cittert (1934). "Die Wahrscheinliche Schwingungsverteilung in Einer von Einer Lichtquelle Direkt Oder Mittels Einer Linse Beleuchteten Ebene". Physica. 1 (1–6): 201–210.<br /> 
+
+[7] F. Zernike (1938). "The concept of degree of coherence and its application to optical problems". Physica. 5 (8): 785–795<br /> 
+
+[8] Brett J. Pearson, Natalie Ferris, Ruthie Strauss, Hongyi Li, and David P. Jackson, "Measurements of slit-width effects in Young’s double-slit experiment for a partially-coherent source," OSA Continuum 1, 755-763 (2018)<br /> 
 

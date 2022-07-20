@@ -399,9 +399,14 @@ We have defined a function named ```propagate_to_image_plane``` that accomplish 
 
 <div class="references" id="references"></div>
 
-[1] Introduction to Fourier Optics J. Goodman sec. 5.1<br /> 
-[2] Introduction to Fourier Optics J. Goodman sec. 5.2<br /> 
-[3] Introduction to Fourier Optics J. Goodman sec. 5.3<br /> 
-[4] Introduction to Fourier Optics J. Goodman sec. 6.3<br /> 
+[1] Introduction to Fourier Optics J. Goodman sec. 5.1 'A thin lens as a phase transformation'<br /> 
+
+[2] Introduction to Fourier Optics J. Goodman sec. 5.2 'Fourier transforming properties of lenses'<br /> 
+
+[3] Introduction to Fourier Optics J. Goodman sec. 5.3 'Image formation: monochromatic illumination'<br /> 
+
+[4] Introduction to Fourier Optics J. Goodman sec. 6.3 'Frequency response for diffraction-limited incoherent imaging'<br /> 
+
 [5] Abbe, E. A Contribution to the Theory of the Microscope and the nature of Microscopic Vision. Archiv für Mikroskopische Anatomie 9, 413–418 (1873)<br /> 
+
 [6] Minin, Igor & Minin, Oleg. (2016). Diffractive Optics and Nanophotonics: Resolution Below the Diffraction Limit.<br /> 
