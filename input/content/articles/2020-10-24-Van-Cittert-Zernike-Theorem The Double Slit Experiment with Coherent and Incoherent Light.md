@@ -32,7 +32,7 @@ The incoherent light is simulated by computing the field created by oscillating 
 
 The microseconds and picoseconds simulations are obtained when the field is averaged over that period of time.
 
-You can find the **source code** of the simulations in their [GitHub repository](https://github.com/rafael-fuente/Incoherent-Light-Simulation/tree/master/double_slit_simulations)
+You can find the **source code** of the simulations in their [GitHub repository](https://github.com/rafael-fuente/Incoherent-Light-Simulation/tree/master/double_slit_simulations).
 
 You can change the parameters of the simulations just typing the values you want in the scripts that are indicated.
 
@@ -139,7 +139,7 @@ We can also define the normalized degree of coherence, that we'll use in the nex
 
 <p class="math">
 \begin{equation}
-\gamma(\tau)=\frac{\Gamma(\tau)}{\sqrt{\Gamma(0) \Gamma(0)}}
+\gamma(\mathbf{r_1}, \mathbf{r_2}, \tau)=\frac{\Gamma(\mathbf{r_1}, \mathbf{r_2}, \tau)}{\sqrt{\Gamma(\mathbf{r_1}, \mathbf{r_1}, 0) \cdot \Gamma(\mathbf{r_2}, \mathbf{r_2}, 0)}}
 \end{equation}
 </p>
 
@@ -147,50 +147,50 @@ Which holds the useful propierty:
 
 <p class="math">
 \begin{equation}
-0 \leq\left|\gamma(\tau)\right| \leq 1
+0 \leq\left|\gamma(\mathbf{r_1}, \mathbf{r_2}, \tau)\right| \leq 1
 \end{equation}
 </p>
 
 ## The Van-Cittert Zernike Theorem
 ---
 
-The [Van-Cittert Zernike theorem](https://en.wikipedia.org/wiki/Van_Cittert%E2%80%93Zernike_theorem) [[6]](#references), deriven originally by [[4]](#references) [[5]](#references), provides a simple way to compute the coherence $\gamma$ for the double slit experiment, by taking the Fourier transform of the intensity distribution of the light source as follows:
+The [Van-Cittert Zernike theorem](https://en.wikipedia.org/wiki/Van_Cittert%E2%80%93Zernike_theorem) [[6]](#references), deriven originally by [[4]](#references) [[5]](#references), provides a simple way to compute the degree of coherence $\gamma(\mathbf{r_1}, \mathbf{r_2}, 0)$ for the double slit experiment, where we set $\tau = 0$ due dealing with quasi-monochromatic light, and $\mathbf{r_1}$, $\mathbf{r_2}$ are the position of the two slits. According to the theorem, the degree of coherence can be computed by taking the Fourier transform of the intensity distribution of the light source as follows:
 
 <p class="math">
 \begin{equation}
-  \left|\gamma\right|  = \left|\frac{\int\nolimits_{-\infty}^{\infty}  I(x') e^{i \frac{2 \pi D}{\lambda L} x'} dx'}{\int\nolimits_{-\infty}^{\infty} I(x')  dx'}\right|  \label{eq:3}
+  \left|\gamma(\mathbf{r_1}, \mathbf{r_2}, 0)\right|  = \left|\frac{\int\nolimits_{-\infty}^{\infty}  I_{source}(x') e^{i \frac{2 \pi D}{\lambda L} x'} dx'}{\int\nolimits_{-\infty}^{\infty} I_{source}(x')  dx'}\right|  \label{eq:3}
 \end{equation}
 </p>
 
-Furthermore, by also using the [Fraunhofer approximation](https://en.wikipedia.org/wiki/Fraunhofer_diffraction) the irradiance patterns on the screen $I$ at the microsecond time scale can be approximated by:
+Furthermore, by also using the [Fraunhofer approximation](https://en.wikipedia.org/wiki/Fraunhofer_diffraction) the irradiance pattern $I_{sensor}$  on the sensor plane at the microsecond time scale can be approximated by:
 
 <p class="math">
 \begin{equation}
-I ∝ \operatorname {sinc}^2{\left( \frac{𝜋 a x}{z \lambda}\right)} \left( 1 + \left| \gamma \right|   \cos{\left(\frac{2𝜋D}{z\lambda}  x\right)}\right) \label{eq:2}
+I_{sensor}(x) ∝ \operatorname {sinc}^2{\left( \frac{𝜋 a x}{z \lambda}\right)} \left( 1 + \left| \gamma(\mathbf{r_1}, \mathbf{r_2}, 0) \right|   \cos{\left(\frac{2𝜋D}{z\lambda}  x\right)}\right) \label{eq:2}
 \end{equation}
 </p>
 
 where:
 
 <p class="math">
-$$D = \text{ distance between the slits}$$
+$$D = \left|\mathbf{r_1} - \mathbf{r_2} \right| \text{ distance between the slits} $$
 
 $$a = \text{ slits width}$$
 
 $$M = \text{ width of the light source}$$
 
-$$z = \text{ distance from the screen to the double slit}$$
+$$z = \text{ distance from the sensor plane to the double slit}$$
 
 $$L = \text{ distance from the light source to the double slit}$$
 </p>
 
 
-Using an uniform intensity distribution $I_0$ and a width of the light source of $M$:
+Using light source with an uniform intensity distribution $I_0$ and a width of $M$:
 
 <p class="math">
 $$
 \begin{gathered}
-I(x') = \begin{cases}
+I_{source}(x') = \begin{cases}
  I_0 & \text{ if } x' < \left|\frac{M}{2}\right| \newline
  0 & \text{ if } x' > \left|\frac{M}{2}\right| \newline 
 \end{cases}
@@ -202,7 +202,7 @@ And computing the integrals \eqref{eq:3} we finally get the degree of spatial co
 
 <p class="math">
 \begin{equation}
-\left| \gamma \right|= \left| \operatorname {sinc}{\left(\frac{𝜋 D M}{L \lambda}\right)} \right| \label{eq:4}
+\left| \gamma(\mathbf{r_1}, \mathbf{r_2}, 0) \right|= \left| \operatorname {sinc}{\left(\frac{𝜋 D M}{L \lambda}\right)} \right| \label{eq:4}
 \end{equation}
 </p>
 
