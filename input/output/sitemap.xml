@@ -5,14 +5,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://rafael-fuente.github.io/</loc>
-<lastmod>2022-05-06T05:53:15-00:00</lastmod>
+<lastmod>2022-07-20T06:47:50-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.1</priority>
 </url>
 
 <url>
 <loc>https://rafael-fuente.github.io/pages/about.html</loc>
-<lastmod>2022-05-06T05:53:15-00:00</lastmod>
+<lastmod>2022-07-20T06:47:50-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.01</priority>
 </url>
@@ -111,7 +111,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>https://rafael-fuente.github.io/visual-explanation-of-the-van-cittert-zernike-theorem-the-double-slit-experiment-with-incoherent-and-coherent-light.html</loc>
+<loc>https://rafael-fuente.github.io/visualizing-the-concept-of-spatial-coherence-the-double-slit-experiment-with-incoherent-and-coherent-light.html</loc>
 <lastmod>2020-10-24T23:20:00+02:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>1.0</priority>
