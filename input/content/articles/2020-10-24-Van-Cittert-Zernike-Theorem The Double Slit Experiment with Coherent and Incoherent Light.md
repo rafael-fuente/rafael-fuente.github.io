@@ -14,7 +14,7 @@ mathjax3: True
 
 <br /> 
 
-What happens when the double slit experiment is performed with spatially incoherent light (for example with a light bulb)? And how it differs when it is performed with coherent light (for example with a laser)?
+What happens when the double slit experiment is performed with spatially incoherent light (for example, with a light bulb)? And how does it differ when it is performed with coherent light  (for example, with a laser)?
 
 The surface of a spatially incoherent light source can be represented by a collection of randomly emitting electric dipoles, for example, the atoms experimenting radiative transitions in the filament of a light bulb. The light source may actually be near monochromatic like a [low pressure sodium discharge lamp](http://hyperphysics.phy-astr.gsu.edu/hbase/quantum/sodium.html) (dominated by the bright doublet known as the Sodium D-lines at 588.99 and 589.59 nanometers), but ultimately the field exiting the incoherent light source involves a small spectrum of wavelengths and randomly changing phase in time. Unlike the interference features produced by a laser light source, that can be seen, for example as a [speckle pattern](https://en.wikipedia.org/wiki/Speckle_(interference)), the interferences produced by incoherent source, are not stationary but change rapidly, so they are "averaged out" by a sensor, like an human eye responding to the time-averaged squared magnitude of the field.  
 
@@ -28,7 +28,7 @@ The experiment demostrated in this video is a key result in statistical optics. 
 
 The simulations were done using the [finite-difference time-domain method](https://en.wikipedia.org/wiki/Finite-difference_time-domain_method) (**FDTD**) applied to **Maxwell equations**.
 
-The incoherent light is simulated computing the field created by oscillating dipoles sources with random phases and wavelengths and randomly placed inside the light source dimensions (a rectangle). The dipoles represent the electronic transitions of the excited atoms of the light source.
+The incoherent light is simulated by computing the field created by oscillating dipole sources with random phases and wavelengths and randomly placed inside the light source dimensions (a rectangle). The dipoles represent the electronic transitions of the excited atoms of the light source.
 
 The microseconds and picoseconds simulations are obtained when the field is averaged over that period of time.
 
@@ -123,7 +123,7 @@ We define the mutual coherence function $\Gamma(r_1, r_2, \tau)$ between these t
 
 <p class="math">
 \begin{equation}
-\Gamma(r_1, r_2, \tau)= \left\langle E(r_1, t) E_2^{*}(r_2, t+\tau)\right\rangle = \lim _{T \rightarrow \infty} \frac{1}{2 T} \int_{-T}^{T} E(r_1,t) E^{*}(r_2,t-\tau) d t
+\Gamma(r_1, r_2, \tau)= \left\langle E(r_1, t) E^{*}(r_2, t+\tau)\right\rangle = \lim _{T \rightarrow \infty} \frac{1}{2 T} \int_{-T}^{T} E(r_1,t) E^{*}(r_2,t-\tau) d t
 \end{equation}
 </p>
 
@@ -131,7 +131,7 @@ The mutual intensity is a measure of the spatial coherence of the light at the t
 
 Far away from the sources, as happens when we measure the mutual coherence from a distant star, the mutual coherence function is relatively large because the sum of the observed fields is almost the same at any two points. Perfectly spatially incoherent light refers to the situation where the complex field phasors from the radiating point sources are stochastically independent, where there is no correlation between the field phasors at different points or times, leading to a mutual coherence near zero. <br />  
 
-Furthermore, the mutual intensity it's also interesting, because beyond measuring the spatial coherence can also be used to compute the intensity along a propagation plane. [[2]](#references)
+Furthermore, the mutual intensity it's also interesting, because beyond measuring the spatial coherence can also be used to compute the intensity along a propagation plane[[2]](#references). 
 
 We also define the normalized coherence, that we'll use in the next section as:
 
