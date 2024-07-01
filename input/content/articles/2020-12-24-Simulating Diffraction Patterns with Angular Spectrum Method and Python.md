@@ -82,7 +82,7 @@ Now if we plug equation \eqref{eq:3} into the Helmholtz equation we obtain the f
 
 <p class="math">
 \begin{equation}
-\frac{d^{2}}{d z^{2}} A + k_{z} A = 0  \quad \text{with} \quad k_{z} = \sqrt{k^2 - k_{x}^2 + k_{y}^2}
+\frac{d^{2}}{d z^{2}} A + k_{z} A = 0  \quad \text{with} \quad k_{z} = \sqrt{k^2 - k_{x}^2 - k_{y}^2}
 \label{eq:5}
 \end{equation}
 </p>
@@ -100,7 +100,7 @@ Finally, we note that the disturbance observed at $z = -L$ can be written in ter
 
 <p class="math">
 \begin{equation}
-U\left(x, y , -L\right)=\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} A(k_{x}, k_{y}; 0) e^{k_{z} L} e^{(k_{x} x + k_{y} y) i}   \mathrm{d} k_{x} \mathrm{d} k_{y} 
+U\left(x, y , -L\right)=\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} A(k_{x}, k_{y}; 0) e^{k_{z} L i} e^{(k_{x} x + k_{y} y) i}   \mathrm{d} k_{x} \mathrm{d} k_{y} 
 \label{eq:7}
 \end{equation}
 </p>
