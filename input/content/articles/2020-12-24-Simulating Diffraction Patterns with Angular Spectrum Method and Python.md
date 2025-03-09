@@ -82,7 +82,7 @@ Now if we plug equation \eqref{eq:3} into the Helmholtz equation we obtain the f
 
 <p class="math">
 \begin{equation}
-\frac{d^{2}}{d z^{2}} A + k_{z} A = 0  \quad \text{with} \quad k_{z} = \sqrt{k^2 - k_{x}^2 - k_{y}^2}
+\frac{d^{2}}{d z^{2}} A + k_{z}^2 A = 0  \quad \text{with} \quad k_{z} = \sqrt{k^2 - k_{x}^2 - k_{y}^2}
 \label{eq:5}
 \end{equation}
 </p>

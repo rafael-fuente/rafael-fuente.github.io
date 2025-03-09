@@ -123,7 +123,7 @@ We define the mutual coherence function $\Gamma(\mathbf{r_1}, \mathbf{r_2}, \tau
 
 <p class="math">
 \begin{equation}
-\Gamma(\mathbf{r_1}, \mathbf{r_2}, \tau)= \left\langle E(\mathbf{r_1}, t) E^{*}(\mathbf{r_2}, t+\tau)\right\rangle = \lim _{T \rightarrow \infty} \frac{1}{2 T} \int_{-T}^{T} E(\mathbf{r_1},t) E^{*}(\mathbf{r_2},t-\tau) d t
+\Gamma(\mathbf{r_1}, \mathbf{r_2}, \tau)= \left\langle E(\mathbf{r_1}, t) E^{*}(\mathbf{r_2}, t-\tau)\right\rangle = \lim _{T \rightarrow \infty} \frac{1}{2 T} \int_{-T}^{T} E(\mathbf{r_1},t) E^{*}(\mathbf{r_2},t-\tau) d t
 \end{equation}
 </p>
 
