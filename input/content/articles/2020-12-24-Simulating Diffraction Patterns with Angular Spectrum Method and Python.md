@@ -63,7 +63,7 @@ and with its inverse transform given by:
 
 <p class="math">
 \begin{equation}
-U\left(x, y , z\right)=\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} A(k_{x}, k_{y}; z) e^{(k_{x} x + k_{y} y) i}   \mathrm{d} k_{x} \mathrm{d} k_{y} 
+U\left(x, y , z\right)= \frac{1}{(2\pi)^2} \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} A(k_{x}, k_{y}; z) e^{(k_{x} x + k_{y} y) i}   \mathrm{d} k_{x} \mathrm{d} k_{y} 
 \label{eq:3}
 \end{equation}
 </p>
